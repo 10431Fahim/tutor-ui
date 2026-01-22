@@ -1,0 +1,148 @@
+<!-- Navigation -->
+<!--<nav class="appointment-nav">-->
+<!--  <div class="nav-container">-->
+<!--    <div class="nav-brand">মেন্টর<span class="brand-accent">হাব</span></div>-->
+<!--    <button class="nav-btn" (click)="scrollToSection('booking')">-->
+<!--      অ্যাপয়েন্টমেন্ট নিন-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</nav>-->
+
+<!-- 1. Hero Section -->
+<header class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      {{ settings.heroTitle || 'সিদ্ধান্ত নিতে ভুগছেন?' }}
+    </h1>
+    <p class="hero-subtitle">
+      {{ settings.heroSubtitle || 'অভিজ্ঞ মেন্টরের সাথে অ্যাপয়েন্টমেন্ট নিয়ে আপনার ক্যারিয়ার ও পড়াশোনার সমস্যার সমাধান করে ফেলুন এখনই।' }}
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-primary" (click)="scrollToSection('categories')">
+        {{ settings.heroPrimaryButtonText || 'সেশন বুক করুন' }} <i class="fas fa-calendar-check"></i>
+      </button>
+      <button class="btn-secondary" (click)="scrollToSection('features')">
+        {{ settings.heroSecondaryButtonText || 'আমাদের বৈশিষ্ট্য' }}
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 2. Features Section -->
+<section id="features" class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ settings.featuresTitle || 'আমাদের বৈশিষ্ট্যসমূহ' }}</h2>
+      <div class="title-underline"></div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of settings.features">
+        <div class="feature-icon">
+          <i [class]="feature.icon || 'fas fa-star'"></i>
+        </div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. What Students Get -->
+<section class="benefits-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ settings.benefitsTitle || 'স্টুডেন্টরা যা পাবে' }}</h2>
+      <p class="section-subtitle">{{ settings.benefitsSubtitle || 'আমরা নিশ্চিত করি আপনার সময়ের সেরা ব্যবহার' }}</p>
+    </div>
+
+    <div class="benefits-content">
+      <!-- Left: Illustration -->
+      <div class="benefits-image" *ngIf="settings.benefitsImage">
+        <img [src]="settings.benefitsImage" alt="Mentoring" class="illustration-img">
+      </div>
+
+      <!-- Right: Benefits Cards -->
+      <div class="benefits-list">
+        <div class="benefit-item" *ngFor="let benefit of settings.benefits">
+          <div class="benefit-icon" [class]="benefit.iconColor || 'blue'">
+            <i [class]="benefit.icon || 'fas fa-check-circle'"></i>
+          </div>
+          <div class="benefit-content">
+            <h4 class="benefit-title">{{ benefit.title }}</h4>
+            <p class="benefit-text">{{ benefit.text }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Appointment Categories -->
+<section id="categories" class="categories-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ settings.categoriesTitle || 'যে সকল বিষয়ে অ্যাপোয়েন্টমেন্ট চালু আছে' }}</h2>
+      <div class="title-underline accent"></div>
+    </div>
+
+    <div class="categories-grid">
+      <div class="category-card" *ngFor="let category of settings.categories">
+        <div class="category-badge" *ngIf="category.isFree">সম্পূর্ণ ফ্রি</div>
+        <div class="category-header" [class]="category.iconColor || 'blue'">
+          <i [class]="category.icon || 'fas fa-star'"></i>
+        </div>
+        <div class="category-body">
+          <h3 class="category-title">{{ category.title }}</h3>
+          <ul class="category-list" *ngIf="category.items && category.items.length > 0">
+            <li *ngFor="let item of category.items">
+              <i class="fas fa-check"></i> {{ item }}
+            </li>
+          </ul>
+          <button class="category-btn" [class]="category.buttonType || 'outline'">
+            {{ category.buttonText || 'আরও বিস্তারিত জানুন' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. How to Book (Process) -->
+<section id="booking" class="booking-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title white">{{ settings.bookingTitle || 'জেভাবে অ্যাপোয়েন্টমেন্ট বুকিং করবেন' }}</h2>
+      <p class="section-subtitle gray">{{ settings.bookingSubtitle || 'মাত্র ৩টি সহজ ধাপে আপনার স্লট নিশ্চিত করুন' }}</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="step-card" *ngFor="let step of settings.bookingSteps">
+        <div class="step-number">{{ step.number }}</div>
+        <h4 class="step-title">{{ step.title }}</h4>
+        <p class="step-description">{{ step.description }}</p>
+      </div>
+    </div>
+
+    <div class="booking-action">
+      <button class="btn-booking">
+        {{ settings.bookingButtonText || 'বুকিং শুরু করুন' }} <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!--<footer class="appointment-footer">-->
+<!--  <div class="container">-->
+<!--    <div class="footer-content">-->
+<!--      <div class="footer-brand">মেন্টর<span class="brand-accent">হাব</span></div>-->
+<!--      <div class="footer-copyright">&copy; ২০২৫ মেন্টরহাব। সর্বস্বত্ব সংরক্ষিত।</div>-->
+<!--      <div class="footer-social">-->
+<!--        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>-->
+<!--        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>-->
+<!--        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</footer>-->

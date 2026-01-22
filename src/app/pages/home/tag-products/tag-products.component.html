@@ -1,0 +1,163 @@
+<div class="skill-platform-section" [ngClass]="getTagClass()" *ngIf="products?.length">
+  <div class="container">
+    <!-- Header Section -->
+    <div class="platform-header">
+    <div class="platform-tagline">
+<!--      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--        <path d="M8 0L10 4L14 5L10 6L8 10L6 6L2 5L6 4L8 0Z" fill="white"/>-->
+<!--        <path d="M8 12L6 14L8 16L10 14L8 12Z" fill="white"/>-->
+<!--      </svg>-->
+      <span>{{ tag?.name }}</span>
+    </div>
+    <h1 class="main-title">{{ tag?.title}}</h1>
+    <div class="platform-stats">
+      <div class="stat-item">
+<!--        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--          <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#64ec15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--          <circle cx="8" cy="8" r="7" stroke="#64ec15" stroke-width="1" fill="none"/>-->
+<!--        </svg>-->
+        <span>{{ tag?.description}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Navigation Bar -->
+  <div class="category-navigation" *ngIf="subCategories?.length">
+    <swiper
+      [slidesPerView]="'auto'"
+      [spaceBetween]="12"
+      [navigation]="true"
+      [breakpoints]="{
+        '0': {
+          slidesPerView: 2.5,
+          spaceBetween: 10
+        },
+        '480': {
+          slidesPerView: 3.5,
+          spaceBetween: 12
+        },
+        '640': {
+          slidesPerView: 4.5,
+          spaceBetween: 12
+        },
+        '768': {
+          slidesPerView: 5.5,
+          spaceBetween: 12
+        },
+        '1024': {
+          slidesPerView: 6.5,
+          spaceBetween: 12
+        },
+        '1280': {
+          slidesPerView: 7.5,
+          spaceBetween: 12
+        }
+      }"
+      class="mySwiper">
+      <ng-template swiperSlide *ngFor="let subCategoryItem of subCategories">
+        <div class="category-btn"
+             *ngIf="subCategoryItem?.name"
+             [class.active]="subCategoryItem?.slug === currentSubCategorySlug"
+             (click)="onSubCategoryClick(subCategoryItem)">
+          <span class="category-name">{{ subCategoryItem?.name }}</span>
+          <span class="course-count">{{ subCategoryItem?.count || 0 }} Courses</span>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+  <!-- Products Cards Section -->
+  <div class="products-section">
+    <swiper
+      *ngIf="products?.length && !isLoading"
+      [slidesPerView]="1.2"
+      [spaceBetween]="20"
+      [navigation]="true"
+      [breakpoints]="{
+        '0': {
+          slidesPerView: 1.2,
+          spaceBetween: 12
+        },
+        '480': {
+          slidesPerView: 1.8,
+          spaceBetween: 15
+        },
+        '640': {
+          slidesPerView: 2.5,
+          spaceBetween: 18
+        },
+        '768': {
+          slidesPerView: 3,
+          spaceBetween: 20
+        },
+        '1024': {
+          slidesPerView: 3.5,
+          spaceBetween: 22
+        },
+        '1280': {
+          slidesPerView: 4,
+          spaceBetween: 25
+        }
+      }"
+      class="mySwiper">
+      <ng-template swiperSlide *ngFor="let item of products; let i = index;">
+        <div class="product-card-wrapper odd">
+          <app-product-card-one [data]="item"></app-product-card-one>
+        </div>
+      </ng-template>
+    </swiper>
+
+    <swiper
+      *ngIf="isLoading"
+      [slidesPerView]="1.2"
+      [spaceBetween]="20"
+      [navigation]="true"
+      [breakpoints]="{
+        '0': {
+          slidesPerView: 1.2,
+          spaceBetween: 12
+        },
+        '480': {
+          slidesPerView: 1.8,
+          spaceBetween: 15
+        },
+        '640': {
+          slidesPerView: 2.5,
+          spaceBetween: 18
+        },
+        '768': {
+          slidesPerView: 3,
+          spaceBetween: 20
+        },
+        '1024': {
+          slidesPerView: 3.5,
+          spaceBetween: 22
+        },
+        '1280': {
+          slidesPerView: 4,
+          spaceBetween: 25
+        }
+      }"
+      class="mySwiper">
+      <ng-template swiperSlide *ngFor="let _ of skeletonItems; let i = index; trackBy: trackByIndex">
+        <div class="product-card-wrapper" [class.even]="i % 2 === 0" [class.odd]="i % 2 === 1">
+          <app-product-card-loader></app-product-card-loader>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+    <!-- All Courses Button -->
+    <div class="view-all-section">
+      <div class="super-btn" [routerLink]="'/courses'" [queryParams]="{ tags: tag?.slug }">
+        <button class="btn-76">
+          সকল কোর্স
+          <span class="top"></span>
+          <span class="right"></span>
+          <span class="bottom"></span>
+          <span class="left"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

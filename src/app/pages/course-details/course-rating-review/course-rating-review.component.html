@@ -1,0 +1,73 @@
+<div class="review-main-cus">
+  <h1>Course Review 0</h1>
+  <div class="review-main-cus-child">
+    <h2>{{ "5.0" }}</h2>
+    <div class="review-main-cus-rat user-review-rating">
+      <ul>
+        <li>
+          <i class="fa-solid fa-star"></i>
+        </li>
+        <li>
+          <i class="fa-solid fa-star"></i>
+        </li>
+        <li>
+          <i class="fa-solid fa-star"></i>
+        </li>
+        <li>
+          <i class="fa-solid fa-star"></i>
+        </li>
+        <li>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </li>
+      </ul>
+    </div>
+    <p>based on 20 reviews</p>
+  </div>
+  <div class="rating-line-bars">
+    <!-- start -->
+    <div class="rating-line-bar">
+      <p>Excellent</p>
+      <div class="first-bar">
+        <div class="first-bar-child" [style.width]="'10%'"></div>
+      </div>
+    </div>
+    <!-- end -->
+
+    <!-- start -->
+    <div class="rating-line-bar">
+      <p>Good</p>
+      <div class="first-bar">
+        <!-- getRatingPercent(product?.ratingDetails?.fourStar) + '%' -->
+        <div class="first-bar-child" [style.width]="'20%'"></div>
+      </div>
+    </div>
+    <!-- end -->
+
+    <!-- start -->
+    <div class="rating-line-bar">
+      <p>Average</p>
+      <div class="first-bar">
+        <div class="first-bar-child" [style.width]="'30%'"></div>
+      </div>
+    </div>
+    <!-- end -->
+
+    <!-- start -->
+    <div class="rating-line-bar">
+      <p>Below Average</p>
+      <div class="first-bar">
+        <div class="first-bar-child" [style.width]="'40%'"></div>
+      </div>
+    </div>
+    <!-- end -->
+
+    <!-- start -->
+    <div class="rating-line-bar">
+      <p>Poor</p>
+      <div class="first-bar">
+        <div class="first-bar-child" [style.width]="'50%'"></div>
+      </div>
+    </div>
+    <!-- end -->
+  </div>
+</div>

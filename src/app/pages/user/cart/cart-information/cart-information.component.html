@@ -1,0 +1,105 @@
+<div class="section">
+    <div class="container">
+        <div class="section-main">
+            <div class="section-left">
+                <div class="select-items-area" *ngIf="empty === true">
+                    <div class="select-items-left">
+                        <h3>Total ({{carts?.length}} Item)</h3>
+                    </div>
+                    <div class="select-items-right">
+                        <h3>Sub Total: <span>৳{{ cartSubTotal | engBnNum}}</span></h3>
+                    </div>
+                </div>
+                <div class="cart-area">
+                    <div *ngIf="empty === true">
+                        <div class="cart-area-main">
+
+                            <div class="cart-card" *ngFor="let data of carts;let i = index">
+                                <div class="cart-card-main">
+                                    <div class="cart-img">
+                                        <img [src]="data?.product.images && data?.product.images.length ? data?.product.images[0] : ''"
+                                            alt="">
+                                    </div>
+                                    <div class="cart-body">
+                                        <div class="cart-text-info">
+                                            <h3>{{data?.product.name}}</h3>
+<!--                                            <p>{{data?.product?.author?.name}}</p>-->
+                                            <h4><del>{{data?.product.salePrice}}</del> {{data?.product.costPrice}}</h4>
+                                            <ul>
+                                                <li><span (click)="onDeleteCartItem(data?._id, data?.product?._id)"><i
+                                                            class="fa fa-trash"></i></span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="quantity-area">
+
+                                          <div class="q-icon">
+                                                <span [disabled]="data?.selectedQty <= 1"
+                                                      (click)="onDecrementQty(data?._id, i, data?.selectedQty)"><i
+                                                  class="fa fa-minus"></i></span>
+                                          </div>
+                                            <div class="q-val">
+                                                <input type="text" [value]="data?.selectedQty" readonly>
+                                            </div>
+                                          <div class="q-icon">
+                                                <span (click)="onIncrementQty(data?._id, i)"><i
+                                                  class="fa fa-plus"></i></span>
+                                          </div>
+                                        </div>
+                                        <div class="cart-price-area">
+                                            <h3>৳ {{ (data?.product | prices : "salePrice" : data?.selectedQty | number :"" :"bn") | engBnNum}}</h3>
+                                            <!-- <del>৳ {{(data?.product.salePrice * data?.selectedQty) | engBnNum}}</del> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--END-CART-->
+
+                        </div>
+                        <div class="cart-area-bottom">
+                            <p>Apply Promo Code or Voucher Code on the Shipping Page</p>
+                            <ul>
+                                 <li><button routerLink="/shop">Continue Shopping</button></li>
+                                <li><button class="order" (click)="placeOrder()">Place Order <i
+                                            class="fa fa-arrow-right"></i></button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!---empty-cart-card-->
+                    <div class="empty-cart-card" *ngIf="empty == false">
+                        <div class="card-body">
+                            <div class="empty-cart-details">
+                                <img src="assets/images/icon/2389411.webp" alt="">
+                                <h3>Your Cart is Empty</h3>
+                                <h4>Add something to make me happy :)</h4>
+                                <a routerLink="/shop" class="btn btn-primary cart-btn-transform m-3">continue
+                                    shopping</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+            <div class="section-right">
+                <ul>
+                    <li><img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-cod.svg" alt="">Cash on
+                        Delivery Available</li>
+                    <li><img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-replacement.svg"
+                            alt="">7 Days Replacement Policy</li>
+                    <li><img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-moneyback.svg"
+                            alt="">100% Money Back Guarantee</li>
+                    <li><img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-purchase.svg"
+                            alt="">Purchase & Earn Points</li>
+                    <li><img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-original-product.svg"
+                            alt="">100% Original Product</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

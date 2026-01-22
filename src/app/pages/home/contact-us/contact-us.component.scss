@@ -1,0 +1,200 @@
+@import "variables";
+
+.section {
+    display: block;
+    background-color: $color-white;
+    padding: 50px 15px;
+
+    .section-main {
+        max-width: 1300px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        padding: 50px 15px;
+        border-radius: 7px;
+        background-color: $color-primary;
+
+        .contact-info {
+            h3 {
+                color: $color-white;
+                font-family: $font-en-poppins;
+                font-size: 40px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                width: 100%;
+                margin-bottom: 25px !important;
+            }
+
+            h5 {
+                color: $color-white;
+                font-family: $font-en-exo, $font-en-poppins;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+
+            a {
+                background-color: $color-white;
+                border: 1px solid $color-white;
+                color: $color-primary;
+                outline: none;
+                font-family: $font-en-exo;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                padding: 8px 15px;
+                display: flex;
+                cursor: pointer;
+                max-width: 200px;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+                border-radius: 5px;
+                margin: auto;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                    position: relative;
+                    top: -1pxs;
+                }
+            }
+
+            .call-btn {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            // Tabs Styling
+            .contact-tabs {
+                margin-top: 30px;
+                background-color: $color-white;
+                border-radius: 8px;
+                padding: 20px;
+                text-align: left;
+
+                ::ng-deep .mat-mdc-tab-header {
+                    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+                }
+
+                ::ng-deep .mat-mdc-tab-label {
+                    color: $color-primary;
+                    font-weight: 600;
+                    font-size: 16px;
+                }
+
+                ::ng-deep .mat-mdc-tab-label-active {
+                    color: $color-primary;
+                }
+
+                ::ng-deep .mdc-tab-indicator__content--underline {
+                    border-color: $color-primary !important;
+                }
+            }
+
+            // Form Container
+            .form-container {
+                margin-top: 20px;
+                padding: 20px 0;
+            }
+
+            .contact-form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                max-width: 600px;
+                margin: 0 auto;
+
+                .full-width {
+                    width: 100%;
+                }
+
+                .submit-btn {
+                    margin-top: 10px;
+                    padding: 12px 40px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    align-self: center;
+                }
+
+                ::ng-deep .mat-mdc-form-field {
+                    .mat-mdc-text-field-wrapper {
+                        background-color: $color-white;
+                    }
+
+                    .mat-mdc-form-field-label {
+                        color: $color-primary;
+                    }
+
+                    .mat-mdc-form-field-focus-overlay {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:1300px) {
+    .section {
+        .section-main {
+            max-width: 1200px;
+        }
+    }
+}
+
+@media(max-width:900px) {
+    .section {
+        padding: 40px 15px;
+
+        .section-main {
+            padding: 40px 15px;
+
+            .contact-info {
+                gap: 30px;
+
+                h3 {
+                    font-size: 33px;
+                }
+
+                h5 {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:600px) {
+    .section {
+        padding: 30px 15px;
+
+        .section-main {
+            padding: 30px 15px;
+
+            .contact-info {
+                h3 {
+                    font-size: 24px;
+                    line-height: 33px;
+                    margin-bottom: 15px !important;
+                }
+
+                h5 {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 396px) {
+    .call-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

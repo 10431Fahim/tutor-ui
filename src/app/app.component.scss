@@ -1,0 +1,41 @@
+@import "variables";
+
+.c-f {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 200;
+    visibility: hidden;
+    transform: translateZ(0);
+    pointer-events: none;
+}
+
+.cursor-circle {
+    width: 25px;
+    height: 25px;
+    border: 2px solid $color-primary;
+    background-color: transparent;
+    border-radius: 50%;
+    margin-left: -12px;
+    margin-top: -12px;
+    transition: all 0.08s ease-out;
+}
+
+.cursor {
+    width: 10px;
+    height: 10px;
+    background-color: $color-primary;
+    border-radius: 50%;
+    margin-left: -3px;
+    margin-top: -3px;
+    transition: margin 0.3s ease-in-out;
+}
+
+@media(max-width:550px) {
+
+    .c-f,
+    .cursor,
+    .cursor-circle {
+        display: none;
+    }
+}

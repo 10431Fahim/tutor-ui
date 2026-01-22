@@ -1,0 +1,154 @@
+<div class="section">
+  <div class="container">
+    <div class="section-main">
+      <div class="contact-info">
+        <h3>যোগাযোগ</h3>
+        
+        <!-- Tabs -->
+        <mat-tab-group [(selectedIndex)]="selectedTabIndex" class="contact-tabs">
+          <!-- Support Tab -->
+          <mat-tab label="Support">
+            <div class="form-container">
+              <form [formGroup]="supportForm" (ngSubmit)="onSubmitSupport()" class="contact-form">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>নাম</mat-label>
+                  <input matInput formControlName="name" placeholder="আপনার নাম লিখুন">
+                  <mat-error *ngIf="supportForm.get('name')?.hasError('required')">
+                    নাম আবশ্যক
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>ফোন</mat-label>
+                  <input matInput formControlName="phone" placeholder="আপনার ফোন নম্বর লিখুন" type="tel">
+                  <mat-error *ngIf="supportForm.get('phone')?.hasError('required')">
+                    ফোন নম্বর আবশ্যক
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>ইমেইল</mat-label>
+                  <input matInput formControlName="email" placeholder="আপনার ইমেইল লিখুন" type="email">
+                  <mat-error *ngIf="supportForm.get('email')?.hasError('required')">
+                    ইমেইল আবশ্যক
+                  </mat-error>
+                  <mat-error *ngIf="supportForm.get('email')?.hasError('email')">
+                    সঠিক ইমেইল দিন
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>কোর্স/Appointment/সেমিনার/exam</mat-label>
+                  <mat-select formControlName="type">
+                    <mat-option value="Course">Course</mat-option>
+                    <mat-option value="Appointment">Appointment</mat-option>
+                    <mat-option value="Seminar">Seminar</mat-option>
+                    <mat-option value="Exam">Exam</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="supportForm.get('type')?.hasError('required')">
+                    একটি অপশন নির্বাচন করুন
+                  </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" class="submit-btn">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </mat-tab>
+
+          <!-- বিস্তারিত Tab -->
+          <mat-tab label="বিস্তারিত">
+            <div class="form-container">
+              <form [formGroup]="detailsForm" (ngSubmit)="onSubmitDetails()" class="contact-form">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>নাম</mat-label>
+                  <input matInput formControlName="name" placeholder="আপনার নাম লিখুন">
+                  <mat-error *ngIf="detailsForm.get('name')?.hasError('required')">
+                    নাম আবশ্যক
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>ফোন</mat-label>
+                  <input matInput formControlName="phone" placeholder="আপনার ফোন নম্বর লিখুন" type="tel">
+                  <mat-error *ngIf="detailsForm.get('phone')?.hasError('required')">
+                    ফোন নম্বর আবশ্যক
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>ইমেইল</mat-label>
+                  <input matInput formControlName="email" placeholder="আপনার ইমেইল লিখুন" type="email">
+                  <mat-error *ngIf="detailsForm.get('email')?.hasError('required')">
+                    ইমেইল আবশ্যক
+                  </mat-error>
+                  <mat-error *ngIf="detailsForm.get('email')?.hasError('email')">
+                    সঠিক ইমেইল দিন
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>কোর্স/Appointment/সেমিনার/exam</mat-label>
+                  <mat-select formControlName="type">
+                    <mat-option value="Course">Course</mat-option>
+                    <mat-option value="Appointment">Appointment</mat-option>
+                    <mat-option value="Seminar">Seminar</mat-option>
+                    <mat-option value="Exam">Exam</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="detailsForm.get('type')?.hasError('required')">
+                    একটি অপশন নির্বাচন করুন
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>কোর্স (Course-wise)</mat-label>
+                  <input matInput formControlName="course" placeholder="কোর্সের নাম লিখুন">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>মেসেজ</mat-label>
+                  <textarea matInput formControlName="message" placeholder="আপনার মেসেজ লিখুন" rows="4"></textarea>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" class="submit-btn">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+        <!-- Phone Numbers -->
+        <div class="call-btn" style="margin-top: 30px;">
+          <div class="left-content">
+            <a href="tel:{{shopInformation?.phones[0]?.value}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M3.25417 6.63763C4.53149 5.29085 4.9838 4.91307 5.5276 4.73858C5.90451 4.63945 6.29991 4.63362 6.67956 4.72164C7.17931 4.86733 7.30976 4.97745 8.94961 6.60883C10.3895 8.04201 10.5318 8.19786 10.6707 8.4723C10.9394 8.96626 10.9826 9.55193 10.7893 10.0799C10.647 10.478 10.4369 10.7423 9.56455 11.6198L8.99535 12.1907C8.84559 12.3426 8.81009 12.5735 8.90726 12.7633C10.1708 14.9191 11.9631 16.7172 14.1148 17.9878C14.3629 18.1209 14.6687 18.0777 14.8703 17.8811L15.4175 17.3423C15.7556 16.9954 16.1138 16.6684 16.4898 16.3632C17.0797 15.9983 17.8161 15.963 18.438 16.27C18.7413 16.4123 18.8429 16.5055 20.3286 17.9861C21.8532 19.5107 21.9024 19.5599 22.0735 19.9105C22.393 20.4914 22.3898 21.1962 22.065 21.774C21.8956 22.0993 21.8007 22.2179 20.9401 23.0971C20.4201 23.629 19.9237 24.1135 19.8526 24.1847C19.1419 24.7722 18.2308 25.0607 17.3115 24.9893C15.6296 24.8355 14.0019 24.3151 12.5427 23.4647C9.30846 21.7511 6.5553 19.2543 4.53488 16.2022C4.09305 15.5642 3.70004 14.8937 3.3592 14.1965C2.45103 12.6396 1.98152 10.8658 2.00056 9.06353C2.06886 8.11743 2.52194 7.24065 3.25417 6.63763Z"
+                      stroke="#ea2229" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M17.8254 0.0750409C17.1649 -0.16201 16.4375 0.181226 16.2003 0.841691C15.9633 1.50214 16.3065 2.22971 16.9671 2.46676L17.8254 0.0750409ZM24.5087 9.88217C24.7569 10.5386 25.4901 10.8695 26.1465 10.6213C26.8028 10.3731 27.1338 9.63993 26.8856 8.98357L24.5087 9.88217ZM15.8127 3.84828C15.1281 3.69372 14.448 4.12326 14.2935 4.80773C14.1388 5.4922 14.5684 6.17239 15.2528 6.32697L15.8127 3.84828ZM20.7526 11.7358C20.9186 12.4177 21.6059 12.8358 22.2876 12.6698C22.9695 12.5037 23.3876 11.8166 23.2217 11.1348L20.7526 11.7358ZM16.9671 2.46676C20.4453 3.7152 23.2017 6.42545 24.5087 9.88217L26.8856 8.98357C25.3156 4.83079 22.0042 1.57485 17.8254 0.0750409L16.9671 2.46676ZM15.2528 6.32697C17.9645 6.93936 20.0951 9.03481 20.7526 11.7358L23.2217 11.1348C22.3359 7.49616 19.4655 4.67326 15.8127 3.84828L15.2528 6.32697Z"
+                  fill="#ea2229"/>
+              </svg>
+              {{shopInformation?.phones[0]?.value}}
+            </a>
+          </div>
+          <div class="left-content">
+            <a href="tel:{{shopInformation?.phones[1]?.value}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M3.25417 6.63763C4.53149 5.29085 4.9838 4.91307 5.5276 4.73858C5.90451 4.63945 6.29991 4.63362 6.67956 4.72164C7.17931 4.86733 7.30976 4.97745 8.94961 6.60883C10.3895 8.04201 10.5318 8.19786 10.6707 8.4723C10.9394 8.96626 10.9826 9.55193 10.7893 10.0799C10.647 10.478 10.4369 10.7423 9.56455 11.6198L8.99535 12.1907C8.84559 12.3426 8.81009 12.5735 8.90726 12.7633C10.1708 14.9191 11.9631 16.7172 14.1148 17.9878C14.3629 18.1209 14.6687 18.0777 14.8703 17.8811L15.4175 17.3423C15.7556 16.9954 16.1138 16.6684 16.4898 16.3632C17.0797 15.9983 17.8161 15.963 18.438 16.27C18.7413 16.4123 18.8429 16.5055 20.3286 17.9861C21.8532 19.5107 21.9024 19.5599 22.0735 19.9105C22.393 20.4914 22.3898 21.1962 22.065 21.774C21.8956 22.0993 21.8007 22.2179 20.9401 23.0971C20.4201 23.629 19.9237 24.1135 19.8526 24.1847C19.1419 24.7722 18.2308 25.0607 17.3115 24.9893C15.6296 24.8355 14.0019 24.3151 12.5427 23.4647C9.30846 21.7511 6.5553 19.2543 4.53488 16.2022C4.09305 15.5642 3.70004 14.8937 3.3592 14.1965C2.45103 12.6396 1.98152 10.8658 2.00056 9.06353C2.06886 8.11743 2.52194 7.24065 3.25417 6.63763Z"
+                      stroke="#ea2229" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M17.8254 0.0750409C17.1649 -0.16201 16.4375 0.181226 16.2003 0.841691C15.9633 1.50214 16.3065 2.22971 16.9671 2.46676L17.8254 0.0750409ZM24.5087 9.88217C24.7569 10.5386 25.4901 10.8695 26.1465 10.6213C26.8028 10.3731 27.1338 9.63993 26.8856 8.98357L24.5087 9.88217ZM15.8127 3.84828C15.1281 3.69372 14.448 4.12326 14.2935 4.80773C14.1388 5.4922 14.5684 6.17239 15.2528 6.32697L15.8127 3.84828ZM20.7526 11.7358C20.9186 12.4177 21.6059 12.8358 22.2876 12.6698C22.9695 12.5037 23.3876 11.8166 23.2217 11.1348L20.7526 11.7358ZM16.9671 2.46676C20.4453 3.7152 23.2017 6.42545 24.5087 9.88217L26.8856 8.98357C25.3156 4.83079 22.0042 1.57485 17.8254 0.0750409L16.9671 2.46676ZM15.2528 6.32697C17.9645 6.93936 20.0951 9.03481 20.7526 11.7358L23.2217 11.1348C22.3359 7.49616 19.4655 4.67326 15.8127 3.84828L15.2528 6.32697Z"
+                  fill="#ea2229"/>
+              </svg>
+              {{shopInformation?.phones[1]?.value}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

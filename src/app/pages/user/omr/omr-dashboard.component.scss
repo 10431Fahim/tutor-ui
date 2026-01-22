@@ -1,0 +1,74 @@
+.omr-dashboard-container {
+  padding: 2rem 0;
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  .loading-container,
+  .error-container,
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+
+    mat-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .error-container mat-icon {
+    color: #f44336;
+  }
+
+  .exams-list {
+    display: grid;
+    gap: 1.5rem;
+
+    .exam-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .exam-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        h3 {
+          margin: 0;
+          color: #333;
+        }
+
+        .exam-mode {
+          background: #1976d2;
+          color: white;
+          padding: 0.25rem 0.75rem;
+          border-radius: 4px;
+          font-size: 0.85rem;
+        }
+      }
+
+      .exam-actions {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+  }
+}

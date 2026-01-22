@@ -1,0 +1,182 @@
+@import "variables";
+@import "swipper2";
+
+
+
+.container-left-bottom {
+  margin-top: 1rem;
+}
+
+.container-left-bottom h2 {
+  line-height: 24px;
+  font-size: $font-title-md-size + 4px;
+  padding-bottom: 0.5rem;
+  box-sizing: border-box;
+  color: $heading-color;
+  font-weight: 600;
+  font-family: $font-en-poppins;
+}
+
+.mat-expansion-panel-header-title {
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: $font-en-primary;
+  font-style: normal;
+}
+
+.ex-title h3 {
+  color: $heading-color;
+  font-family: $font-en-poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: $font-dis-size;
+  line-height: 18px;
+  display: block;
+  margin: 0 !important;
+}
+
+.ex-description p {
+  color: rgb(115 115 115 / 1);
+  font-family: $font-en-poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: $font-dis-size;
+  line-height: 25px;
+  margin: 10px !important;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.expansion-panel-elm {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.expansion-panel-elm-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.expansion-panel-elm-left mat-icon {
+  color: $color-primary;
+}
+
+.expansion-panel-elm-left p {
+  color: rgb(115 115 115 / 1);
+  font-family: $font-en-poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: $font-dis-size - 3px;
+  margin: 0 !important;
+}
+
+.expansion-panel-elm-right p {
+  color: $color-primary;
+  font-family: $font-en-poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: $font-dis-size - 1px;
+  margin: 0 !important;
+}
+
+::ng-deep.container-left-bottom
+.mat-expansion-panel:not(.mat-expanded)
+.mat-expansion-panel-header:not([aria-disabled="true"]):hover {
+  background-color: #fff;
+}
+
+.payment {
+  margin-top: 1.5rem;
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 24px;
+    font-family: $font-en-poppins;
+    font-weight: 500;
+  }
+}
+
+.payment-detail {
+  margin-top: 1rem;
+  padding: 1.5rem 1.1rem;
+  box-sizing: border-box;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 10px;
+}
+
+.payment-detail > p {
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 130px;
+  gap: 0.5rem;
+}
+
+.payment-detail > p > a {
+  color: $color-primary;
+  text-decoration: underline;
+}
+
+.course-syllabus {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  box-sizing: border-box;
+}
+
+::ng-deep.according.mat-accordion .mat-expansion-panel {
+  border-bottom: 1px dashed $color-border;
+}
+
+::ng-deep.according.mat-accordion .mat-expansion-panel:last-child {
+  border: none !important;
+}
+
+::ng-deep.container-left-bottom
+.mat-accordion
+.mat-expansion-panel:first-of-type {
+  border-radius: none !important;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+  padding: 0rem;
+}
+
+::ng-deep .mat-expansion-panel {
+  background-color: transparent;
+}
+
+::ng-deep .mat-accordion {
+  background-color: transparent;
+}
+
+::ng-deep
+.course-syllabus-child
+> .mat-accordion
+> .mat-expansion-panel
+> .mat-expansion-panel-header {
+  padding: 0 5px;
+}
+
+::ng-deep
+.course-syllabus-child
+.mat-accordion
+.mat-expansion-panel
+.mat-expansion-panel-body {
+  padding: 0;
+}
+
+::ng-deep
+.mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+.mat-expansion-panel-header:hover {
+  background: transparent;
+}
+
+::ng-deep.container-left-bottom .mat-content {
+  padding: 10px 0 !important;
+}

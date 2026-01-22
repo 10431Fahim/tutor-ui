@@ -1,0 +1,723 @@
+@import "variables";
+@import "exports/loader";
+@import "exports/tag-section-one";
+@import "exports/super-btn";
+
+// Dark Theme Skill Platform Section
+.skill-platform-section {
+  background: #1a1a1a;
+  padding: 40px 0;
+  //margin: 30px 0;
+  //border-radius: 12px;
+  color: #ffffff;
+  transition: background 0.3s ease;
+
+  // Tag-specific background colors
+  &.tag-freelancing {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  &.tag-language {
+    background: linear-gradient(135deg, #2d1b3d 0%, #1a1a2e 100%);
+  }
+
+  &.tag-design {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 100%);
+  }
+
+  &.tag-it {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+  }
+
+  &.tag-career {
+    background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+  }
+
+  &.tag-kids {
+    background: linear-gradient(135deg, #3d1e3d 0%, #2d1b3d 100%);
+  }
+
+  &.tag-bundle {
+    background: linear-gradient(135deg, #1a2e1a 0%, #0f1f0f 100%);
+  }
+
+  // Default variant backgrounds for other tags
+  &.tag-variant-0 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  &.tag-variant-1 {
+    background: linear-gradient(135deg, #2d1b3d 0%, #1a1a2e 100%);
+  }
+
+  &.tag-variant-2 {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 100%);
+  }
+
+  &.tag-variant-3 {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+  }
+
+  &.tag-variant-4 {
+    background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+  }
+
+  &.tag-variant-5 {
+    background: linear-gradient(135deg, #3d1e3d 0%, #2d1b3d 100%);
+  }
+
+  &.tag-default {
+    background: #1a1a1a;
+  }
+
+  // Platform Header
+  .platform-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .platform-tagline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: 500;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .main-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .platform-stats {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #ffffff;
+
+        svg {
+          width: 16px;
+          height: 16px;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  // Category Navigation
+  .category-navigation {
+    margin-bottom: 32px;
+    position: relative;
+
+    .category-swiper {
+      // padding: 0 40px;
+
+      ::ng-deep .swiper-button-next,
+      ::ng-deep .swiper-button-prev {
+        color: #ffffff;
+        width: 40px;
+        height: 40px;
+        background: rgba(128, 128, 128, 0.3);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
+
+        &:hover {
+          background: rgba(128, 128, 128, 0.5);
+        }
+
+        &::after {
+          font-size: 18px;
+          font-weight: 700;
+        }
+      }
+
+      ::ng-deep .swiper-button-next {
+        right: 0;
+      }
+
+      ::ng-deep .swiper-button-prev {
+        left: 0;
+      }
+    }
+
+    .category-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 16px 20px;
+      background: #1a2744;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 140px;
+      width: auto;
+      white-space: normal;
+
+      .category-name {
+        font-size: 15px;
+        font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 6px;
+        line-height: 1.4;
+        text-align: left;
+        width: 100%;
+      }
+
+      .course-count {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 400;
+        text-align: left;
+        width: 100%;
+      }
+
+      &:hover {
+        background: #1f2f4f;
+        transform: translateY(-2px);
+      }
+
+      &.active {
+        background: #1a2744;
+        border-color: #64ec15;
+        border-width: 2px;
+
+        .category-name {
+          color: #ffffff;
+        }
+
+        .course-count {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+    }
+  }
+
+  // Products Section
+  .products-section {
+    margin-bottom: 40px;
+    position: relative;
+
+    .products-swiper {
+      // padding: 0 50px;
+
+      ::ng-deep .swiper-button-next,
+      ::ng-deep .swiper-button-prev {
+        color: #64ec15;
+        width: 40px;
+        height: 40px;
+        background: rgba(100, 236, 21, 0.1);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(100, 236, 21, 0.2);
+        }
+
+        &::after {
+          font-size: 18px;
+          font-weight: 700;
+        }
+      }
+
+      ::ng-deep .swiper-button-next {
+        right: 0;
+      }
+
+      ::ng-deep .swiper-button-prev {
+        left: 0;
+      }
+
+      ::ng-deep .swiper-slide {
+        height: auto;
+      }
+    }
+
+    // Product Card Wrapper with Alternating Backgrounds
+    .product-card-wrapper {
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+
+      // Even cards (0, 2, 4...) - Black background
+      &.even {
+        background: #000000;
+
+        ::ng-deep .card {
+          background: #000000;
+          border: none;
+          border-radius: 12px;
+          overflow: hidden;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .card-img {
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+
+            img {
+              transition: transform 0.3s ease;
+            }
+          }
+
+          .card-text {
+            background: #000000;
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            h3 {
+              color: #ffffff;
+              font-size: 16px;
+              line-height: 1.4;
+              margin-bottom: 8px;
+            }
+
+            .card-text-top {
+              padding: 8px 0;
+              margin-bottom: 8px;
+
+              .common-price {
+                background: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+                font-size: 12px;
+                padding: 4px 12px;
+              }
+
+              .custom-total-price {
+                background: rgba(100, 236, 21, 0.2);
+                color: #64ec15;
+                font-size: 12px;
+                padding: 4px 12px;
+              }
+            }
+
+            .div-name {
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
+              padding: 8px 0 0;
+              margin-bottom: 8px;
+            }
+
+            .price-area {
+              margin-top: auto;
+
+              .view-details {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
+                margin: 0;
+                padding: 0;
+
+                .custom-button {
+                  background: transparent;
+                  color: rgba(255, 255, 255, 0.8);
+                  font-size: 13px;
+                  padding: 10px 16px;
+                  width: 100%;
+                  justify-content: space-between;
+
+                  svg {
+                    fill: #64ec15;
+                    width: 20px;
+                    height: 20px;
+                  }
+
+                  &:hover {
+                    color: #ffffff;
+                    background: rgba(100, 236, 21, 0.1);
+                  }
+                }
+              }
+            }
+          }
+
+          .tag {
+            span {
+              background: #ffd700;
+              color: #000;
+              font-weight: 600;
+              padding: 4px 8px;
+              font-size: 11px;
+              border-radius: 4px;
+              z-index: 2;
+            }
+          }
+        }
+
+        &:hover {
+          ::ng-deep .card {
+            .card-img img {
+              transform: scale(1.05);
+            }
+          }
+        }
+      }
+
+      // Odd cards (1, 3, 5...) - Dark gray background
+      &.odd {
+        background: #1f1f1f;
+
+        ::ng-deep .card {
+          background: #1f1f1f;
+          border: none;
+          border-radius: 12px;
+          overflow: hidden;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .card-img {
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+
+            img {
+              transition: transform 0.3s ease;
+            }
+          }
+
+          .card-text {
+            background: #1f1f1f;
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            h3 {
+              color: #ffffff;
+              font-size: 16px;
+              line-height: 1.4;
+              margin-bottom: 8px;
+            }
+
+            .card-text-top {
+              padding: 8px 0;
+              margin-bottom: 8px;
+
+              .common-price {
+                background: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+                font-size: 12px;
+                padding: 4px 12px;
+              }
+
+              .custom-total-price {
+                background: rgba(100, 236, 21, 0.2);
+                color: #64ec15;
+                font-size: 12px;
+                padding: 4px 12px;
+              }
+            }
+
+            .div-name {
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
+              padding: 8px 0 0;
+              margin-bottom: 8px;
+            }
+
+            .price-area {
+              margin-top: auto;
+
+              .view-details {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
+                margin: 0;
+                padding: 0;
+
+                .custom-button {
+                  background: transparent;
+                  color: rgba(255, 255, 255, 0.8);
+                  font-size: 13px;
+                  padding: 10px 16px;
+                  width: 100%;
+                  justify-content: space-between;
+
+                  svg {
+                    fill: #64ec15;
+                    width: 20px;
+                    height: 20px;
+                  }
+
+                  &:hover {
+                    color: #ffffff;
+                    background: rgba(100, 236, 21, 0.1);
+                  }
+                }
+              }
+            }
+          }
+
+          .tag {
+            span {
+              background: #ff4444;
+              color: #fff;
+              font-weight: 600;
+              padding: 4px 8px;
+              font-size: 11px;
+              border-radius: 4px;
+              z-index: 2;
+            }
+          }
+        }
+
+        &:hover {
+          ::ng-deep .card {
+            .card-img img {
+              transform: scale(1.05);
+            }
+          }
+        }
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+
+  // View All Section
+  .view-all-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    width: 100%;
+
+    .super-btn {
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+}
+
+// Responsive Design
+@media only screen and (max-width: 1280px) {
+  .skill-platform-section {
+    .platform-header {
+      .main-title {
+        font-size: 28px;
+      }
+
+      .platform-stats {
+        gap: 24px;
+      }
+    }
+
+    .category-navigation {
+      .category-swiper {
+        padding: 0 35px;
+      }
+    }
+
+    .products-section {
+      .products-swiper {
+        padding: 0 45px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .skill-platform-section {
+    padding: 30px 16px;
+
+    .platform-header {
+      .main-title {
+        font-size: 24px;
+      }
+
+      .platform-stats {
+        gap: 20px;
+        font-size: 13px;
+      }
+    }
+
+    .category-navigation {
+      .category-swiper {
+        padding: 0 30px;
+      }
+    }
+
+    .products-section {
+      .products-swiper {
+        padding: 0 40px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .skill-platform-section {
+    padding: 24px 12px;
+    margin: 20px 0;
+
+    .platform-header {
+      margin-bottom: 32px;
+
+      .platform-tagline {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+
+      .main-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+
+      .platform-stats {
+        gap: 16px;
+        font-size: 12px;
+
+        .stat-item {
+          svg {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+
+    .category-navigation {
+      margin-bottom: 24px;
+
+      .category-swiper {
+        padding: 0 25px;
+
+        ::ng-deep .swiper-button-next,
+        ::ng-deep .swiper-button-prev {
+          width: 28px;
+          height: 28px;
+
+          &::after {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .category-btn {
+        padding: 10px 16px;
+        min-width: 100px;
+
+        .category-name {
+          font-size: 13px;
+        }
+
+        .course-count {
+          font-size: 11px;
+        }
+      }
+    }
+
+    .products-section {
+      margin-bottom: 32px;
+
+      .products-swiper {
+        padding: 0 30px;
+
+        ::ng-deep .swiper-button-next,
+        ::ng-deep .swiper-button-prev {
+          width: 32px;
+          height: 32px;
+
+          &::after {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .view-all-section {
+      margin-top: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .skill-platform-section {
+    padding: 20px 8px;
+
+    .platform-header {
+      .main-title {
+        font-size: 18px;
+      }
+
+      .platform-stats {
+        flex-direction: column;
+        gap: 12px;
+        font-size: 11px;
+      }
+    }
+
+    .category-navigation {
+      .category-swiper {
+        padding: 0 20px;
+
+        ::ng-deep .swiper-button-next,
+        ::ng-deep .swiper-button-prev {
+          width: 24px;
+          height: 24px;
+
+          &::after {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .category-btn {
+        padding: 8px 12px;
+        min-width: 90px;
+
+        .category-name {
+          font-size: 12px;
+        }
+
+        .course-count {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .products-section {
+      .products-swiper {
+        padding: 0 20px;
+
+        ::ng-deep .swiper-button-next,
+        ::ng-deep .swiper-button-prev {
+          width: 28px;
+          height: 28px;
+
+          &::after {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .view-all-section {
+      margin-top: 20px;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<a class="blog-card" [routerLink]="['/notice/notice-details', data?._id]">
+  <div class="blog-image">
+    <a>
+      <img [src]="data?.image" alt="" />
+    </a>
+  </div>
+  <div class="blog-body">
+    <ul>
+<!--      <li><i class="fa fa-user"></i> Admin</li>-->
+      <li><i class="fa fa-calendar"></i>{{data.createdAt | date: 'dd/MM/yyyy'}}</li>
+    </ul>
+    <div class="blog-title">
+      <a>{{ data?.name }}</a>
+<!--      <a>{{ data?.createdAt | date }}</a>-->
+    </div>
+    <div class="blog-des">
+      <p>{{ data?.shortDesc }}</p>
+    </div>
+    <div class="read-more">
+      <a [routerLink]="['/notice/notice-details', data?._id]">Read More</a>
+    </div>
+  </div>
+</a>

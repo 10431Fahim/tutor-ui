@@ -1,0 +1,18 @@
+<a class="blog-card" [routerLink]="['/blogs/blog-details', data?._id]">
+  <div class="blog-image">
+    <a>
+      <img [src]="data?.image" alt="" />
+    </a>
+  </div>
+  <div class="blog-body">
+    <div class="blog-title">
+      <a>{{ data?.name }}</a>
+    </div>
+    <div class="blog-des">
+      <p >{{ data?.shortDesc }}</p>
+    </div>
+    <div class="read-more">
+      <a [routerLink]="['/blogs/blog-details', data?._id]">Read More</a>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,147 @@
+<div class="section1">
+  <div class="container">
+    <div class="section1-title">
+      <h3>কোর্স ক্যাটাগরিগুলো এক্সপ্লোর করুন</h3>
+    </div>
+
+    <div class="section1-main">
+      <div
+        [class.active]="activeCategoryFilter === data.slug"
+        class="category-card"
+        *ngFor="let data of categories"
+        (click)="onCategorySelected(data)"
+      >
+        <h3>{{ data.name | titlecase }}
+          <fa-icon [icon]="faAngleDown"></fa-icon>
+        </h3>
+        <span>{{ data.courseCount ?? 0 }} {{ data.courseCount > 1 ? 'Courses' : 'Course' }}</span>
+      </div>
+    </div>
+
+    <div class="section1-main sub-category">
+      <ng-container *ngIf="subCategoryLoader">
+        <app-course-category-loader
+          *ngFor="let data of [].constructor(6)"
+        ></app-course-category-loader>
+      </ng-container>
+
+      <ng-container *ngIf="!subCategoryLoader">
+        <div
+          [class.active]="activeSubCategoryFilter === data.slug"
+          class="category-card"
+          *ngFor="let data of subCategories"
+          (click)="onSubCategorySelected(data)"
+        >
+          <h3>{{ data.name | titlecase }}
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </h3>
+          <span>{{ data.courseCount ?? 0 }} {{ data.courseCount > 1 ? 'Courses' : 'Course' }}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="our-course">
+      <div class="title">
+        <a href="javascript:">Course List <span>({{ totalProducts }} courses)</span></a>
+      </div>
+
+      <div class="order-top">
+        <ul>
+          <li>
+            <a
+              [class.active]="activeTypeFilter == 'all'"
+              (click)="onTypeSelected('all')"
+            >
+              {{ "All" | uppercase }}
+            </a>
+          </li>
+          <li>
+            <a
+              [class.active]="activeTypeFilter == 'video-course'"
+              (click)="onTypeSelected('video-course')"
+            >
+              {{ "Video Course" | uppercase }}
+            </a>
+          </li>
+          <li>
+            <a
+              [class.active]="activeTypeFilter == 'live-course'"
+              (click)="onTypeSelected('live-course')"
+            >
+              {{ "Live Course" | uppercase }}
+            </a>
+          </li>
+          <li>
+            <a
+              [class.active]="activeTypeFilter == 'lecture-sheet'"
+              (click)="onTypeSelected('lecture-sheet')"
+            >
+              {{ "Lecture Sheet" | uppercase }}</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="course-main" *ngIf="isLoading">
+        <app-product-card-one-loader
+          [type]="'grid'"
+          *ngFor="let product of [].constructor(9)"
+        ></app-product-card-one-loader>
+      </div>
+
+      <div class="course-main" *ngIf="!isLoading && products.length else noData">
+        <app-course-card
+          [data]="data"
+          *ngFor="let data of products"
+          [type]="activeTypeFilter"
+        ></app-course-card>
+      </div>
+
+      <!--      <div class="view-all-btn" *ngIf="totalProducts > products.length">-->
+      <!--        <button *ngIf="!isLoadMore" (click)="onLoadMore()">আরো দেখুন ➝</button>-->
+      <!--        <button-->
+      <!--          *ngIf="isLoadMore"-->
+      <!--          style="display: flex; gap: 4px; align-items: center"-->
+      <!--        >-->
+      <!--          আরো দেখুন-->
+      <!--          <div><span class="loader"></span></div>-->
+      <!--        </button>-->
+      <!--      </div>-->
+      <div class="view-all-btn" *ngIf="totalProducts > products.length">
+        <div class="super-btn" *ngIf="!isLoadMore" (click)="onLoadMore()">
+          <button class="btn-76">
+            আরো দেখুন
+            <span class="top"></span>
+            <span class="right"></span>
+            <span class="bottom"></span>
+            <span class="left"></span>
+          </button>
+        </div>
+        <div class="super-btn" *ngIf="isLoadMore">
+          <button class="btn-76">
+            আরো দেখুন
+            <span class="top"></span>
+            <span class="right"></span>
+            <span class="bottom"></span>
+            <span class="left"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div class="no-data-container">
+    <div class="img-thumb">
+      <img src="/assets/images/svg/no_results.svg" alt="">
+    </div>
+    <div class="title">
+      <h4>No data found!</h4>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,168 @@
+<!-- 1. Hero Section -->
+<header class="hero-section">
+  <div class="container hero-content">
+    <h1>{{ settings.heroTitle || 'পরীক্ষা দিয়ে নিজে প্রস্তুতি চালিয়ে নিন' }}</h1>
+    <p>{{ settings.heroDescription || 'আমাদের লাইভ এক্সাম ব্যাচে যুক্ত হয়ে নিজেকে যাচাই করুন এবং প্রস্তুতিকে নিন অনন্য উচ্চতায়।' }}</p>
+    <button class="cta-button" (click)="scrollToSection('ongoing-courses')">{{ settings.heroButtonText || 'Enroll Now' }}</button>
+  </div>
+</header>
+
+<!-- 2. Key Features Section -->
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">{{ settings.featuresTitle || 'আমাদের বিশেষত্ব' }}</h2>
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of settings.features">
+        <i [class]="(feature.icon || 'fa-solid fa-star') + ' feature-icon'"></i>
+        <div class="feature-title">{{ feature.title }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Student Benefits Section -->
+<section class="benefits-section">
+  <div class="container">
+    <h2 class="section-title">{{ settings.benefitsTitle || 'শিক্ষার্থীরা যা পাবে' }}</h2>
+    <div class="benefits-container">
+      <div class="benefit-list">
+        <div class="benefit-item" *ngFor="let benefit of settings.benefits">
+          <i [class]="(benefit.icon || 'fa-solid fa-check-circle') + ' benefit-icon'"></i>
+          <span>{{ benefit.text }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Ongoing Exams Section (Accordion) -->
+<section id="ongoing-courses" class="courses-section">
+  <div class="container">
+    <h2 class="section-title">{{ settings.coursesTitle || 'চলমান প্রস্তুতি কোর্সসমূহ' }}</h2>
+    
+    <div class="accordion" *ngIf="!isLoadingCourses">
+      <div class="accordion-item" *ngFor="let course of examCourses; let i = index">
+        <button class="accordion-header" [class.active]="isAccordionActive(i)" (click)="toggleAccordion(i)">
+          <span>{{ course.name }}</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="accordion-body" [style.max-height]="isAccordionActive(i) ? '1000px' : '0'">
+          <div class="course-details">
+            <div *ngIf="course.courseDetailsHTML" [innerHTML]="getSafeHtml(course.courseDetailsHTML)"></div>
+            
+            <div class="action-buttons" *ngIf="course.omrSheetUrl || course.examRoutineUrl">
+              <button class="btn-outline" *ngIf="course.omrSheetUrl" (click)="openUrl(course.omrSheetUrl)">
+                <i class="fa-solid fa-download"></i> OMR Sheet
+              </button>
+              <button class="btn-outline" *ngIf="course.examRoutineUrl" (click)="openUrl(course.examRoutineUrl)">
+                <i class="fa-solid fa-calendar-days"></i> Exam Routine
+              </button>
+            </div>
+            <button class="btn-enroll">এখনই এনরোল করুন</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoadingCourses" class="loading-state">
+      <p>Loading courses...</p>
+    </div>
+
+    <div *ngIf="!isLoadingCourses && examCourses.length === 0" class="empty-state">
+      <p>No exam courses available at the moment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Exam List & Schedule Section -->
+<section class="schedule-section">
+  <div class="container">
+    <h2 class="section-title">{{ settings.scheduleTitle || 'পরীক্ষার সময়সূচি' }}</h2>
+    
+    <div class="schedule-container">
+      <!-- Left: MCQ -->
+      <div class="schedule-col">
+        <div class="col-header mcq-header">
+          <i class="fa-solid fa-list-check"></i> MCQ Exam কিভাবে দিবেন
+        </div>
+        
+        <!-- Video Player for MCQ Section -->
+        <div *ngIf="mcqSectionVideo" class="section-video-wrapper">
+          <div class="video-container">
+            <iframe 
+              [src]="getSafeVideoUrl(mcqSectionVideo)" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+              class="section-video">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- <div class="list-wrapper">
+          <table class="exam-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exam Name</th>
+                <th>Date & Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exam of mcqExams; let i = index">
+                <td>{{ (i + 1).toString().padStart(2, '0') }}</td>
+                <td>{{ exam.examName }}</td>
+                <td>{{ formatDate(exam.examDate) }} {{ exam.examTime }}</td>
+              </tr>
+              <tr *ngIf="!isLoadingSchedules && mcqExams.length === 0">
+                <td colspan="3" style="text-align: center; padding: 20px;">No MCQ exams scheduled</td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
+      </div>
+
+      <!-- Right: Written -->
+      <div class="schedule-col">
+        <div class="col-header written-header">
+          <i class="fa-solid fa-pen-nib"></i> Written Exam কিভাবে দিবেন
+        </div>
+        
+        <!-- Video Player for Written Section -->
+        <div *ngIf="writtenSectionVideo" class="section-video-wrapper">
+          <div class="video-container">
+            <iframe 
+              [src]="getSafeVideoUrl(writtenSectionVideo)" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+              class="section-video">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- <div class="list-wrapper">
+          <table class="exam-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exam Name</th>
+                <th>Date & Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exam of writtenExams; let i = index">
+                <td>{{ (i + 1).toString().padStart(2, '0') }}</td>
+                <td>{{ exam.examName }}</td>
+                <td>{{ formatDate(exam.examDate) }} {{ exam.examTime }}</td>
+              </tr>
+              <tr *ngIf="!isLoadingSchedules && writtenExams.length === 0">
+                <td colspan="3" style="text-align: center; padding: 20px;">No written exams scheduled</td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>

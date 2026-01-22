@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="order-list">
+    <div class="order-invoice-area">
+      <div class="order-invoice-title">
+        <h3>My Orders <span>(Your Total Order: {{ allOrders?.length }})</span></h3>
+      </div>
+      <div class="order-invoice-main">
+        <div class="download-invoice">
+          <!-- <button>Download Free Book <i class="fa fa-download"></i></button> -->
+        </div>
+        <div class="invoice-right">
+          <ul>
+            <li>Status:</li>
+            <li><button class="select" [matMenuTriggerFor]="menu">{{selectedStatus}}<i
+              class="fa fa-caret-down"></i></button></li>
+            <!-- <li><button>Submit</button></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-main">
+        <div class="order" *ngFor="let order of  allOrders;let i = index" [id]="order?._id">
+          <div class="order-top">
+            <h3>Your Order ID: <span>{{order?.orderId}}</span> ({{order?.orderedItems?.length}} items) |
+              Payable Amount: <span>৳ {{ order?.grandTotal }}</span></h3>
+            <ul>
+              <!--                              <li *ngIf="order?.orderStatus !== 6"><button-->
+              <!--                                          [class]="(order?.orderStatus | orderStatus) === 'Delivered' ? 'ship-btn' : ''">{{order?.orderStatus-->
+              <!--                                          | orderStatus}}</button></li>-->
+
+              <li *ngIf="order?.orderStatus === 1"><button class="pending-btn">{{order?.orderStatus | orderStatus}}</button></li>
+
+              <li *ngIf="order?.orderStatus === 2"><button class="aproved-btn">{{order?.orderStatus | orderStatus}}</button></li>
+
+              <li *ngIf="order?.orderStatus === 4"><button class="shipped-btn">{{order?.orderStatus | orderStatus}}</button></li>
+
+              <li *ngIf="order?.orderStatus === 5"><button class="ship-btn">{{order?.orderStatus | orderStatus}}</button></li>
+
+              <li *ngIf="order?.orderStatus === 6"><button class="cancelled-btn">{{order?.orderStatus | orderStatus}}</button></li>
+
+              <li *ngIf="order?.orderStatus !== 6"><button class="track"
+                                                           [routerLink]="['/order-track',order?._id]"
+                                                           routerLinkActive="router-link-active">Track My Order <i
+                class="fa fa-angle-right"></i></button></li>
+
+              <li><button class="detail" [routerLink]="['/order-details',order?._id]"
+                          routerLinkActive="router-link-active">Order Details<i class="fa fa-angle-right"></i></button></li>
+
+              <li><button class="cancel" (click)="cancelOrderById(order?._id,{orderStatus:6})"
+                          *ngIf="order?.orderStatus < 2 || order?.orderStatus === 6 ">{{order?.orderStatus
+              === 6 ? 'Cancelled':'Cancel'}} <i class="fa fa-angle-right"></i></button></li>
+<!--              <li><button class="pending-btn">{{order?.paymentStatus}}</button></li>-->
+            </ul>
+          </div>
+          <p >Payment Status: <span [ngClass]="order.paymentStatus === 'paid' ? 'paid' : 'unpaid'">{{order?.paymentStatus | uppercase}}</span></p>
+          <p *ngIf="order?.orderStatus === 1">আপনার অর্ডারটি সম্পন্ন হয়েছে। শীঘ্রই SmS বা ফোনের মাধ্যমে অর্ডারটি কনফার্ম করা হবে ইনশাআল্লাহ!</p>
+          <p *ngIf="order?.orderStatus === 2">আপনার অর্ডারটি কনফার্ম হয়েছে। এখন ডেলিভারির জন্য প্রস্তুত করা হচ্ছে।</p>
+          <p *ngIf="order?.orderStatus === 4">আপনার অর্ডারটি ডেলিভারির জন্য কুরিয়ার সার্ভিসের কাছে দেওয়া হয়েছে।</p>
+          <p *ngIf="order?.orderStatus === 5">অর্ডারটি আপনার হাতে পৌছানো হয়েছে। বই সম্পর্কে আপনার মূল্যবান মতামত জানানোর অনুরোধ রইল। </p>
+          <p *ngIf="order?.orderStatus === 6">অর্ডারটি বাতিল করা হয়েছে। বিস্তারিত তথ্যের জন্য fb/Tutorcenter এ মেসেজ করুন অথবা Info@tutorcenter.online এ ইমেইল করুন।</p>
+
+
+          <!-- <div class="produt-area">
+                <div class="produc-img">
+                      <img [src]="order?.orderedItems[0]?.image" [alt]="order?.orderedItems[0]?.name">
+                </div>
+                <div class="product-info">
+                      <h4>{{order?.orderedItems[0]?.name}}</h4>
+                      <span style="margin-top: 5px;">{{order?.orderedItems[0]?.author?.name}}</span>
+                      <h3> ৳ {{order?.orderedItems[0]?.unitPrice | engBnNum}}</h3>
+                      <span>{{order?.orderedItems[0]?.quantity}} Quantitys</span>
+
+                </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="filterOrderList('Pending',{orderStatus:1})">
+    <span>Pending</span>
+  </button>
+  <button mat-menu-item (click)="filterOrderList('Approved',{orderStatus:2})">
+    <span>Approved</span>
+  </button>
+  <!--      <button mat-menu-item (click)="filterOrderList('Processing',{orderStatus:3})">-->
+  <!--            <span>Processing</span>-->
+  <!--      </button>-->
+  <button mat-menu-item (click)="filterOrderList('Shipped',{orderStatus:4})">
+    <span>Shipped</span>
+  </button>
+  <button mat-menu-item (click)="filterOrderList('Delivered',{orderStatus:5})">
+    <span>Delivered</span>
+  </button>
+  <button mat-menu-item (click)="filterOrderList('Cancelled',{orderStatus:6})">
+    <span>Cancelled</span>
+  </button>
+</mat-menu>

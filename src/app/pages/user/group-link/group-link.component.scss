@@ -1,0 +1,22 @@
+
+.main-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 8% 0;
+  gap: 20px;
+}
+
+.grouplink {
+
+  padding: 10px 20px;
+  border: 2px solid #018e55;
+  background-color: #fff;
+  color: #018e55;
+  font-weight: 500;
+  text-decoration: none;
+  outline: none;
+
+}

@@ -1,0 +1,407 @@
+<div class="section">
+  <div class="container">
+    <div class="section-main">
+      <form [formGroup]="formData" (ngSubmit)="onConfirmOrder()">
+        <div class="section-left">
+          <div class="address-form-area">
+            <div class="address-form-top">
+              <h4>
+                Shipping Address
+                <span> (Please Fill Out Your Information)</span>
+              </h4>
+            </div>
+            <div class="form">
+              
+<!--              <div class="radio-area">-->
+<!--                <div class="radio-left">-->
+<!--                  <h4>Pick Up Your Parcel From:</h4>-->
+<!--                </div>-->
+<!--                <div class="radio-right">-->
+<!--                  <mat-radio-group align="start" formControlName="addressType">-->
+<!--                    <mat-radio-button value="home">Home</mat-radio-button>-->
+<!--                    <mat-radio-button value="office">Office</mat-radio-button>-->
+<!--                  </mat-radio-group>-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="form-input-area">
+                <div class="form-input">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <!-- <input matInput value="" formControlName="name" required /> -->
+                    <input matInput formControlName="name" required />
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="grid">
+                  <div class="form-input">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Phone No</mat-label>
+                      <!-- <input matInput value="" formControlName="phoneNo" required /> -->
+                      <input matInput formControlName="phoneNo" required />
+                      <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-input">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Alternative Phone No</mat-label>
+                      <input matInput formControlName="alternativePhoneNo" />
+                      <mat-error>This is field is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-input">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select Country</mat-label>
+                      <mat-select formControlName="country" required>
+                        <mat-option value="bangladesh">Bangladesh</mat-option>
+                        <!-- <mat-option value="india">India</mat-option> -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- NEW: Area selection dropdown to determine if user is inside or outside Dhaka City -->
+              <div class="form-input-area">
+                <div class="form-input">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select Area</mat-label>
+                    <mat-select formControlName="areaType" (selectionChange)="onAreaTypeChange($event)">
+                      <mat-option value="inside">Inside Dhaka City</mat-option>
+                      <mat-option value="outside">Outside Dhaka City</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+                  <!-- Only show division, district, thana/upazila if areaType is 'outside' -->
+                  <div class="form-input-area" *ngIf="formData.get('areaType')?.value === 'outside'">
+                    <!-- Division -->
+                    <div class="form-input">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Select Division</mat-label>
+                        <mat-select
+                          formControlName="division"
+                          (selectionChange)="onChangeRegion($event)"
+                          required
+                        >
+                          <mat-option
+                            [value]="d?._id"
+                            *ngFor="let d of divisions"
+                            >{{ d?.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- District -->
+                    <div class="form-input">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Select District</mat-label>
+                        <mat-select
+                          formControlName="area"
+                          (selectionChange)="onChangeArea($event)"
+                          required
+                        >
+                          <mat-option [value]="a?._id" *ngFor="let a of area">{{
+                            a?.name
+                          }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- Thana/Upazila -->
+                    <div class="form-input">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Enter Your Thana/upazila</mat-label>
+                        <input matInput formControlName="zone" />
+                        <mat-error>This is field is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- END conditional fields -->
+
+                  <div class="form-input">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Enter Your Full Address </mat-label>
+                      <textarea
+                        matInput
+                        cols="10"
+                        rows="5"
+                        formControlName="address"
+                        required
+                      ></textarea>
+                      <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-input">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Note </mat-label>
+                      <textarea
+                        matInput
+                        cols="10"
+                        rows="3"
+                        formControlName="note"
+                      ></textarea>
+                      <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="summery-area summery-mbl">
+            <div class="summery-main">
+              <div class="summery-title">
+                <h3>Checkout Summary</h3>
+              </div>
+              <div class="summery-list">
+                <ul>
+                  <li>
+                    <span> Subtotal</span>
+                    <span
+                      >৳
+                      {{ cartSubTotal | number : "" : "bn" | engBnNum }}</span
+                    >
+                  </li>
+                  <li>
+                    <span> Discount</span>
+                    <span
+                      >৳
+                      {{
+                        cartDiscountAmount | number : "" : "bn" | engBnNum
+                      }}</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      >Shipping Charge ({{
+                        this.formData.value.deliveryOptions === "1"
+                          ? "Inside Dhaka"
+                          : "Outside Dhaka"
+                      }})</span
+                    >
+                    <span
+                      >৳
+                      {{
+                        (this.formData.value.deliveryOptions === "1"
+                          ? this.shippingCharge?.deliveryInDhaka
+                          : this.formData.value.deliveryOptions === "2"
+                          ? this.shippingCharge?.deliveryOutsideDhaka
+                          : 0
+                        ) | engBnNum
+                      }}</span
+                    >
+                  </li>
+                  <li>
+                    <span><b>Total</b></span>
+                    <span
+                      ><b
+                        >৳{{ grandTotal | number : "" : "bn" | engBnNum }}</b
+                      ></span
+                    >
+                  </li>
+                  <!-- <li>
+                                        <span><b>Payable Total</b></span>
+                                        <span><b>৳{{cartDiscountAmount}}</b></span>
+                                    </li> -->
+                </ul>
+              </div>
+            </div>
+<!--            <div class="promo-code-area">-->
+<!--              <h4>Add Promo code or voucher</h4>-->
+<!--              <div class="promo-input-area">-->
+<!--                <input-->
+<!--                  type="text"-->
+<!--                  placeholder="Enter Your Coupon Code"-->
+<!--                  [(ngModel)]="couponCode"-->
+<!--                  [ngModelOptions]="{ standalone: true }"-->
+<!--                />-->
+<!--                <button type="button" (click)="checkCouponAvailability()">-->
+<!--                  Apply-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+            <!--                        <div class="saving-area">-->
+            <!--                            <span>You are saving 14%</span>-->
+            <!--                        </div>-->
+          </div>
+
+          <div class="payment-method-area">
+            <div class="payment-method-top">
+              <h4>
+                Payment Method
+                <span>(Please select only one! payment method)</span>
+              </h4>
+            </div>
+            <mat-radio-group formControlName="paymentMethod">
+              <div class="payment-method">
+                <div
+                  class="payment-method-card"
+                  *ngFor="let data of paymentMethod"
+                >
+                  <mat-radio-button
+                    [value]="data?.paymentType"
+                    (change)="onSelectPaymentMethod(data?.paymentType)"
+                  >
+                    <div class="method-data">
+                      <span
+                        *ngIf="
+                          (data?.paymentMethodName | lowercase) ===
+                          'পেমেন্ট করুন'
+                        "
+                        >{{ data?.paymentMethodName }}</span
+                      >
+                      <img
+                        src="{{ data?.image }}"
+                        alt=""
+                        [style.width]="
+                          data?.paymentType === 'online_payment'
+                            ? '172px'
+                            : '140px'
+                        "
+                      />
+                      <span
+                        *ngIf="
+                          (data?.paymentMethodName | lowercase) ===
+                          'cash on delivery'
+                        "
+                        >{{ data?.paymentMethodName }}</span
+                      >
+                    </div>
+                  </mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+
+            <!-- Delivery Charge Section: lock and auto-select based on areaType -->
+            <div class="payment-method-top">
+              <h4>
+                Delivery Charge
+                <!-- <span>(Please select only one! delivery location)</span> -->
+              </h4>
+            </div>
+            <div class="radio-box-area" style="margin-top: 15px">
+              <mat-radio-group formControlName="deliveryOptions">
+                <mat-radio-button value="1" [disabled]="formData.get('areaType')?.value !== 'inside'">
+                  Inside Dhaka City {{ shippingCharge?.deliveryInDhaka }} Tk
+                </mat-radio-button>
+                <mat-radio-button value="2" [disabled]="formData.get('areaType')?.value !== 'outside'">
+                  Outside Dhaka City {{ shippingCharge?.deliveryOutsideDhaka }} Tk
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <!-- END Delivery Charge Section -->
+
+            <div class="condition-area">
+              <p>সম্মানিত গ্রাহক,</p>
+              <ul>
+                <li>
+                  ১. ঢাকা সিটির ভেতরে ডেলিভারির সময়সীমা ১-২ কর্মদিবস এবং ঢাকার
+                  বাইরে ১-৩ কর্মদিবস।
+                </li>
+                <li>
+                  ২. ঢাকা সিটির মধ্যে ডেলিভারি চার্জ ৬০ টাকা। ঢাকা সিটির বাইরে
+                  ডেলিভারি চার্জ ১২০ টাকা
+                </li>
+                <!-- <li>
+                  ৩. ডেলিভারি চার্জ পণ্যের ওজনের উপর নির্ভর করে। তাই পার্সেলের
+                  ওজন ১ কেজির বেশি হলে (প্রতি কেজি ২০ টাকা হারে) ডেলিভারি চার্জ
+                  বৃদ্ধি পাবে।
+                </li> -->
+                <li>
+                  ৩. বইয়ে কোনো প্রকার ত্রুটি থাকলে তা ৩ দিনের মধ্যে বদলানোর
+                  সুযোগ থাকবে। ত্রুটি ছাড়া অর্ডার ফেরত বা বদলানোর সুযোগ নেই।
+                </li>
+              </ul>
+              <mat-checkbox formControlName="isCheckedTerms" required
+                >এই শর্তগুলো মেনে অর্ডার প্রদান করছি।</mat-checkbox
+              >
+            </div>
+            <div class="confirm-order">
+              <button *ngIf="!isLoading" type="submit">Confirm Order</button>
+              <button *ngIf="isLoading"  type="button" style="opacity: 0.7">Please wait...</button>
+            </div>
+          </div>
+        </div>
+        <!--END-->
+      </form>
+      <div class="section-right">
+        <div class="summery-area summery-pc">
+          <div class="summery-main">
+            <div class="summery-title">
+              <h3>Checkout Summary</h3>
+            </div>
+            <div class="summery-list">
+              <ul>
+                <li>
+                  <span> Subtotal</span>
+                  <span
+                    >৳ {{ cartSubTotal | number : "" : "bn" | engBnNum }}</span
+                  >
+                </li>
+                <li>
+                  <span> Discount</span>
+                  <span
+                    >৳
+                    {{
+                      cartDiscountAmount | number : "" : "bn" | engBnNum
+                    }}</span
+                  >
+                </li>
+                <li>
+                  <span
+                    >Shipping Charge ({{
+                      this.formData.value.deliveryOptions === "1"
+                        ? "Inside Dhaka"
+                        : "Outside Dhaka"
+                    }})</span
+                  >
+                  <span
+                    >৳
+                    {{
+                      (this.formData.value.deliveryOptions === "1"
+                        ? this.shippingCharge?.deliveryInDhaka
+                        : this.formData.value.deliveryOptions === "2"
+                        ? this.shippingCharge?.deliveryOutsideDhaka
+                        : 0
+                      ) | engBnNum
+                    }}</span
+                  >
+                </li>
+                <li>
+                  <span><b>Total</b></span>
+                  <span
+                    ><b
+                      >৳{{ grandTotal | number : "" : "bn" | engBnNum }}</b
+                    ></span
+                  >
+                </li>
+                <!-- <li>
+                                    <span><b>Payable Total</b></span>
+                                    <span><b>৳{{cartDiscountAmount}}</b></span>
+                                </li> -->
+              </ul>
+            </div>
+          </div>
+<!--          <div class="promo-code-area">-->
+<!--            <h4>Add Promo code or voucher</h4>-->
+<!--            <div class="promo-input-area">-->
+<!--              <input-->
+<!--                type="text"-->
+<!--                placeholder="Enter Your Coupon Code"-->
+<!--                [(ngModel)]="couponCode"-->
+<!--              />-->
+<!--              <button type="button" (click)="checkCouponAvailability()">-->
+<!--                Apply-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
+          <!--                    <div class="saving-area">-->
+          <!--                        <span>You are saving 14%</span>-->
+          <!--                    </div>-->
+        </div>
+      </div>
+      <!---END-->
+    </div>
+  </div>
+</div>
+
+<app-confirm-order #confirm></app-confirm-order>

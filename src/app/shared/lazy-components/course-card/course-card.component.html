@@ -1,0 +1,34 @@
+<div class="courses-card" [id]="data?._id" [routerLink]="['/course-details', data?._id]"
+     [queryParams]="{isOnlySheet: type === 'lecture-sheet' ? true : null}">
+  <div class="courses-img">
+    <img src="{{data?.bannerImage}}" alt="data?.title" class="big">
+    <div class="tag">
+      <span *ngIf="data?.type === 'live-course'">
+        <fa-icon [icon]="faVideoCamera"></fa-icon> Live</span>
+      <span *ngIf="data?.canSaleAttachment">
+        <fa-icon [icon]="faFilePdf"></fa-icon> PDF</span>
+      <span *ngIf="data?.type === 'video-course'">
+        <fa-icon [icon]="faPlay"></fa-icon>
+        Video</span>
+    </div>
+  </div>
+  <div class="courses-details">
+    <h3 class="courses-name">{{ data?.name }}</h3>
+    <p>
+      <span>{{ data?.category?.name }}</span>
+      <span *ngIf="data?.subCategory"> &#x2022;{{ data?.subCategory?.name }}</span>
+      <span *ngIf="data?.childCategory"> &#x2022;{{ data?.childCategory?.name }}</span>
+    </p>
+
+    
+
+    <div class="buy-courses">
+      <h4> ৳  {{ (data | price : "salePrice" : data?.isMultiplePrice ? data?.prices[0] : null) | number : '' : 'bn' }}
+        <del *ngIf="checkDiscount">
+          ৳ {{ (data | price : "regularPrice" : data?.isMultiplePrice ? data?.prices[0] : null) | number : '' : 'bn' }}
+        </del>
+      </h4>
+    </div>
+
+  </div>
+</div>

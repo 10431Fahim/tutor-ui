@@ -1,0 +1,688 @@
+<div class="section">
+  <div class="container">
+    <div class="container-child">
+      <div class="container-left">
+        <ng-container *ngIf="courseDetailLoader">
+          <app-course-detail-loader-left></app-course-detail-loader-left>
+        </ng-container>
+
+        <ng-container *ngIf="!courseDetailLoader">
+          <h1>{{ course?.name }}</h1>
+
+          <!-- Description with Read More/Less toggle (only for main description) -->
+          <div class="description-preview-wrapper">
+            <!-- Use HTML preview so admin-set fonts/styles are preserved -->
+            <p *ngIf="!showFullDescription" class="description-preview-text" [innerHTML]="courseDescriptionPreviewHtml | safeHtmlCustom"></p>
+            <p *ngIf="showFullDescription" [innerHTML]="course?.description | safeHtmlCustom"></p>
+            <div class="read-more-btn-wrapper">
+              <button *ngIf="course?.description?.length > descriptionPreviewLength" (click)="toggleDescription()" class="read-more-btn">
+                {{ showFullDescription ? 'Read less' : 'Read more' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Navigation Tabs -->
+          <div class="navigation-tabs-wrapper">
+            <div class="navigation-tabs">
+              <button class="nav-tab" [class.active]="activeTab === 'class-start'" (click)="scrollToSection('class-start')">ক্লাস কবে শুরু হবে?</button>
+              <button class="nav-tab" [class.active]="activeTab === 'instructors'" (click)="scrollToSection('instructors')">কোর্স ইন্সট্রাক্টর</button>
+              <button class="nav-tab" [class.active]="activeTab === 'learning'" (click)="scrollToSection('learning')">কোর্সটি করে যা শিখবেন</button>
+              <button class="nav-tab" [class.active]="activeTab === 'routine'" (click)="scrollToSection('routine')">ক্লাস রুটিন</button>
+              <button class="nav-tab" [class.active]="activeTab === 'syllabus'" (click)="scrollToSection('syllabus')">কোর্স সিলেবাস</button>
+              <button class="nav-tab" [class.active]="activeTab === 'related'" (click)="scrollToSection('related')">কোর্স সম্প</button>
+            </div>
+          </div>
+
+          <!-- When will the class start? Section -->
+          <div id="class-start" class="container-left-middle class-start-section">
+            <h2>ক্লাস কবে শুরু হবে?</h2>
+            <div class="class-start-cards">
+              <div class="class-start-card">
+                <div class="class-start-icon">
+                  <mat-icon>play_circle</mat-icon>
+                </div>
+                <div class="class-start-content">
+                  <h3>HSC 26 শেষ মুহূর্তের প্রস্তুতি কোর্স [ব্যবসায় শিক্ষা বিভাগ]</h3>
+                  <p class="class-start-date">০১ ডিসেম্বর, ২০২৫</p>
+                </div>
+              </div>
+              <div class="class-start-card">
+                <div class="class-start-icon">
+                  <mat-icon>radio</mat-icon>
+                </div>
+                <div class="class-start-content">
+                  <h3>HSC 26 শেষ মুহূর্তের প্রস্তুতি কোর্স [বাংলা, ইংরেজি, ICT]</h3>
+                  <p class="class-start-date">০১ জানুয়ারি, ২০২৬</p>
+                </div>
+              </div>
+            </div>
+            <div class="countdown-timer">
+              <p class="countdown-label">ব্যবসায় শিক্ষা বিভাগের ক্লাস শুরু হতে বাকি আর</p>
+              <div class="countdown-display">
+                <div class="countdown-item">
+                  <span class="countdown-value">13</span>
+                  <span class="countdown-label-small">DAYS</span>
+                </div>
+                <div class="countdown-item">
+                  <span class="countdown-value">2</span>
+                  <span class="countdown-label-small">HOURS</span>
+                </div>
+                <div class="countdown-item">
+                  <span class="countdown-value">28</span>
+                  <span class="countdown-label-small">MINUTES</span>
+                </div>
+                <div class="countdown-item">
+                  <span class="countdown-value">52</span>
+                  <span class="countdown-label-small">SECONDS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructor Details Preview/Collapse (card layout, not text) -->
+          <div id="instructors" class="container-left-middle instructor-preview-wrapper">
+            <h2>কোর্স ইন্সট্রাক্টর</h2>
+            <div class="instructor-details-grid">
+              <div class="instructor-detail-card" *ngFor="let data of instructorsToShow">
+                <div class="instructor-detail-left">
+                  <img [src]="data?.image" alt="" />
+                </div>
+                <div class="instructor-detail-right">
+                  <a>{{ data?.name }}</a>
+                  <p>{{ data?.info }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="read-more-btn-wrapper" *ngIf="hasMoreInstructors">
+              <button (click)="toggleInstructorList()" class="read-more-btn">
+                বিস্তারিত দেখুন
+                <mat-icon>{{ showAllInstructors ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div id="learning" class="container-left-middle" *ngIf="course?.learningScopes && course?.learningScopes.length">
+            <h2>এই কোর্সটি থেকে যা শিখবেন</h2>
+            <div class="container-left-middle-main">
+              <div class="container-left-middle-hero">
+                <div class="container-left-middle-hero-children" *ngFor="let data of course?.learningScopes">
+                  <div class="icon">
+                    <mat-icon>check</mat-icon>
+                  </div>
+                  <div class="text">
+                    <p>{{ data }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---WHO ATTEND THIS COURSE?-->
+
+          <!-- Class Routine Section -->
+          <div id="routine" class="container-left-middle">
+            <h2>ক্লাস রুটিন</h2>
+            <div class="routine-content">
+              <p>ক্লাস রুটিন শীঘ্রই আপডেট করা হবে।</p>
+            </div>
+          </div>
+
+          <div class="container-left-middle" *ngIf="course?.benefits && course?.benefits.length">
+            <h2>এই কোর্সটিতে কী কী সুবিধা রয়েছে ?</h2>
+            <div class="container-left-middle-main">
+              <div class="container-left-middle-hero">
+                <div class="container-left-middle-hero-children" *ngFor="let data of course?.benefits">
+                  <div class="icon">
+                    <mat-icon>check</mat-icon>
+                  </div>
+                  <div class="text">
+                    <p>{{ data }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---WHO ATTEND THIS COURSE?-->
+
+          <div class="container-left-middle" *ngIf="course?.opportunities && course?.opportunities.length">
+            <h2>এই কোর্সটিতে কী কী সুযোগ রয়েছে ?</h2>
+            <div class="container-left-middle-main">
+              <div class="container-left-middle-hero">
+                <div class="container-left-middle-hero-children" *ngFor="let data of course?.opportunities">
+                  <div class="icon">
+                    <mat-icon>check</mat-icon>
+                  </div>
+                  <div class="text">
+                    <p>{{ data }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---WHO ATTEND THIS COURSE?-->
+
+
+          <div class="container-left-middle" *ngIf="course?.whatNeed && course?.whatNeed.length">
+            <h2>ক্লাস করার জন্য প্রয়োজন হবে ?</h2>
+            <div class="container-left-middle-main">
+              <div class="container-left-middle-hero">
+                <div class="container-left-middle-hero-children" *ngFor="let data of course?.whatNeed">
+                  <div class="icon">
+                    <mat-icon>check</mat-icon>
+                  </div>
+                  <div class="text">
+                    <p>{{ data }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="syllabus" class="container-left-bottom" style="margin-top: 20px">
+            <h2>কন্টেন্ট প্রিভিউ</h2>
+            <div class="course-syllabus">
+              <div class="course-syllabus-child">
+                <mat-accordion class="according">
+                  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                    *ngFor="let data of course?.courseModules">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <div class="ex-title">
+                          <h3>{{ data?.name }}</h3>
+                          <span *ngIf="data?.contentType" class="content-type-badge">{{ data.contentType | titlecase }}</span>
+                        </div>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    
+                    <!-- Video Content -->
+                    <div class="expansion-panel-elm" *ngIf="data?.contentType === 'video' || (!data?.contentType && data?.video)" 
+                         (click)="openVideoPlayerDialog(data?.video || data?.videoUrl, data?.isFree)">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>play_circle</mat-icon>
+                        <p>{{ data?.description || 'Video Content' }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right" *ngIf="data?.isFree">
+                        <p>ফ্রি দেখুন</p>
+                      </div>
+                    </div>
+
+                    <!-- Quiz/Exam Content -->
+                    <div class="expansion-panel-elm" *ngIf="data?.quiz && data?.isFree" 
+                         (click)="openQuizPreview(data?.quiz)">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>quiz</mat-icon>
+                        <p>{{ data?.quiz?.name || 'Free Exam (MCQ/Written)' }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right">
+                        <p>ফ্রি পরীক্ষা দিন</p>
+                      </div>
+                    </div>
+
+                    <!-- Recorded Class -->
+                    <div class="expansion-panel-elm" *ngIf="data?.contentType === 'recorded-class' && data?.recordedClassUrl && data?.isFree" 
+                         (click)="openVideoPlayerDialog(data?.recordedClassUrl, true)">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>video_library</mat-icon>
+                        <p>{{ data?.description || 'Sample Recorded Class' }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right">
+                        <p>ফ্রি দেখুন</p>
+                      </div>
+                    </div>
+
+                    <!-- PDF / Lecture Sheet -->
+                    <div class="expansion-panel-elm" *ngIf="(data?.contentType === 'pdf' || data?.attachment) && data?.isFree" 
+                         (click)="openPdfPreview(data?.attachment)">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>description</mat-icon>
+                        <p>{{ data?.description || 'Lecture Sheet' }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right">
+                        <p>ফ্রি ডাউনলোড</p>
+                      </div>
+                    </div>
+
+                    <!-- Routine -->
+                    <div class="expansion-panel-elm" *ngIf="data?.contentType === 'routine' && data?.routineFile && data?.isFree" 
+                         (click)="openPdfPreview(data?.routineFile)">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>calendar_today</mat-icon>
+                        <p>{{ data?.routineDescription || data?.description || 'Class Routine' }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right">
+                        <p>ফ্রি দেখুন</p>
+                      </div>
+                    </div>
+
+                    <!-- Class Notes -->
+                    <div class="expansion-panel-elm" *ngIf="data?.contentType === 'class-notes' && (data?.classNotesFile || data?.classNotesContent) && data?.isFree" 
+                         (click)="openClassNotesPreview(data)">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>note</mat-icon>
+                        <p>{{ data?.description || 'Class Notes' }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right">
+                        <p>ফ্রি দেখুন</p>
+                      </div>
+                    </div>
+
+                    <!-- Paid Content (Locked) -->
+                    <div class="expansion-panel-elm locked-content" *ngIf="!data?.isFree">
+                      <div class="expansion-panel-elm-left">
+                        <mat-icon>lock</mat-icon>
+                        <p>{{ data?.description || data?.name }}</p>
+                      </div>
+                      <div class="expansion-panel-elm-right">
+                        <p>এনরোল করুন</p>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <!---DEMO CONTENT-->
+
+          <app-faq></app-faq>
+
+          <div *ngIf="reviews.length" class="container-left-middle" style="margin-top: 30px">
+            <h2>শিক্ষার্থীরা যা বলছে</h2>
+            <div class="container-left-middle-main" style="padding: 20px 15px 15px 15px">
+              <div>
+                <swiper [speed]="1000" [grabCursor]="true" [autoplay]="true" [loop]="false" [navigation]="true"
+                  [slidesPerView]="'auto'" [breakpoints]="{
+                    '0': {
+                      slidesPerView: 1,
+                      spaceBetween: 10
+                    },
+                    '1150': {
+                      slidesPerView: 2,
+                      spaceBetween: 15
+                    }
+                  }" class="mySwiper feature-carousel">
+                  <ng-template swiperSlide *ngFor="let data of reviews">
+                    <app-course-review [data]="data"></app-course-review>
+                  </ng-template>
+                </swiper>
+              </div>
+            </div>
+          </div>
+          <!---REVIEWS-->
+
+<!--          <app-course-rating-review></app-course-rating-review>-->
+          <!-- END! course-rating-review -->
+
+<!--          <div class="container-left-middle" style="margin-top: 30px">-->
+<!--            <h2>ক্লাস করার জন্য প্রয়োজন হবে</h2>-->
+<!--            <div class="container-left-middle-main" style="padding: 20px 15px 15px 15px">-->
+<!--              <div class="container-left-middle-hero" style="grid-template-columns: repeat(1, 1fr); padding: 0px">-->
+<!--                <div class="container-left-middle-hero-children">-->
+<!--                  <div class="icon">-->
+<!--                    <mat-icon>check</mat-icon>-->
+<!--                  </div>-->
+<!--                  <div class="text">-->
+<!--                    <p>ইন্টারনেট সংযোগ (ওয়াইফাই বা মোবাইল ইন্টারনেট)</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--                <div class="container-left-middle-hero-children">-->
+<!--                  <div class="icon">-->
+<!--                    <mat-icon>check</mat-icon>-->
+<!--                  </div>-->
+<!--                  <div class="text">-->
+<!--                    <p>স্মার্টফোন অথবা পিসি</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+          <div class="container-left-middle" style="margin-top: 20px" *ngIf="course?.whatNeed && course?.whatNeed.length">
+            <h2>ক্লাস করার জন্য প্রয়োজন হবে ?</h2>
+            <div class="container-left-middle-main">
+              <div class="container-left-middle-hero">
+                <div class="container-left-middle-hero-children" *ngFor="let data of course?.whatNeed">
+                  <div class="icon">
+                    <mat-icon>check</mat-icon>
+                  </div>
+                  <div class="text">
+                    <p>{{ data }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!---END CERTIFICATE-->
+        </ng-container>
+      </div>
+
+      <div class="container-right">
+        <div class="container-right-main">
+          <ng-contiainer *ngIf="courseDetailLoader">
+            <app-course-detail-loader-right></app-course-detail-loader-right>
+          </ng-contiainer>
+
+          <ng-container *ngIf="!courseDetailLoader">
+            <!-- Course Banner Carousel -->
+<!--            <div class="course-banner-carousel">-->
+<!--              <swiper-->
+<!--                [slidesPerView]="1"-->
+<!--                [pagination]="{-->
+<!--                  clickable: true-->
+<!--                }"-->
+<!--                [spaceBetween]="10"-->
+<!--                [loop]="false"-->
+<!--                [autoplay]="false"-->
+<!--                [navigation]="true"-->
+<!--                class="course-banner-swiper"-->
+<!--              >-->
+<!--&lt;!&ndash;                <ng-template swiperSlide>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="banner-slide">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <img [src]="course?.bannerImage || course?.image" alt="Course Banner">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="banner-slide-content">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h3>{{ course?.name }}</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <p *ngIf="course?.subCategory">ব্যবসায় শিক্ষা বিভাগ + বাংলা + ইংরেজি + আই সি টি</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ng-template>&ndash;&gt;-->
+<!--                <ng-template swiperSlide *ngFor="let banner of courseBanners">-->
+<!--                  <div class="banner-slide">-->
+<!--                    <img [src]="banner?.image || course?.bannerImage" alt="Course Banner">-->
+<!--                    <div class="banner-slide-content">-->
+<!--                      <h3>{{ banner?.title || course?.name }}</h3>-->
+<!--                      <p>{{ banner?.subtitle || 'ব্যবসায় শিক্ষা বিভাগ + বাংলা + ইংরেজি + আই সি টি' }}</p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </ng-template>-->
+<!--              </swiper>-->
+<!--            </div>-->
+
+            <div class="container-right-body-container">
+              <div class="youtube-container" *ngIf="course?.introYoutubeVideo">
+                <iframe [src]="
+                    course?.introYoutubeVideo +
+                      '?autoplay=1&mute=0&loop=1&color=white&controls=1&modestbranding=1&playsinline=1&rel=0&enablejsapi=1'
+                      | safeUrl
+                  " title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <div class="youtube-container" *ngIf="!course?.introYoutubeVideo && course?.bannerImage">
+              <img [src]="course?.bannerImage" alt="">
+              </div>
+              <div class="container-right-body">
+                <div class="tag">
+                  <span *ngIf="!isOnlySheet && course?.type === 'live-course'">
+                    <fa-icon [icon]="faVideoCamera"></fa-icon>
+                    Live Course
+                  </span>
+                  <span *ngIf="!isOnlySheet && course?.type === 'video-course'">
+                    <fa-icon [icon]="faAngleDown"></fa-icon>
+                    Video Course
+                  </span>
+                  <span *ngIf="isOnlySheet">
+                    <fa-icon [icon]="faFilePdf"></fa-icon>
+                    Lecture Sheet
+                  </span>
+                </div>
+
+                <div class="promo-price" *ngIf="!coupon">
+                  <p class="current-price">
+                    ৳{{
+                    course
+                    | price : "salePrice" : selectedPriceData
+                    | number : "" : "bn"
+                    | engBnNum
+                    }}
+                  </p>
+                  <del class="courses-price" *ngIf="course?.discountAmount">
+                    ৳{{
+                    course
+                    | price : "regularPrice" : selectedPriceData
+                    | number : "" : "bn"
+                    | engBnNum
+                    }}
+                  </del>
+                  <div class="discount-badge" *ngIf="course?.discountAmount">
+                    ৳{{ (course | price : "regularPrice" : selectedPriceData) - (course | price : "salePrice" : selectedPriceData) | number : "" : "bn" | engBnNum }} ছাড়
+                  </div>
+                </div>
+
+                <div class="promo-price" *ngIf="coupon">
+                  <p class="current-price" style="color: green; font-weight: 600">
+                    {{
+                    ((course | price : "regularPrice" : selectedPriceData) - couponDiscount) | number : "" : "bn"
+                      | engBnNum
+                    }}টাকা
+                  </p>
+                </div>
+
+                <div class="multi-price-view">
+                  <mat-form-field style="width: 100%" appearance="outline" class="w-100 px-1"
+                    *ngIf="course && course.isMultiplePrice">
+                    <mat-label>Price For</mat-label>
+                    <mat-select [(ngModel)]="selectedPriceData">
+                      <mat-option [value]="data" *ngFor="let data of course?.prices">
+                        {{ data?.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>This field is required.</mat-error>
+                  </mat-form-field>
+                </div>
+
+<!--                <button *ngIf="!isEnrolled" [disabled]="isLoading" mat-raised-button color="primary"-->
+<!--                        (click)="openComponentDialog($event)">-->
+                <button class="button" *ngIf="!isEnrolled" [disabled]="isLoading" mat-raised-button color="primary"
+                  (click)="onBuyCourse()">
+                  {{ isLoading ? "অপেক্ষা করুন" : "কোর্সটি কিনুন" }}
+                  <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+
+                <button class="button" style="background: #15aa72" *ngIf="isEnrolled" mat-raised-button color="accent"
+                  [routerLink]="['/', 'course-play-list', course?._id]">
+                  চালিয়ে যান
+                  <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+
+                <div style="display: flex;justify-content: flex-end;padding: 10px 0" (click)="couponShow()">
+                  <button  class="coupon">
+                    <svg  width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path  d="M3.67063 12.9386L7.44563 16.7136C8.99563 18.2636 11.5123 18.2636 13.0706 16.7136L16.729 13.0553C18.279 11.5053 18.279 8.98864 16.729 7.43031L12.9456 3.66364C12.154 2.87197 11.0623 2.44697 9.94563 2.50531L5.77896 2.70531C4.1123 2.78031 2.7873 4.10531 2.70396 5.76364L2.50396 9.93031C2.45396 11.0553 2.87896 12.147 3.67063 12.9386Z" stroke="currentColor" stroke-width="1.41176" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M8.11458 10.1891C9.26518 10.1891 10.1979 9.25639 10.1979 8.10579C10.1979 6.9552 9.26518 6.02246 8.11458 6.02246C6.96399 6.02246 6.03125 6.9552 6.03125 8.10579C6.03125 9.25639 6.96399 10.1891 8.11458 10.1891Z" stroke="currentColor" stroke-width="1.41176" stroke-linecap="round"></path>
+                    <path  d="M11.0312 14.3558L14.3646 11.0225" stroke="currentColor" stroke-width="1.41176" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    <span >প্রোমো কোড যোগ করুন</span>
+                  </button>
+                </div>
+
+
+                <div class="cuppon-area" *ngIf="couponShowHide">
+                  <div class="cupon-input">
+                    <input [readOnly]="coupon" [(ngModel)]="couponCode" type="text"
+                           placeholder="প্রোমো কোড যোগ করুন">
+                  </div>
+
+                  <div *ngIf="!coupon" class="apply-btn" (click)="checkCouponAvailability()">
+                    <button>সাবমিট করুন</button>
+                  </div>
+
+                  <div *ngIf="coupon" class="apply-btn" (click)="onRemoveCoupon()">
+                    <button class="danger">বাতিল করুন</button>
+                  </div>
+                </div>
+
+                <div class="only-attachment" *ngIf="course?.canSaleAttachment">
+                  <a *ngIf="!isOnlySheet" [routerLink]="[]" [queryParams]="{ isOnlySheet: true }">
+                    শুধু লেকচার শিট কিনতে চাচ্ছেন? Click Here
+                  </a>
+                  <a *ngIf="isOnlySheet" [routerLink]="[]" [queryParams]="{ isOnlySheet: null }">
+                    কোর্স সহ লেকচার শিট চাচ্ছেন? Click Here
+                  </a>
+                </div>
+
+                <div class="course-duration">
+                  <div class="course-duration-child">
+                    <div class="course-icon">
+                      <mat-icon>people</mat-icon>
+                    </div>
+                    <div class="course-duration-text">
+                      <p>কোর্সটি করছেন</p>
+<!--                      <span>{{ course?.totalUsers }} জন</span>-->
+                      <span>{{ course?.totalSold }} জন</span>
+                    </div>
+                  </div>
+                  <div class="course-duration-child">
+                    <div class="course-icon">
+                      <mat-icon>access_time</mat-icon>
+                    </div>
+                    <div class="course-duration-text">
+                      <p>সময়সীমা</p>
+                      <span>{{ course?.totalDuration }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="video-moctest">
+                  <div class="video-moctest-child">
+                    <mat-icon>check</mat-icon>
+                    <p>{{ course?.totalClass }} টি ক্লাস</p>
+                  </div>
+                  <div class="video-moctest-child">
+                    <mat-icon>check</mat-icon>
+                    <p>{{ course?.totalExam }}টি পরীক্ষা</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END! container-right-body-container -->
+
+            <!-- Countdown Timer in Sidebar -->
+            <div class="sidebar-countdown-timer">
+              <p class="countdown-label">ব্যবসায় শিক্ষা বিভাগের ক্লাস শুরু হতে বাকি আর</p>
+              <div class="countdown-display">
+                <div class="countdown-item">
+                  <span class="countdown-value">13</span>
+                  <span class="countdown-label-small">d</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                  <span class="countdown-value">2</span>
+                  <span class="countdown-label-small">h</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                  <span class="countdown-value">28</span>
+                  <span class="countdown-label-small">m</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                  <span class="countdown-value">52</span>
+                  <span class="countdown-label-small">s</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- What's included in this course -->
+            <div class="course-includes-section">
+              <h3>এই কোর্সে যা থাকছে</h3>
+              <ul class="course-includes-list">
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>৮টি সাবজেক্ট (হিসাববিজ্ঞান, অর্থায়ন, বিপণন, ব্যবস্থাপনা, অর্থনীতি, বাংলা, ইংরেজি, আই সি টি)</span>
+                </li>
+                <li *ngIf="course?.totalClass">
+                  <mat-icon>check_circle</mat-icon>
+                  <span>{{ course?.totalClass }}টি লাইভ ক্লাস</span>
+                </li>
+                <li *ngIf="course?.totalClass">
+                  <mat-icon>check_circle</mat-icon>
+                  <span>{{ course?.totalClass }}টি লেকচার স্লাইড</span>
+                </li>
+                <li *ngIf="course?.totalExam">
+                  <mat-icon>check_circle</mat-icon>
+                  <span>{{ course?.totalExam }}টি ক্লাসভিত্তিক বোর্ড স্ট্যান্ডার্ড MCQ পরীক্ষা</span>
+                </li>
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>১৫টি ফাইনাল মডেল টেস্ট + সলভ শিট</span>
+                </li>
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>জুম ডাউট সলভ ক্লাস</span>
+                </li>
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>সম্পূর্ণ ফ্রি এক্সক্লুসিভ সাজেশন</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="container-right-bottom">
+              <p>কোর্সটি সম্পর্কে বিস্তারিত জানতে</p>
+              <mat-icon>local_phone</mat-icon>
+              <a href="tel:16910">
+                ফোন করুন (16910)
+              </a>
+            </div>
+            <!-- END! container-right-bottom -->
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!---RESPONSIVE BUY NOW BUTTON-->
+<div class="res-buy-now">
+  <div class="res-buy-main">
+    <div class="res-buy-left">
+      <h3 *ngIf="!coupon">৳
+        {{
+        course
+        | price : "salePrice" : selectedPriceData
+        | number : "" : "bn"
+        | engBnNum
+        }}
+         <span><del class="courses-price" *ngIf="course?.discountAmount">
+          ৳{{
+        course
+        | price : "regularPrice" : selectedPriceData
+        | number : "" : "bn"
+        | engBnNum
+        }}
+      </del></span></h3>
+
+      <h3 *ngIf="coupon">
+        {{
+          ((course | price : "regularPrice" : selectedPriceData) - couponDiscount) | number : "" : "bn"
+            | engBnNum
+          }}টাকা
+      </h3>
+    </div>
+
+    <div class="res-buy-right">
+      <button *ngIf="!isEnrolled" [disabled]="isLoading" (click)="onBuyCourse()"> {{ isLoading ? "অপেক্ষা করুন" : "কোর্সটি কিনুন"
+        }}</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- section4-->
+<section id="related" class="section-four global-section">
+  <div class="container">
+    <div class="section-four-child global-section-child">
+      <div class="title">
+        <h1>আপনার জন্য আরো কোর্স</h1>
+      </div>
+      <div class="courses">
+        <app-course-card [data]="data" *ngFor="let data of relatedCourses.slice(0 , 4)"></app-course-card>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section4-end -->

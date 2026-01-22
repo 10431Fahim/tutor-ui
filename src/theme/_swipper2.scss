@@ -1,0 +1,130 @@
+@import "variables";
+
+::ng-deep.carousel .swiper-pagination-bullet-active {
+  background-color: #959595 !important;
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.carousel .swiper-pagination-bullet {
+  background-color: #fff;
+  width: 10px;
+  opacity: 1;
+  height: 10px;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.swiper-button-next {
+  font-size: 20px;
+}
+
+::ng-deep.swiper-button-next {
+  right: 20px;
+}
+
+::ng-deep.swiper-button-prev {
+  left: 20px;
+}
+
+::ng-deep.swiper-button-next,
+::ng-deep.swiper-button-prev {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 660;
+  border-radius: 50%;
+  transition: all 0.3s linear;
+  visibility: hidden;
+  opacity: 0;
+  box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep.swiper-button-next {
+  right: 15px;
+}
+
+::ng-deep.swiper-button-prev {
+  left: 15px;
+}
+
+::ng-deep.swiper-button-next:hover,
+::ng-deep.swiper-button-prev:hover {
+  background-color: $color-primary;
+}
+
+.mySwiper:hover ::ng-deep.swiper-button-next,
+.mySwiper:hover ::ng-deep.swiper-button-prev {
+  visibility: visible;
+  opacity: 1;
+}
+
+::ng-deep.swiper-button-next:after,
+::ng-deep.swiper-button-prev:after {
+  content: "\f061";
+  font-size: 17px;
+  font-weight: 600;
+  font-family: "Font Awesome 5 Free";
+  display: block;
+  color: $color-primary;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.swiper-button-next:hover:after,
+::ng-deep.swiper-button-prev:hover:after {
+  color: #fff;
+}
+
+::ng-deep.swiper-button-prev:after {
+  content: '\f060';
+}
+
+::ng-deep.swiper-button-next.swiper-button-disabled,
+::ng-deep.swiper-button-prev.swiper-button-disabled {
+  z-index: 20;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.small-carousel .mySwiper {
+  padding: 0 30px;
+}
+
+::ng-deep.small-carousel ::ng-deep.swiper-button-next {
+  right: 0;
+  width: 25px;
+  height: 25px;
+  top: 60%;
+}
+
+::ng-deep.small-carousel ::ng-deep.swiper-button-prev {
+  left: 0;
+  width: 25px;
+  height: 25px;
+  top: 60%;
+}
+
+::ng-deep.carousel .swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 20px;
+}
+
+::ng-deep.carousel .swiper-slide {
+  padding: 10px 1px;
+  box-sizing: border-box;
+}
+
+::ng-deep.carousel-article .swiper-slide {
+  padding: 10px 0 35px 0;
+  box-sizing: border-box;
+}

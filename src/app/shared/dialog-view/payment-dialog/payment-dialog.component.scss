@@ -1,0 +1,139 @@
+@import'src/theme/variables';
+
+
+.payment-dialog {
+  background: $color-primary;
+  //border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+
+  @media (max-width: 480px) {
+    //padding: 15px;
+    //max-width: 95%;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: $color-white; // indigo shade
+  }
+
+  .info-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 15px;
+gap: 5px;
+    &.total {
+      background: #eef2ff;
+      .value {
+        font-weight: 600;
+        color: #4338ca;
+      }
+    }
+
+    &.bkash {
+      background: #fff1f2;
+
+      .value {
+        font-weight: 500;
+        color: #be185d;
+      }
+
+      .copy-btn {
+        background: $color-orange;
+        color: #fff;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #db2777;
+        }
+      }
+    }
+  }
+
+  .form {
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 14px;
+
+      label {
+        font-weight: 500;
+        margin-bottom: 4px;
+        color: $color-white;
+      }
+
+      input {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 14px;
+        transition: border 0.2s, box-shadow 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: #6366f1;
+          box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+      }
+
+      small {
+        color: #dc2626;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+
+    .cancel-btn {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #e5e7eb;
+      }
+    }
+
+    .submit-btn {
+      background: $color-orange;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #4338ca;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<div class="section">
+  <div class="container">
+    <div class="section-title-area wow animate__backInLeft">
+      <h3>Tutor Center: আপনার সাফল্যের সঙ্গী <span class="sparkle">✨</span></h3>
+      <div class="accent-line"></div>
+    </div>
+    <div class="section-main">
+      <div class="service-card wow animate__fadeInUp animate__delay-{{i}}s"
+           *ngFor="let data of categories | slice:0:3; let i = index"
+           routerLink="/courses" [queryParams]="{category: data?.slug}">
+        <div class="service-card-body">
+          <h3>{{ data?.name }}</h3>
+          <p>{{ data?.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+<div class="omr-scan-container">
+  <div class="container">
+    <h1>Upload OMR Scan</h1>
+
+    <div class="scan-form">
+      <div class="form-group">
+        <label>Select OMR Sheet File (JPG, PNG, or PDF)</label>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/jpg,application/pdf"
+          (change)="onFileSelected($event)"
+          [disabled]="uploading"
+        />
+        <p class="file-info" *ngIf="selectedFile">
+          Selected: {{ selectedFile.name }} ({{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB)
+        </p>
+      </div>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="uploadScan()"
+          [disabled]="!selectedFile || uploading"
+        >
+          <mat-spinner *ngIf="uploading" diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+          {{ uploading ? 'Uploading...' : 'Upload Scan' }}
+        </button>
+        <button mat-button [routerLink]="['/account/omr']">Cancel</button>
+      </div>
+
+      <!-- Scan Status -->
+      <div *ngIf="scanStatus" class="scan-status">
+        <h3>Scan Status</h3>
+        <div class="status-info">
+          <p><strong>Status:</strong> {{ scanStatus.status }}</p>
+          <p *ngIf="scanStatus.error"><strong>Error:</strong> {{ scanStatus.error }}</p>
+          <div *ngIf="scanStatus.resultId">
+            <p><strong>Result ID:</strong> {{ scanStatus.resultId }}</p>
+            <button mat-raised-button color="accent" [routerLink]="['/quiz-result', scanStatus.resultId]">
+              View Result
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,203 @@
+<div class="payment-area-main" id="payment1">
+  <div class="container">
+    <div class="order-container">
+      <h2 class="header">
+        <span class="red-text">{{ singleLandingPage?.paymentTitle }}</span>
+      </h2>
+
+      <div class="order-content">
+        <div class="product-section">
+          <div class="product-area">
+<!--            @if ((isMobile > 600)) {-->
+              <img *ngIf="(isMobile > 600)" [src]="singleLandingPage?.course?.bannerImage" (click)="openGallery($event, [singleLandingPage?.course?.bannerImage])" alt="Watch" class="product-image"
+                   loading="lazy">
+<!--            } @else {-->
+              <img  *ngIf="(isMobile < 600)" [src]="singleLandingPage?.course?.bannerImage" (click)="openGalleryMobile($event, [singleLandingPage?.course?.bannerImage])" alt="Watch" class="product-image"
+                   loading="lazy">
+
+            <h3 class="product-title">{{ singleLandingPage?.course?.name }}</h3>
+          </div>
+
+          <div class="promo-price" *ngIf="!coupon">
+            <p>
+              <del class="courses-price" *ngIf="singleLandingPage?.course?.discountAmount">
+                {{
+                  singleLandingPage?.course
+                    | price : "regularPrice" : selectedPriceData
+                    | number : "" : "bn"
+                    | engBnNum
+                }}টাকা
+              </del>
+
+              {{
+                singleLandingPage?.course
+                  | price : "salePrice" : selectedPriceData
+                  | number : "" : "bn"
+                  | engBnNum
+              }}টাকা
+            </p>
+          </div>
+
+
+          <div class="promo-price" *ngIf="coupon">
+            <p style="color: green; font-weight: 600">
+              {{
+                ((singleLandingPage?.course | price : "regularPrice" : selectedPriceData) - couponDiscount) | number : "" : "bn"
+                  | engBnNum
+              }}টাকা
+            </p>
+          </div>
+<!--          <h3 class="price">-->
+<!--            Total Amount: 60000-->
+<!--          </h3>-->
+
+        </div>
+
+        <div class="form-section">
+          <form [formGroup]="dataForm" (ngSubmit)="onConfirmOrder()" class="billing-section" #addressScrol>
+<!--            <h3>{{ 'deliveryDetails'  | translate }}</h3>-->
+
+<!--            <label class="">{{ 'writeYourName'  | translate }}&nbsp;<sup class="required" title="required">*</sup></label>-->
+<!--            <input #nameInput formControlName="name" type="text" placeholder="{{ 'writeYourName'  | translate }}">-->
+<!--            <small *ngIf="dataForm.get('name')?.invalid && dataForm.get('name')?.touched">{{ 'name'  | translate }} is required</small>-->
+
+<!--            <label class="">{{ 'phoneNumber'  | translate }}&nbsp;<sup class="required" title="required">*</sup></label>-->
+<!--            <input #phoneInput formControlName="phoneNo" (input)="onPhoneNumberInput($event)" type="tel"-->
+<!--                   placeholder="{{ 'phoneNumber'  | translate }}">-->
+<!--            <small *ngIf="dataForm.get('phoneNo')?.invalid && dataForm.get('phoneNo')?.touched">{{ 'validPhone'  | translate }} number is-->
+<!--              required</small>-->
+
+<!--            <label>{{ 'writeYourFullAddress'  | translate }}</label>-->
+<!--            <textarea #addressInput formControlName="shippingAddress" placeholder="{{ 'writeYourFullAddress'  | translate }}"></textarea>-->
+<!--            <small *ngIf="dataForm.get('shippingAddress')?.invalid && dataForm.get('shippingAddress')?.touched">{{ 'address'  | translate }} is-->
+<!--              required</small>-->
+
+<!--            <h3 class="payment-title">{{ 'paymentOption'  | translate }}</h3>-->
+<!--            <div class="delivery-options">-->
+<!--              <p class="option">-->
+<!--                <span class="radio"></span>-->
+<!--                <span class="label-text">{{ 'cashOnDelivery'  | translate }}</span>-->
+<!--              </p>-->
+<!--            </div>-->
+
+            <div class="order-summary">
+<!--              <h3>{{ 'yourOrder'  | translate }}</h3>-->
+
+<!--              <div class="order-details">-->
+<!--                <p>{{ singleLandingPage?.product?.name }}</p>-->
+<!--                <p>{{ selectedVariation }} {{ (selectedVariation && selectedVariation2) ? "|" : "" }} {{ selectedVariation2 }}</p>-->
+
+<!--                <div class="quantity">-->
+<!--                  <span>{{ 'quantity'  | translate }}</span>-->
+<!--                  <div>-->
+<!--                    <button type="button" (click)="decreaseQuantity()">-</button>-->
+<!--                    <input type="text" [value]="quantity" readonly>-->
+<!--                    <button type="button" (click)="increaseQuantity()">+</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--                <div class="pricing">-->
+<!--                  <p>{{ 'subTotal'  | translate }} <span> {{ cartSaleSubTotal | currencyCtr }}</span></p>-->
+<!--                  <p *ngIf="cartDiscountAmount">{{ 'discount'  | translate }} <span> {{ cartDiscountAmount | currencyCtr }}</span></p>-->
+<!--                  @if (couponDiscount) {-->
+<!--                    <p class="disc" >{{ 'couponDiscount'  | translate }}: <span>-{{ couponDiscount | currencyCtr }}</span></p>-->
+<!--                  }-->
+<!--                  <p>-->
+<!--                    {{ 'shipping'  | translate }}-->
+<!--                    <span>{{ getDeliveryLabel() }}  {{ deliveryChargeAmount | currencyCtr }}</span>-->
+<!--                  </p>-->
+<!--                  <p class="total">{{ 'total'  | translate }} <span> {{ grandTotal | currencyCtr }}</span></p>-->
+<!--                </div>-->
+<!--              </div>-->
+            </div>
+
+<!--            @if (!isLoaded) {-->
+              <button *ngIf="!isLoaded"  (click)="onBuyCourse()" type="button" class="order-btn" [ngClass]="{ 'animate-total': animateGrandTotal }">Start the Course
+              </button>
+
+              <button  *ngIf="isLoaded" type="button" class="loader-btn" disabled><span class="loader"></span>Please wait...</button>
+
+          </form>
+
+<!--          @if (!isCoupon){-->
+<!--            <div class="coupon-div">-->
+<!--              <button type="button" class="coupon-btn" (click)="onSelectCouponOpen()">{{ 'haveCoupon'  | translate }}</button>-->
+<!--            </div>-->
+
+<!--          } @else {-->
+
+<!--            <div class="summary-item ">-->
+<!--              <div class="close-btn-div">-->
+<!--                <button type="button" class="close-btn" (click)="onSelectCouponClose()">x</button>-->
+<!--              </div>-->
+
+<!--              <div class="coupon-area">-->
+<!--                <div class="coupon-input">-->
+<!--                  <input-->
+<!--                    [readOnly]="coupon"-->
+<!--                    [(ngModel)]="couponCode"-->
+<!--                    type="text"-->
+<!--                    placeholder="{{ 'haveCouponAnyCodeEnter'  | translate }}"-->
+<!--                  />-->
+<!--                </div>-->
+
+<!--                @if (!coupon){-->
+<!--                  <div-->
+<!--                    class="apply-btn"-->
+<!--                    (click)="checkCouponAvailability()"-->
+<!--                  >-->
+<!--                    <button type="button" class="apply">{{ 'apply'  | translate }}</button>-->
+<!--                  </div>-->
+<!--                } @else {-->
+<!--                  <div-->
+
+<!--                    class="apply-btn"-->
+<!--                    (click)="onRemoveCoupon()"-->
+<!--                  >-->
+<!--                    <button type="button" class="danger">{{ 'remove'  | translate }}</button>-->
+<!--                  </div>-->
+<!--                }-->
+
+
+
+<!--              </div>-->
+<!--            </div>-->
+
+<!--          }-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="bottom-nav" *ngIf="productFixed">
+  <div class="mobile-checkout">
+    <div class="total-area">
+<!--      <p class="total">Total: <span>{{ grandTotal }}</span></p>-->
+<!--      <p class="button-text">{{ 'vatIncluded'  | translate }}</p>-->
+    </div>
+      <button *ngIf="!isLoading" class="place-order" (click)="onConfirmOrder()">Start the course</button>
+
+      <button *ngIf="isLoading" type="button" class="order-button wait-btn">
+        <div><span class="loader btn-loader"></span></div>
+        <div>Please Wait..</div>
+      </button>
+  </div>
+</div>
+
+  <app-gallery-image-viewer *ngIf="isGalleryOpen && (isMobile > 600)"
+    [images]="galleryImages"
+    [startIndex]="selectedImageIndex"
+    (closeEvent)="closeGallery()"
+  >
+  </app-gallery-image-viewer>
+
+  <app-image-gallery *ngIf="showModal && (isMobile < 600)" [selectedIndex]="selectedImageIndex" [images]="galleryImages" [isVisible]="showModal"
+                     (close)="closeModal1()"
+  ></app-image-gallery>
+
+
+

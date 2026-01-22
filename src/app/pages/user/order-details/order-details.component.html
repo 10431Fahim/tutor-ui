@@ -1,0 +1,95 @@
+<div class="section">
+    <div class="container">
+        <div class="section-main">
+            <div class="section-left">
+                <div class="address-area">
+                    <div class="address-title">
+                        <h3>Delivery Address</h3>
+                    </div>
+                    <div class="address-main">
+                        <div class="address-icon">
+                            <img src="../../../../assets/images/icon/rok-icon-delivery-location.svg" alt="">
+                        </div>
+                        <div class="address">
+                            <h3>Home:</h3>
+                            <p>{{order?.shippingAddress}}</p>
+                            <p>Phone: {{order?.phoneNo}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-right">
+                <div class="section-right-main">
+                    <div class="date-area">
+                        <div class="date-main">
+                            <div class="date-icon">
+                                <img src="../../../../assets/images/icon/rok-icon-calendar.png" alt="">
+                            </div>
+                            <div class="date-text">
+                                <h3>{{order?.checkoutDate | date}}</h3>
+                                <p>Estimate Delivery Date</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-area">
+                        <div class="order-summery-area">
+                               <div class="order-summery-area-main">
+                                      <div class="order-summery-top">
+                                           <h3>Order Summary</h3>
+                                      </div>
+                                      <div class="order-information-area" *ngFor="let item of order?.orderedItems">
+
+                                            <div class="order" [routerLink]="['/product-details',item?._id]">
+                                                  <div class="product-area">
+                                                       <div class="product-img">
+                                                            <img [src]="item?.image" [alt]="item?.name">
+                                                       </div>
+                                                       <div class="product-info">
+                                                           <a >{{item?.name}}</a>
+                                                           <p>এই পণ্যটি আপনার অর্ডারে পাঠানো হয়েছে।</p>
+                                                         <span class="review-data" style="color: #468CFF; cursor: pointer" (click)="openReviewDialog(item?._id)">Review</span>
+                                                       </div>
+                                                  </div>
+                                                  <div class="price">
+                                                       <h4>Price:<del *ngIf="item?.discountAmount > 0">৳ {{item?.regularPrice  | engBnNum}}</del>৳ {{item?.unitPrice | engBnNum}}</h4>
+                                                  </div>
+                                                  <div class="quantity">
+                                                       <h4>Qty: <span>{{item?.quantity}}</span></h4>
+                                                  </div>
+                                                  <div class="order-total">
+                                                       <h4>৳ {{(item?.unitPrice * item?.quantity) | engBnNum}}</h4>
+                                                  </div>
+                                            </div>
+                                      </div>
+
+                                      <div class="summery-information">
+                                           <div class="summery-info-main">
+                                                 <ul>
+                                                     <li>
+                                                         <span>Total Items:</span>
+                                                         <h4>{{order?.orderedItems.length | engBnNum}} Product(s)</h4>
+                                                     </li>
+                                                     <li>
+                                                         <span>{{order?.orderedItems.length | engBnNum}}  Product(s)</span>
+                                                         <h4>৳ {{order?.subTotal | engBnNum}}</h4>
+                                                     </li>
+                                                     <li>
+                                                        <span>Delivery charge:</span>
+                                                        <h4>৳ {{order?.deliveryCharge | engBnNum}}</h4>
+                                                     </li>
+                                                     <li style="padding-top: 10px; border-top: 1px dashed #ddd;">
+                                                        <span style="font-weight: 600;">Payable Amount:</span>
+                                                        <h4 style="font-weight: 600;">৳ {{(order?.grandTotal) | engBnNum}}</h4>
+                                                     </li>
+                                                 </ul>
+                                           </div>
+                                      </div>
+                               </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="notification-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="page-title">Notifications</h2>
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="filter-tabs">
+          <button
+            *ngFor="let filter of ['all', 'course', 'general', 'circular']"
+            [class.active]="selectedFilter === filter"
+            (click)="onFilterChange(filter)"
+            class="filter-tab"
+          >
+            {{ filter | titlecase }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification List -->
+    <div class="row">
+      <div class="col-12" *ngFor="let notification of notifications">
+        <div class="notification-card" [class.unread]="!isRead(notification)" (click)="markAsRead(notification)">
+          <div class="notification-header">
+            <h3>{{ notification.title }}</h3>
+            <span [class]="'priority-badge priority-' + notification.priority">
+              {{ notification.priority | titlecase }}
+            </span>
+          </div>
+          <p class="notification-message">{{ notification.message }}</p>
+          <div class="notification-meta">
+            <span class="notification-type">{{ notification.type | titlecase }}</span>
+            <span class="notification-date">
+              {{ notification.createdAt | date: 'short' }}
+            </span>
+          </div>
+          <div *ngIf="notification.circularFile" class="circular-section">
+            <button
+              class="btn btn-primary btn-sm"
+              (click)="downloadCircular(notification.circularFile)"
+            >
+              Download Circular
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="notifications.length === 0 && !isLoading">
+      <p>No notifications found</p>
+    </div>
+  </div>
+</div>
+

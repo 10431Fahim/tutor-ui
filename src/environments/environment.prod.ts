@@ -1,0 +1,25 @@
+export const environment = {
+  production: true,
+  name: 'tutorcenter.online',
+  domain: 'tutorcenter.online',
+
+  apiBaseLink: 'https://api.tutorcenter.online',
+  ftpBaseLink: 'https://api.tutorcenter.online',
+  ftpPrefixPath: 'https://api.tutorcenter.online/api/upload/images',
+  // ftpBaseLink: 'https://ftp.tutorcenter.online',
+  // ftpPrefixPath: 'https://ftp.tutorcenter.online/upload/images',
+  ftpPrefix: 'api',
+
+  sslIpnUrl: 'http://tutorcenter.online/api/payment/ssl-ipn',
+  bkashCallbackUrl: 'https://tutorcenter.online/payment/check-bkash-payment',
+  bkashProductCallbackUrl: 'https://tutorcenter.online/payment/check-bkash-product-payment',
+  videoBaseLink: 'https://api.tutorcenter.online/api/bucket/file-stream/',
+  appBaseUrl: '/',
+  userBaseUrl: 'account',
+  userLoginUrl: 'login',
+  userProfileUrl: '/my-profile',
+  storageSecret: 'SOFT_2021_IT_1998',
+  userTokenSecret: 'SOFT_ADMIN_1996_&&_SOBUR_dEv',
+  apiTokenSecret: 'SOFT_API_1998_&&_SAZIB_dEv',
+  VERSION: 2,
+};

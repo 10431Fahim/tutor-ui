@@ -1,0 +1,175 @@
+<div class="section">
+  <div class="container">
+    <div class="section-main">
+      <div class="section-left">
+<!--        <div class="pdf-read-btn">-->
+<!--          <button (click)="viewPdf()">একটু পড়ে দেখুন</button>-->
+<!--          <img src="./assets/images/brand/icon/right_arrow.svg" alt="">-->
+<!--        </div>-->
+<!--        (click)="viewPdf()"-->
+        <div class="product-image-box">
+          <img  style="cursor: pointer;"
+            [src]="product?.images && product?.images.length ? product?.images[0]:'./assets/images/placeholder/test.png'"
+            alt="">
+        </div>
+      </div>
+      <div class="section-middle">
+        <div class="product-title">
+          <h3>{{product?.name}} <span *ngIf="product?.currentVersion">({{product?.currentVersion}})</span></h3>
+          <h4 *ngIf="product?.tagline">[{{product?.tagline}}]</h4>
+<!--          <p >লেখক: <a  *ngFor="let data of product?.author.slice(0,2); let i=index" [routerLink]="'/author-list/author-details/' + data?._id">{{data?.name}} <span *ngIf="i < product?.author.slice(0,2).length -1">,</span></a ></p>-->
+          <p *ngIf="product?.author?.name">লেখক: <a>{{product?.author?.name}}</a ></p>
+          <p>ক্যাটাগরি:<a [routerLink]="['/shop']"
+              [queryParams]="{categories:product?.category.slug}">{{product?.category?.name}}</a></p>
+<!--          <p>ক্যাটাগরি:<a>{{product?.subCategory?.name}}</a></p>-->
+        </div>
+        <div class="product-rating">
+<!--          <ul>-->
+<!--            <li><i class="fa fa-star"></i></li>-->
+<!--            <li><i class="fa fa-star"></i></li>-->
+<!--            <li><i class="fa fa-star"></i></li>-->
+<!--            <li><i class="fa fa-star"></i></li>-->
+<!--            <li><i class="fa fa-star"></i></li>-->
+<!--            <li style="margin-right: 2px;">1 Rating </li>-->
+<!--            <li>No Review</li>-->
+<!--          </ul>-->
+
+
+          <ul *ngIf="ratingCalculation">
+            <li style="
+                    margin-right: 5px;
+                    text-decoration: underline;
+                    font-size: 16px;
+                  ">
+              {{ ratingCalculation ? ratingCalculation.toFixed(1) : '0.0' }}
+            </li>
+            <li><i
+              [class]="(ratingCalculation == 0) ? 'far fa-star' : (ratingCalculation > 0 && ratingCalculation < 1) ? 'fas fa-star-half-alt' : 'fas fa-star'"></i>
+            </li>
+            <li><i
+              [class]="(ratingCalculation > 1 && ratingCalculation < 2) ? 'fas fa-star-half-alt' : (ratingCalculation >= 2) ? 'fas fa-star' : 'far fa-star'"></i>
+            </li>
+            <li><i
+              [class]="(ratingCalculation > 2 && ratingCalculation < 3) ? 'fas fa-star-half-alt' : (ratingCalculation >= 3) ? 'fas fa-star' : 'far fa-star'"></i>
+            </li>
+            <li><i
+              [class]="(ratingCalculation > 3 && ratingCalculation < 4) ? 'fas fa-star-half-alt' : (ratingCalculation >= 4) ? 'fas fa-star' : 'far fa-star'"></i>
+            </li>
+            <li><i
+              [class]="(ratingCalculation > 4 && ratingCalculation < 5) ? 'fas fa-star-half-alt' : (ratingCalculation >= 5) ? 'fas fa-star' : 'far fa-star'"></i>
+            </li>
+            <!--                <li>-->
+            <!--                  <span><i class="fa fa-star"></i></span>-->
+            <!--                </li>-->
+          </ul>
+        </div>
+
+        <div class="product-price">
+          <h3><del *ngIf="product?.discountAmount">৳ {{product?.salePrice | engBnNum}}</del>৳ {{product | price : 'salePrice' |
+            engBnNum}}
+
+            </h3>
+        </div>
+        <div class="stock" *ngIf="product?.quantity">
+          <span class="save" *ngIf="product?.discountAmount">You Save ৳
+            {{product | price: "discountAmount"  | number : "2.2" | engBnNum}}</span>
+
+<!--          <span class="save" *ngIf="product?.discountAmount && product?.discountType == 1">You Save-->
+<!--            {{product?.discountAmount | engBnNum}}%</span>-->
+<!--          -->
+<!--          <span class="save" *ngIf="product?.discountAmount && product?.discountType == 2">You Save-->
+<!--            {{product?.discountAmount | engBnNum}}TK</span>-->
+
+          <h5><i class="fa fa-check-circle"></i>In Stock <span *ngIf="product?.quantity < 20">(only {{product?.quantity}} copies left)</span> <span style="color: #0da323" *ngIf="product?.quantity > 20">({{product?.quantity}} copies available)</span></h5>
+
+          <span>স্টক আউট হওয়ার আগেই অর্ডার করুন</span>
+        </div>
+        <div class="stock-out" *ngIf="!product?.quantity">
+          <h5><i class="fa fa-check-circle"></i>Out of Stock </h5>
+        </div>
+
+        <div class="product-action-btn">
+          <ul>
+            <li *ngIf="product?.quantity > 0"><button (click)="onAddToCartAndRedirect($event)">অর্ডার করুন</button></li>
+            <li *ngIf="product?.quantity > 0"><button class="active" (click)="onAddToCart($event)">{{cart ? 'ক্রয় তালিকা দেখুন'
+                : 'ক্রয় তালিকায় রাখুন'}}</button></li>
+<!--            <li *ngIf="product?.quantity === 0"><button class="stock">স্টক আউট</button></li>-->
+          </ul>
+        </div>
+        <div class="product-other-info">
+          <ul>
+            <li (click)="onAddToWishList($event)" style="cursor: pointer;"
+              [class]="wishlist?.product?._id === product?._id ? 'active':''"><i class="fa fa-heart"></i>{{wishlist ? 'AddedWishlist' : 'Add To Wishlist'}}</li>
+
+
+<!--            <li style="cursor: pointer;"><i class="fa fa-gift"></i> উপহার তালিকায় যুক্ত করুন</li>-->
+
+<!--            <li (click)="addToCompareList($event, product)" style="cursor: pointer;"> <i-->
+<!--                class="fa-solid fa-code-compare"></i>তুলনা করুন</li>-->
+            <li (click)="onDialogOpen()" style="cursor: pointer;"><i class="fa fa-share"></i> শেয়ার করুন</li>
+
+
+          </ul>
+
+          <div class="cash-on-delivery-area">
+
+            <ul>
+
+
+              <li>
+                <div>
+                  <img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-cod.svg" alt="">
+                </div>
+                <div>
+                  <h3>ক্যাশ অন ডেলিভারি </h3>
+                  <span>(১-৩ দিন সময় লাগতে পারে)</span>
+                </div>
+              </li>
+
+              <li>
+                <div>
+                  <img src="https://www.rokomari.com/static/200/images/svg/icons/rok-icon-happy-return.svg" alt="">
+                </div>
+                <div>
+                  <h3>৩ দিনের মধ্যে পরিবর্তনের সুযোগ!</h3>
+                  <span>(কেবল ক্রটি থাকা সাপেক্ষে ফেরত প্রযোজ্য)</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="product-video" *ngIf="product?.videoUrl">
+          <h3>রিভিউ</h3>
+          <iframe width="100%" [src]="product?.videoUrl | safeUrl" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="section-right">
+        <div class="section-right-title">
+          <h3> ক্যাটাগরির জনপ্রিয় কিছু আইটেম</h3>
+        </div>
+        <div class="section-right-main">
+          <div class="related-item" *ngFor="let data of relatedProducts | slice : 0 : 4"
+            [routerLink]="['/product-details',data?._id]">
+            <div class="related-item-img">
+              <img [src]="data?.images && data?.images?.length ? data?.images[0] : ''" alt="">
+            </div>
+            <div class="related-item-body">
+              <a>{{data?.name}}</a>
+              <span *ngIf="data?.author">{{data?.author}}</span>
+<!--              <ul>-->
+<!--                <li><i class="fa fa-star"></i></li>-->
+<!--                <li><i class="fa fa-star"></i></li>-->
+<!--                <li><i class="fa fa-star"></i></li>-->
+<!--                <li><i class="fa fa-star"></i></li>-->
+<!--                <li><i class="fa fa-star"></i></li>-->
+<!--              </ul>-->
+              <h3><del *ngIf="data?.discountAmount">TK {{data?.salePrice | engBnNum}}</del> TK {{data | price:"salePrice" | engBnNum}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

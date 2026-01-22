@@ -1,0 +1,217 @@
+@import "variables";
+@import "exports/view-all-btn";
+@import "exports/super-btn";
+
+.section {
+  display: block;
+  width: 100%;
+  background-image: url('https://ftp.tutorcenter.online/upload/images/banner-26c3.webp?resolution=1920_1282');
+  background-size: cover;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 70px 20px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  .section-title {
+    display: block;
+    margin-bottom: 70px;
+
+    h3 {
+      color: $color-white;
+      font-family: $font-en-poppins, $font-en-exo;
+      font-style: normal;
+      font-weight: 600;
+      font-size: $font-title-size - 3px;
+      line-height: normal;
+      margin-bottom: 10px !important;
+    }
+
+    p {
+      color: $color-white;
+      font-family: $font-en-poppins, $font-en-exo;
+      font-style: normal;
+      font-weight: 400;
+      font-size: $font-dis-size;
+      display: block;
+      line-height: normal;
+
+      a {
+        display: inline-block;
+        color: $color-primary;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .section-main {
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+
+      .card-img {
+        width: 100%;
+
+        img {
+          width: 100%;
+          //height: auto;
+          height: 155px;
+          object-fit: cover;
+        }
+
+        .course-title {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background-color: #F3F500;
+          padding: 5px 10px;
+          border-radius: 5px;
+          width: 100%;
+          transition: all 0.3s ease;
+          z-index: 11;
+
+          h3 {
+            margin: 0 !important;
+            text-align: center;
+            color: $color-black;
+            font-family: $font-en-poppins;
+            font-size: 14px;
+            line-height: 19px;
+            display: block;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+          }
+
+        }
+
+        .live {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          span {
+            background-color: #EB1C24;
+            color: $color-white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 5px;
+            padding: 4px;
+            max-width: 80px;
+            width: 100%;
+            font-family: $font-en-poppins;
+            font-size: 13px;
+            line-height: 14px;
+          }
+        }
+
+      }
+
+      .card-body {
+        position: absolute;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.20) 0%, #000 100%);
+        top: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: column;
+        z-index: 10;
+
+        .price {
+          margin-bottom: 5px;
+
+          h3 {
+            color: #1CEB31;
+            text-align: center;
+            font-family: $font-en-poppins;
+            font-size: $font-dis-size+1px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0 !important;
+
+            del {
+              color: #EB1C24;
+              font-size: 14px;
+              display: inline-block;
+              margin-right: 5px;
+            }
+          }
+        }
+
+        .promo-code {
+          span {
+            color: $color-white;
+            font-family: $font-en-poppins;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            display: block;
+            margin-bottom: 8px;
+          }
+
+          h4 {
+            color: $color-white;
+            text-align: center;
+            font-family: $font-en-poppins;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal
+          }
+        }
+      }
+
+      &:hover {
+        .card-body {
+          visibility: visible;
+          opacity: 1;
+
+        }
+
+        .card-img {
+          .course-title {
+            background-color: transparent;
+            bottom: 50px;
+
+            h3 {
+              color: $color-white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 770px) {
+  .section {
+    padding: 40px 15px;
+
+    .section-title {
+      margin-bottom: 40px;
+
+      h3 {
+        font-size: $font-title-md-size + 5px;
+        line-height: 27px;
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+}

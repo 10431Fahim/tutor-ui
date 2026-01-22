@@ -1,0 +1,24 @@
+<div class="section">
+  <div class="container">
+    <div class="title-area">
+    </div>
+    <div class="section-main">
+      <ng-container *ngIf="isLoadingNotice">
+        <app-blog-loader *ngFor="let data of [].constructor(7)"></app-blog-loader>
+      </ng-container>
+      <ng-container *ngIf="!isLoadingNotice">
+        <div class="blog"
+             *ngFor="let data of  notices | paginate: { itemsPerPage: productsPerPage, currentPage: currentPage, totalItems: totalProducts }">
+          <app-notice-card-one [data]="data"></app-notice-card-one>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="pagination-container" style="display: block; margin-top: 20px; display: flex; justify-content: center;">
+      <pagination-controls class="data-pagination" [autoHide]="true" [maxSize]="15"
+                           (pageChange)="onPageChanged($event)">
+      </pagination-controls>
+    </div>
+
+  </div>
+</div>

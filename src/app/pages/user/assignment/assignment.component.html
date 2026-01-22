@@ -1,0 +1,145 @@
+<div class="assignment-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="page-title">Assignments</h2>
+      </div>
+    </div>
+
+    <!-- Course Selection -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="course-selector">
+          <label>Select Course:</label>
+          <select
+            class="form-control"
+            [(ngModel)]="selectedCourseId"
+            (change)="onCourseSelect(selectedCourseId)"
+          >
+            <option value="">-- Select Course --</option>
+            <option *ngFor="let course of enrolledCourses" [value]="course?.orderItem?._id">
+              {{ course?.orderItem?.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assignment List -->
+    <div class="row" *ngIf="selectedCourseId">
+      <div class="col-12 col-md-6" *ngFor="let assignment of assignments">
+        <div class="assignment-card" (click)="viewAssignment(assignment)">
+          <h3>{{ assignment.title }}</h3>
+          <p *ngIf="assignment.description">{{ assignment.description }}</p>
+          <div class="assignment-meta">
+            <span *ngIf="assignment.dueDate">
+              Due: {{ assignment.dueDate | date: 'short' }}
+            </span>
+            <span *ngIf="assignment.maxMarks">Max Marks: {{ assignment.maxMarks }}</span>
+          </div>
+          <div class="assignment-status" *ngIf="submission && submission.assignmentId === assignment._id">
+            <span [class]="'status-' + submission.status">
+              {{ submission.status | titlecase }}
+            </span>
+            <span *ngIf="submission.marksObtained !== undefined">
+              Marks: {{ submission.marksObtained }}/{{ assignment.maxMarks }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assignment Details Modal -->
+    <div class="assignment-details" *ngIf="selectedAssignment" (click)="closeDetails()">
+      <div class="details-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeDetails()">×</button>
+        <h3>{{ selectedAssignment.title }}</h3>
+        <p *ngIf="selectedAssignment.description">{{ selectedAssignment.description }}</p>
+        <div *ngIf="selectedAssignment.instructions">
+          <h4>Instructions:</h4>
+          <p>{{ selectedAssignment.instructions }}</p>
+        </div>
+        <div *ngIf="selectedAssignment.attachmentFiles && selectedAssignment.attachmentFiles.length">
+          <h4>Attachments:</h4>
+          <ul>
+            <li *ngFor="let file of selectedAssignment.attachmentFiles">
+              <a [href]="file" target="_blank">Download</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Submission Form -->
+        <div class="submission-form" *ngIf="!submission || submission.status === 'returned'">
+          <h4>Submit Assignment</h4>
+          <form (ngSubmit)="submitAssignment()">
+            <div class="form-group">
+              <label>Submission Text:</label>
+              <textarea
+                class="form-control"
+                rows="5"
+                name="submissionText"
+                [(ngModel)]="submissionForm.submissionText"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>Upload Files:</label>
+              <input
+                type="file"
+                multiple
+                class="form-control"
+                (change)="onFileSelect($event)"
+              />
+              <small *ngIf="selectedFiles.length > 0">
+                {{ selectedFiles.length }} file(s) selected
+              </small>
+            </div>
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="isSubmitting"
+              >
+                {{ isSubmitting ? 'Submitting...' : 'Submit Assignment' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="closeDetails()"
+              >
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Submission Status -->
+        <div class="submission-status" *ngIf="submission && submission.status !== 'returned'">
+          <h4>Your Submission</h4>
+          <p *ngIf="submission.submissionText">{{ submission.submissionText }}</p>
+          <div *ngIf="submission.submittedFiles && submission.submittedFiles.length">
+            <h5>Submitted Files:</h5>
+            <ul>
+              <li *ngFor="let file of submission.submittedFiles">
+                <a [href]="file" target="_blank">Download</a>
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="submission.marksObtained !== undefined">
+            <p><strong>Marks:</strong> {{ submission.marksObtained }}/{{ selectedAssignment.maxMarks }}</p>
+            <p *ngIf="submission.feedback"><strong>Feedback:</strong> {{ submission.feedback }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!selectedCourseId">
+      <p>Please select a course to view assignments</p>
+    </div>
+
+    <div class="empty-state" *ngIf="selectedCourseId && assignments.length === 0 && !isLoading">
+      <p>No assignments found for this course</p>
+    </div>
+  </div>
+</div>
+

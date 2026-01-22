@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="section">
+    <h1>ঘরে বসে পড়াশোনার সহজ সমাধান</h1>
+    <div class="section-detail">
+      <mat-label>মোবাইল নাম্বার/ইমেইল {{phoneNo}}</mat-label>
+      <mat-form-field appearance="outline" style=" margin-bottom: -1.25em">
+        <input digitOnly [disabled]="sentOtp" matInput placeholder="01XXXXXXXXX" [(ngModel)]="phoneNo">
+        <mat-icon *ngIf="sentOtp" (click)="onChangePhoneNo()" matSuffix style="font-size: 21px; cursor: pointer;" matTooltip="Change Phone Number?">
+          mode_edit
+        </mat-icon>
+      </mat-form-field>
+
+      <div class="otp-view" *ngIf="sentOtp">
+        <app-otp-verification [phoneNo]="phoneNo" (onEnterOtp)="onEnterOtp($event)"></app-otp-verification>
+      </div>
+      <div class="view-all-btn">
+        <button *ngIf="!isLoading" class="login-button" (click)="onSubmitData()">এগিয়ে যান
+          <mat-icon>arrow_right_alt</mat-icon>
+        </button>
+        <button *ngIf="isLoading" class="login-button" (click)="onSubmitData()" style="display: grid; place-items: center; background: #0370a4; cursor: not-allowed">
+          <div> <span class="loader"></span> </div>
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>

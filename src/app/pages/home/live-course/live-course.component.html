@@ -1,0 +1,91 @@
+<div class="section">
+  <div class="container">
+    <div class="section-title wow animate__fadeInUp">
+      <h3>লাইভ কোর্স সমূহ</h3>
+      <p>তোমার পরীক্ষার প্রস্তুতিকে পরিপূর্ণ করতে ভর্তি হয়ে যাও মিশন হ্যাকার্স বাংলাদেশের লাইভ কোর্সে!</p>
+    </div>
+    <div class="section-main">
+
+      <swiper [slidesPerView]="1.6" [spaceBetween]="15" [navigation]="false"
+              [autoplay]="true"
+              [breakpoints]="{
+                        '400': {
+                            slidesPerView: 2
+                        },
+                        '500': {
+                              slidesPerView: 2.5
+                        },
+                        '600': {
+                          slidesPerView: 3
+                       },
+                       '700': {
+                        slidesPerView: 3.5,
+                        spaceBetween:20
+                      },
+                        '800': {
+                          slidesPerView:4,
+                          spaceBetween:22
+                      },
+                        '920': {
+                          slidesPerView: 4.5,
+                          spaceBetween:25
+                      },
+
+                      '1060': {
+                            slidesPerView: 5,
+                            spaceBetween:25
+                      },
+                      '1200': {
+                              slidesPerView: 6,
+                              spaceBetween:30
+                         }
+                        }"
+              class="mySwiper">
+        <ng-template swiperSlide *ngFor="let data of courses">
+          <div class="card wow animate__fadeInUp" [routerLink]="['/course-details',data?._id]">
+            <div class="card-img">
+              <img
+                [ngSrc]="data?.bannerImage | imgCtrl : 'filename'"
+                [ngSrcset]="rawSrcset"
+                [width]="data?.bannerImage | imgCtrl : 'width'"
+                [height]="data?.bannerImage | imgCtrl : 'height'"
+                sizes="(max-width: 768px) 100vw, 25vw"
+                alt="">
+              <div class="course-title">
+                <h3>{{ data?.name }}</h3>
+              </div>
+              <div class="live">
+                <span><fa-icon [icon]="faVideoCamera"></fa-icon> Live</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="price">
+                <h3>
+                  <del *ngIf="checkDiscount(data)">
+                    {{ (data | price : "regularPrice" : data?.isMultiplePrice ? data?.prices[0] : null) | number: '' : 'bn' }} ৳
+                  </del>
+                  {{ (data | price : "salePrice" : data?.isMultiplePrice ? data?.prices[0] : null) | number: '' : 'bn' }}৳
+                </h3>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+
+      </swiper>
+    </div>
+
+    <div class="view-all-btn">
+<!--      <button routerLink="/courses" [queryParams]="{type: 'live-course'}">আরো দেখুন</button>-->
+      <div class="super-btn" routerLink="/courses" [queryParams]="{type: 'live-course'}">
+        <button class="btn-76">
+          আরো দেখুন
+          <span class="top"></span>
+          <span class="right"></span>
+          <span class="bottom"></span>
+          <span class="left"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

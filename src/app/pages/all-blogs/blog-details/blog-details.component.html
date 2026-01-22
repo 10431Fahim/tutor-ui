@@ -1,0 +1,21 @@
+<div class="main-container" *ngIf="!isLoading">
+    <div class="top-section">
+        <div class="title">
+            <h1>{{ blog?.name}}</h1>
+        </div>
+        <div class="date">
+
+            <fa-icon [icon]="faCalender"></fa-icon>
+            <span>{{blog?.createdAt | date}}</span>
+        </div>
+    </div>
+
+    <div class="bottom-section">
+        <img [src]="blog?.image" [alt]="blog?.name">
+        <p class="description" [innerHTML]="blog?.description | safeHtmlCustom"></p>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-blog-details-loader></app-blog-details-loader>
+</div>

@@ -1,0 +1,41 @@
+<div class="kids-book" *ngIf="products && products.length && endPoint > 0">
+  <div class="container">
+    <div class="kids-book-contents">
+      <div class="title-area">
+        <h1>আমাদের আরো কিছু প্রোডাক্ট</h1>
+      </div>
+      <div class="kids-book-main carousel">
+        <swiper [slidesPerView]="1" [spaceBetween]="10" [autoplay]="true" [navigation]="true" [breakpoints]="{
+                    '0': {
+                        slidesPerView: 2,
+                        spaceBetween:10
+                    },
+                    '450': {
+                        slidesPerView: 3
+                    },
+                    '600': {
+                        slidesPerView: 4
+                    },
+                    '768': {
+                        slidesPerView: 5
+                    },
+                    '1000': {
+                        slidesPerView: 6
+                    },
+                    '1200': {
+                        slidesPerView: 8
+                    }
+                    }" class="mySwiper">
+          <ng-template swiperSlide *ngFor="let data of products | slice:0:endPoint">
+            <app-product-card-two [data]="data"></app-product-card-two>
+          </ng-template>
+        </swiper>
+      </div>
+      <div class="see-more-btn" routerLink="/product-list">
+        <div class="read-more">
+          <a>আরও দেখুন</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!--END-->

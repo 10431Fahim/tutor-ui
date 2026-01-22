@@ -1,0 +1,129 @@
+<!--<div *ngIf="isLoading === true">-->
+<!--  <app-carousel-loader [type]="'pc'"></app-carousel-loader>-->
+<!--</div>-->
+<!--[style.display]="isLoading === false ? 'block' : 'none'"-->
+<ng-container>
+  <div >
+    <div class="banner">
+      <div class="container" (outsideClick)="handleOutsideClick()" (click)="onClickHeader()">
+<!--        <div class="banner-title">-->
+<!--          <h3>{{banners[0]?.name}}</h3>-->
+<!--        </div>-->
+        <div class="banner-main carousel">
+          <div class="banner-left-area">
+            <div class="banner-left-title">
+              <h3>{{ carousels[activeBannerIndex]?.name }}</h3>
+              <p>{{ carousels[activeBannerIndex]?.description }}</p>
+            </div>
+            <div class="search-area">
+              <div class="search-main">
+                <div class="search-cat">
+                  <button [matMenuTriggerFor]="menu">
+                    {{ selectedCategory ? selectedCategory?.name : "Category" }}
+                    <fa-icon [icon]="faAngleDown"></fa-icon>
+                  </button>
+                </div>
+                <div class="search-box">
+                  <div class="search-input">
+                    <form #searchForm="ngForm">
+                      <input
+                        #searchInput
+                        id="searchInput"
+                        class="tw"
+                        type="text"
+                        placeholder="সার্চ করুন আপনার পছন্দের কোর্স..."
+                        (focus)="handleFocus($event)"
+                        (blur)="handleBlur()"
+                        name="searchTerm"
+                        autocomplete="off"
+                        ngModel
+                        required
+                        (keydown.enter)="onSearchNavigate()"
+                      />
+                    </form>
+                  </div>
+                  <div class="search-btn">
+                    <button (click)="onSearchNavigate()">
+                      <img src="./assets/images/brand/icon/search_icon_client_color.svg" alt=""/>
+                    </button>
+                  </div>
+                </div>
+
+                <ul
+                  id="auto-suggestion"
+                  class="auto-complete-box"
+                  [ngClass]="searchProducts?.length > 0 && isOpen ? 'active' : ''">
+                  <ng-container *ngFor="let data of searchProducts">
+                    <li class="list-view" (click)="onSelectItem(data)">
+                      <div class="search-result-left">
+                        <div class="result-product-img">
+                          <img class="img-thumb" [src]="data?.bannerImage? data?.bannerImage: '/assets/images/placeholder/test.png'" alt=""/>
+                        </div>
+                        <div class="desc">
+                          <h3>{{ data?.name }}</h3>
+                        </div>
+                      </div>
+                    </li>
+                  </ng-container>
+                </ul>
+                <ul
+                  id="auto-suggestion-2"
+                  class="auto-complete-box"
+                  [ngClass]="searchProducts?.length == 0 && isOpen ? 'active' : ''">
+                  <li class="list-view">
+                    <div class="search-result-left">
+                      <div class="desc">
+                        <h3>Not Found</h3>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="banner-right">
+            <swiper
+              [slidesPerView]="1"
+              [pagination]="{
+                clickable: true
+              }"
+              [spaceBetween]="20"
+              [loop]="false"
+              [autoplay]="true"
+              [navigation]="false"
+              (slideChange)="onCarouselSlideChange($event)"
+              class="mySwiper"
+            >
+              <ng-template swiperSlide *ngFor="let data of carousels; let i = index">
+                <a class="banner-img" [href]="data?.url" >
+                  <img [src]="data?.image" alt="">
+<!--                  <img-->
+<!--                    [ngSrc]="data?.image | imgCtrl : 'filename'"-->
+<!--                    [ngSrcset]="rawSrcset"-->
+<!--                    [width]="data?.image | imgCtrl : 'width'"-->
+<!--                    [height]="data?.image | imgCtrl : 'height'"-->
+<!--                    sizes="(max-width: 768px) 100vw, 50vw"-->
+<!--                    alt=""-->
+<!--                  />-->
+                </a>
+              </ng-template>
+            </swiper>
+          </div>
+        </div>
+      </div>
+<!--      <div id="particles-js"></div>-->
+      <div id="particles-js"></div>
+    </div>
+
+    <mat-menu #menu="matMenu">
+      <button
+        mat-menu-item
+        (click)="onSelectCategory(c)"
+        *ngFor="let c of categories"
+      >
+        {{ c?.name }}
+      </button>
+    </mat-menu>
+  </div>
+</ng-container>

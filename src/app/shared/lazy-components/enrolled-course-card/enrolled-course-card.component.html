@@ -1,0 +1,12 @@
+<div class="courses-card" [id]="data?._id" [routerLink]="['/', 'course-play-list', data._id]">
+    <div class="courses-img">
+        <img [src]="data?.image" [alt]="data?.title">
+    </div>
+    <div class="courses-details">
+        <h3 class="courses-name">{{data?.title}}</h3>
+        <div class="buy-courses">
+          <mat-progress-bar class="c-progress" mode="determinate" value="40" matTooltip="Progress 40%"></mat-progress-bar>
+        </div>
+
+    </div>
+</div>

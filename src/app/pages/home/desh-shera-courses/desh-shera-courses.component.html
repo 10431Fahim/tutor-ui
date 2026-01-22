@@ -1,0 +1,22 @@
+<div class="section" *ngIf="courses && courses.length">
+  <div class="container">
+    <div class="section-title-area  wow animate__backInLeft">
+      <h3>স্কিল ডেভেলপমেন্ট কোর্সসমূহ</h3>
+    </div>
+    <div class="section-main  wow animate__backInUp">
+      <app-product-card-one [data]="data" *ngFor="let data of courses"></app-product-card-one>
+    </div>
+    <div class="view-all-btn">
+<!--      <button routerLink="/courses" [queryParams]="{tag: 'skill-development'}"> আরো দেখুন </button>-->
+      <div class="super-btn"  routerLink="/courses" [queryParams]="{tag: 'skill-development'}">
+        <button class="btn-76">
+          আরো দেখুন
+          <span class="top"></span>
+          <span class="right"></span>
+          <span class="bottom"></span>
+          <span class="left"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

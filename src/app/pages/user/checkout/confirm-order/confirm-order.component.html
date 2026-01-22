@@ -1,0 +1,23 @@
+<!---confirm-area-->
+<div class="confirm-area" *ngIf="isOrdered">
+  <div class="confirm-main">
+    <div class="confirm-info">
+      <div class="confirm-check">
+        <span><i class="fa fa-check"></i></span>
+      </div>
+      <div class="confirm-text">
+        <h3>Success</h3>
+        <p>Your order (#{{orderId}}) has been confirmed.</p>
+        <p>Check your mail for details</p>
+      </div>
+    </div>
+    <div class="confirm-btn-area">
+      <ul>
+        <li>
+          <button class="active-track" routerLink="/my-order" (click)="onHidePop()">View Order</button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

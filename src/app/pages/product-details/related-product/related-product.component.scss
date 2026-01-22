@@ -1,0 +1,91 @@
+@import "src/theme/swipper";
+@import "src/theme/variables";
+.container{
+  max-width: 1300px;
+  padding: 0px;
+}
+.kids-book {
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  padding: 0px 15px;
+}
+.kids-book-contents{
+  position: relative;
+  // background: $color-white-secondary;
+  background-color: $color-white;
+  padding: 0px 15px 10px 15px;
+  border-radius: 15px;
+}
+
+.title-area{
+  display: block;
+  padding-top: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.title-area h1{
+  color: $color-primary;
+  font-family: $font-bn-primary;
+  font-style: normal;
+  font-weight:600;
+  font-size: $font-title-size;
+  display: block;
+  line-height: 50px;
+}
+
+
+.see-more-btn{
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.read-more{
+  position: absolute;
+  //top: 10px;
+  left: 80%;
+}
+.read-more a{
+  color: $button-color-white;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  gap: 5px;
+  font-family: $font-en-primary;
+  text-transform: capitalize;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s linear;
+  background-color: $button-color;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  max-width: 130px;
+  width: 100%;
+  bottom: -15px;
+  left: 20px;
+  text-align: center;
+  border-radius: 20px;
+}
+.read-more a i{
+  font-size: 13px;
+  position: relative;
+  transition: all 0.3s linear;
+  left: 0px;
+}
+.read-more a:hover i{
+  left: 5px;
+}
+
+
+@media(max-width:768px){
+  .title-area h1{
+    font-size: 25px;
+    line-height: 30px;
+  }
+}
+
+@media(max-width:540px){
+  .read-more{
+    left: 70%;
+  }
+}

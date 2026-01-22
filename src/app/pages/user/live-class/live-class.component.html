@@ -1,0 +1,93 @@
+<div class="live-class-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="page-title">Live Classes</h2>
+      </div>
+    </div>
+
+    <!-- Course Selection -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="course-selector">
+          <label>Select Course:</label>
+          <select
+            class="form-control"
+            [(ngModel)]="selectedCourseId"
+            (change)="onCourseSelect(selectedCourseId)"
+          >
+            <option value="">-- Select Course --</option>
+            <option *ngFor="let course of enrolledCourses" [value]="course?.orderItem?._id">
+              {{ course?.orderItem?.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Class List -->
+    <div class="row" *ngIf="selectedCourseId">
+      <div class="col-12 col-md-6" *ngFor="let liveClass of liveClasses">
+        <div class="live-class-card">
+          <div class="class-header">
+            <h3>{{ liveClass.title }}</h3>
+            <span [class]="'status-badge status-' + liveClass.status">
+              {{ liveClass.status | titlecase }}
+            </span>
+          </div>
+          <p *ngIf="liveClass.description">{{ liveClass.description }}</p>
+          <div class="class-meta">
+            <div class="meta-item">
+              <strong>Platform:</strong> {{ liveClass.platform | titlecase }}
+            </div>
+            <div class="meta-item">
+              <strong>Scheduled:</strong>
+              {{ liveClass.scheduledDateTime | date: 'short' }}
+            </div>
+            <div class="meta-item" *ngIf="liveClass.duration">
+              <strong>Duration:</strong> {{ liveClass.duration }} minutes
+            </div>
+          </div>
+          <div class="class-actions">
+            <button
+              *ngIf="isLive(liveClass.scheduledDateTime, liveClass.status)"
+              class="btn btn-primary"
+              (click)="joinLiveClass(liveClass)"
+            >
+              Join Live Class
+            </button>
+            <button
+              *ngIf="isUpcoming(liveClass.scheduledDateTime)"
+              class="btn btn-secondary"
+              disabled
+            >
+              Upcoming
+            </button>
+            <button
+              *ngIf="liveClass.recordedClassUrl && liveClass.status === 'completed'"
+              class="btn btn-success"
+              (click)="viewRecordedClass(liveClass.recordedClassUrl)"
+            >
+              View Recording
+            </button>
+          </div>
+          <div *ngIf="liveClass.meetingPassword" class="meeting-info">
+            <small><strong>Meeting Password:</strong> {{ liveClass.meetingPassword }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!selectedCourseId">
+      <p>Please select a course to view live classes</p>
+    </div>
+
+    <div class="empty-state" *ngIf="selectedCourseId && liveClasses.length === 0 && !isLoading">
+      <p>No live classes found for this course</p>
+    </div>
+  </div>
+</div>
+
+
+

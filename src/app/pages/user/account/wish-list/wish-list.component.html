@@ -1,0 +1,37 @@
+<div class="section">
+    <div class="container">
+      <div class="section-main">
+        <div class="section-top">
+          <h3>My Wishlist</h3>
+          <p>You have {{wishlists?.length}} product(s) in your wishlist</p>
+        </div>
+        <div class="wishlist-area">
+          <div class="wishlist-product" *ngFor="let data of wishlists; let i = index">
+            <div class="wishlist-main">
+              <div class="produt-area" [routerLink]="['/product-details',data?.product?._id]">
+                <div class="produc-img">
+                  <img [src]="data?.product?.images && data?.product?.images?.length ? data?.product?.images[0]:''"
+                       [alt]="data?.name">
+                </div>
+                <div class="product-info">
+                  <h4>{{data?.product?.name}}</h4>
+                  <!--                                   <span>{{data?.product?.author[0]?.name}}</span>-->
+                  <h5><del>৳ {{data?.product?.salePrice}}</del> ৳ {{ (data?.product | price : "salePrice" | number : "" : "bn") }} </h5>
+                  <!--                                   <span>২ Ratings |</span>-->
+                </div>
+              </div>
+              <div class="buy" >
+                <!--                        <i class="fas fa-shopping-cart"></i>-->
+                <!--                        <button (click)="onAddToCart(data)">Add to Cart</button>-->
+                <button (click)="onAddToCartAndRedirect(wishlists)">অর্ডার করুন</button>
+              </div>
+
+              <div class="delete">
+                <span (click)="removeWishlistById(data?._id)"><i class="fa fa-trash"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

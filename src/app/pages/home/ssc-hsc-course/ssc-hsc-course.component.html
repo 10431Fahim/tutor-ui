@@ -1,0 +1,25 @@
+<div class="section" *ngIf="courses && courses.length">
+  <div class="container">
+    <div class="section-title-area  wow animate__backInLeft">
+      <h3>
+        দেখে নাও তোমার প্ৰয়োজনীয় ক্লাস একদম <b>ফ্রি !</b>
+        <img src="./assets/images/temp/png/header-img2.png" alt="Tutorcenter">
+      </h3>
+    </div>
+    <div class="section-main  wow animate__backInUp">
+      <app-product-card-one [data]="data" *ngFor="let data of courses"></app-product-card-one>
+    </div>
+    <div class="view-all-btn">
+<!--      <button routerLink="/courses" [queryParams]="{tag: 'important-free-class'}"> আপনার ক্লাস বেছে নিন</button>-->
+      <div class="super-btn" routerLink="/courses" [queryParams]="{tag: 'important-free-class'}">
+        <button class="btn-76">
+          আপনার ক্লাস বেছে নিন
+          <span class="top"></span>
+          <span class="right"></span>
+          <span class="bottom"></span>
+          <span class="left"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

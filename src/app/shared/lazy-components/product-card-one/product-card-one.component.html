@@ -1,0 +1,46 @@
+<div class="card" [routerLink]="['/course-details',data?._id]">
+  <div class="card-img">
+<!--    <img-->
+<!--      [ngSrc]="data?.bannerImage | imgCtrl : 'filename'"-->
+<!--      [ngSrcset]="rawSrcset"-->
+<!--      [width]="data?.bannerImage | imgCtrl : 'width'"-->
+<!--      [height]="data?.bannerImage | imgCtrl : 'height'"-->
+<!--      sizes="(max-width: 768px) 100vw, 25vw"-->
+<!--      alt=""-->
+<!--    >-->
+    <img [src]="data?.bannerImage" alt="">
+    <div class="tag">
+      <span class="popular-tag" *ngIf="data?.totalSold && data?.totalSold > 50">POPULAR</span>
+      <span class="new-tag" *ngIf="!data?.totalSold || data?.totalSold <= 50">NEW</span>
+    </div>
+  </div>
+  <div class="card-text">
+    <div class="div-name">
+      <h3>{{ data?.name }}</h3>
+    </div>
+    <div class="instructor-section" *ngIf="data?.instructor && data?.instructor.length > 0">
+      <div class="instructor-list">
+        <div class="instructor-item">
+          <div class="instructor-avatar" *ngIf="data?.instructor[0]?.image">
+            <img [src]="data?.instructor[0]?.image" [alt]="data?.instructor[0]?.name" />
+          </div>
+          <div class="instructor-avatar-placeholder" *ngIf="!data?.instructor[0]?.image">
+            <span>{{ data?.instructor[0]?.name?.charAt(0) || '?' }}</span>
+          </div>
+          <span class="instructor-name-text">{{ data?.instructor[0]?.name }}</span>
+        </div>
+        <span class="instructor-more" *ngIf="data?.instructor.length > 1">+{{ data?.instructor.length - 1 }}</span>
+      </div>
+    </div>
+    <div class="price-area">
+      <div class="view-details">
+        <a class="custom-button">
+          বিস্তারিত
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

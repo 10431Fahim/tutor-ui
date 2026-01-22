@@ -1,0 +1,38 @@
+
+<div class="container" *ngIf="hasPreview">
+  <div class="img-thumb">
+    <img [src]="order?.orderItem?.image" alt="">
+  </div>
+
+  <div class="tag">
+    <span>{{order?.orderType}}</span>
+  </div>
+
+  <div class="info">
+    <h2><a [routerLink]="['/', 'course-details', order?.orderItem?._id]">{{order?.orderItem?.name}}</a></h2>
+    <p>{{order?.orderItem?.category?.name}}</p>
+    <p>{{order?.orderItem?.subCategory?.name}}</p>
+  </div>
+
+  <div class="payment-info">
+    <h4>Course Price: {{order?.grandTotal}}</h4>
+    <div class="partial" *ngIf="order?.isPartialPaymentOrder">
+      <h5>Partial Payable Amount: {{order?.partialAmount}}</h5>
+      <h5>Due Amount: {{order?.grandTotal - order?.partialAmount}}</h5>
+    </div>
+    <div class="partial" *ngIf="order?.isFreeOrder">
+      <h5>Payable Amount: {{order?.partialAmount}}</h5>
+    </div>
+  </div>
+
+  <div class="action">
+    <button [disabled]="isLoading" mat-raised-button color="primary" (click)="onBuyCourse()">
+      {{ isLoading ? 'অপেক্ষা করুন' : 'কোর্সটি শুরু করুন' }}
+      <mat-icon>arrow_right_alt</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="no-preview" *ngIf="!hasPreview">
+  <h3>Not Found</h3>
+</div>

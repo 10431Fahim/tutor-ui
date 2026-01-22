@@ -1,0 +1,112 @@
+<div class="support-center-container">
+  <div class="container">
+    <h1>Support Center</h1>
+
+    <div class="support-content">
+      <!-- Ticket Form -->
+      <div class="ticket-form-section">
+        <h2>Create Support Ticket</h2>
+        <form [formGroup]="ticketForm" (ngSubmit)="submitTicket()">
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Phone/Email</mat-label>
+              <input matInput formControlName="phone" required />
+              <mat-error *ngIf="ticketForm.get('phone')?.hasError('required')">
+                Phone/Email is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Category</mat-label>
+              <mat-select formControlName="category" required>
+                <mat-option value="course">Course</mat-option>
+                <mat-option value="exam">Exam</mat-option>
+                <mat-option value="payment">Payment</mat-option>
+                <mat-option value="technical">Technical</mat-option>
+                <mat-option value="other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Course ID (Optional)</mat-label>
+              <input matInput formControlName="courseId" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Exam ID (Optional)</mat-label>
+              <input matInput formControlName="examId" />
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Message</mat-label>
+            <textarea matInput formControlName="message" rows="5" required></textarea>
+            <mat-error *ngIf="ticketForm.get('message')?.hasError('required')">
+              Message is required
+            </mat-error>
+            <mat-error *ngIf="ticketForm.get('message')?.hasError('minlength')">
+              Message must be at least 10 characters
+            </mat-error>
+          </mat-form-field>
+
+          <div class="form-actions">
+            <mat-slide-toggle formControlName="preferredChannel" [checked]="false">
+              Ask AI First
+            </mat-slide-toggle>
+            <div class="action-buttons">
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                (click)="askAi()"
+                [disabled]="aiLoading || !ticketForm.get('message')?.value"
+              >
+                <mat-spinner *ngIf="aiLoading" diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+                {{ aiLoading ? 'Asking AI...' : 'Ask AI' }}
+              </button>
+              <button mat-raised-button type="submit" color="primary" [disabled]="ticketForm.invalid">
+                Submit Ticket
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Answer -->
+          <div *ngIf="aiAnswer" class="ai-answer">
+            <h3>AI Answer:</h3>
+            <p>{{ aiAnswer }}</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- My Tickets -->
+      <div class="tickets-section">
+        <h2>My Tickets</h2>
+        <div *ngIf="loading" class="loading-container">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <div *ngIf="!loading && tickets.length === 0" class="empty-state">
+          <p>No tickets yet</p>
+        </div>
+        <div *ngIf="!loading && tickets.length > 0" class="tickets-list">
+          <div *ngFor="let ticket of tickets" class="ticket-card">
+            <div class="ticket-header">
+              <span class="ticket-category">{{ ticket.category }}</span>
+              <span class="ticket-status" [style.color]="getStatusColor(ticket.status)">
+                {{ ticket.status || 'open' }}
+              </span>
+            </div>
+            <p class="ticket-message">{{ ticket.message }}</p>
+            <div *ngIf="ticket.aiAnswer" class="ticket-ai-answer">
+              <strong>AI Answer:</strong> {{ ticket.aiAnswer }}
+            </div>
+            <div class="ticket-footer">
+              <span class="ticket-date">{{ ticket.createdAt | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

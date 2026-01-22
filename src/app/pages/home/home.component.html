@@ -1,0 +1,19 @@
+<app-banner></app-banner>
+<app-featured-category></app-featured-category>
+<!--<app-batch></app-batch>-->
+<!--<app-live-course></app-live-course>-->
+<ng-container  *ngFor="let tag of tags; let i = index;">
+  <app-tag-products
+                    [tag]="tag"
+                    [index]="i"
+  >
+  </app-tag-products>
+</ng-container>
+<!--<app-featured-category></app-featured-category>-->
+<!--<app-ssc-hsc-course></app-ssc-hsc-course>-->
+<!--<app-lecture-shit></app-lecture-shit>-->
+<app-join-our-team></app-join-our-team>
+<!--<app-desh-shera-courses></app-desh-shera-courses>-->
+<app-community-area></app-community-area>
+<app-contact-us></app-contact-us>
+

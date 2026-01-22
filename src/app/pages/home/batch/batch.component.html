@@ -1,0 +1,58 @@
+<div class="section">
+  <div class="container">
+    <div class="batch-area-final">
+      <div class="batch-area">
+        <div class="batch-title">
+          <button (click)="onToggleBatch(1)">
+            <span>অনলাইন ব্যাচ
+              <i [class]="batchNo === 1 ? 'fa fa-angle-up' : 'fa fa-angle-down'"></i>
+            </span>
+          </button>
+        </div>
+
+        <div class="batch-main-parent" [class.open]="batchNo === 1">
+          <div class="batch-main">
+            <ng-container *ngIf="isLoading">
+              <app-batch-card-loader *ngFor="let data of [].constructor(8)"></app-batch-card-loader>
+            </ng-container>
+            <ng-container *ngIf="!isLoading">
+              <div class="batch-card"
+                   *ngFor="let data of subCategories"
+                   routerLink="/courses"
+                   [queryParams]="{category: data?.category?.slug, subCategory: data?.slug}">
+                <img [ngSrc]="data?.image | imgCtrl : 'filename'"
+                     [ngSrcset]="rawSrcset"
+                     [width]="data?.image | imgCtrl : 'width'"
+                     [height]="data?.image | imgCtrl : 'height'"
+                     sizes="(max-width: 768px) 50vw, 20vw"
+                     alt=""/>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="batch-area">
+        <div class="batch-title batch-title-second">
+          <button (click)="onToggleBatch(2)">
+            <span>অফলাইন ব্যাচ
+              <i [class]="batchNo === 2 ? 'fa fa-angle-up' : 'fa fa-angle-down'"></i>
+            </span>
+          </button>
+        </div>
+
+        <div class="batch-main-parent" [class.open]="batchNo === 2">
+          <div class="batch-main">
+            <div
+              class="batch-card"
+              *ngFor="let data of subCategories"
+              routerLink="/offline-course"
+              [queryParams]="{category: data?.category?.slug, subCategory: data?.slug}">
+              <img [src]="data?.image" alt=""/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

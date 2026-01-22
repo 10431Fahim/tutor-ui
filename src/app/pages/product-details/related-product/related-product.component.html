@@ -1,0 +1,36 @@
+<div class="kids-book">
+    <div class="container">
+      <div class="kids-book-contents">
+        <div class="title-area">
+          <h1>এই লেখকের অন্যান্য বই</h1>
+        </div>
+        <div class="kids-book-main carousel">
+          <swiper [slidesPerView]="1" [spaceBetween]="10" [autoplay]="true" [navigation]="true" [breakpoints]="{
+                      '0': {
+                          slidesPerView: 2,
+                          spaceBetween:10
+                      },
+                      '450': {
+                          slidesPerView: 3
+                      },
+                      '600': {
+                          slidesPerView: 4
+                      },
+                      '768': {
+                          slidesPerView: 5
+                      },
+                      '1000': {
+                          slidesPerView: 6
+                      },
+                      '1200': {
+                          slidesPerView: 7
+                      }
+                      }" class="mySwiper">
+            <ng-template swiperSlide *ngFor="let data of products">
+              <app-product-card-two [data]="data"></app-product-card-two>
+            </ng-template>
+          </swiper>
+        </div>
+      </div>
+    </div>
+  </div><!-- END RELATED PRODUCT -->

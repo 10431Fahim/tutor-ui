@@ -1,0 +1,261 @@
+@import "../../../../theme/variables";
+@import "../../../../theme/exports/pagination-nav";
+@import "../../../../theme/exports/view-all-btn";
+
+.container {
+  max-width: 1200px;
+}
+
+.live-course-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  h6 {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+.section {
+  margin: 35px 0px 50px;
+  padding: 0px 10px;
+  min-height: 80vh;
+
+  .our-course {
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .view-all-btn {
+    margin-top: 0px;
+  }
+}
+
+.title {
+  display: block;
+  margin-bottom: 25px;
+
+  h3 {
+    display: block;
+    font-family: $font-en-poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: $font-title-md-size + 4px;
+    line-height: 25px;
+    color: $heading-color;
+    transition: all 0.2s ease;
+  }
+}
+
+.course-main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 18px;
+  margin-bottom: 40px;
+}
+
+.courses-card {
+  position: relative;
+  background-color: $color-white;
+  border-radius: 5px;
+  border: 1px solid $color-border;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.courses-card:hover {
+  transform: translateY(10px);
+  border-color: $color-primary;
+}
+
+.courses-card .courses-img img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+}
+
+.courses-details {
+  display: block;
+
+  .course-body {
+    padding: 20px 12px 12px 12px;
+
+    h3 {
+      font-family: $font-en-poppins, $font-en-exo;
+      font-style: normal;
+      font-weight: 600;
+      color: $heading-color;
+      font-size: $font-title-md-size - 1px;
+      margin-bottom: 10px !important;
+    }
+
+    p {
+      color: rgb(99 97 97/1);
+      font-family: $font-en-poppins;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      display: block;
+    }
+  }
+
+  .progress-bar {
+    margin-bottom: 15px;
+    height: 8px;
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 7px;
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 30%;
+      height: 100%;
+      border-radius: 7px;
+      background-color: $color-primary;
+    }
+  }
+}
+
+.buy-courses {
+  padding: 0 10px;
+  margin-top: -18px;
+  mat-form-field {
+    width: 100%;
+  }
+
+  .action {
+    margin-bottom: 8px;
+    margin-top: -12px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .course-main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .section1 {
+    .section1-main {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+@media (max-width: 810px) {
+  .course-main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .section1 {
+    .section1-main {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .section1 {
+    .section1-title {
+      h3 {
+        font-size: 21px;
+        line-height: 24px;
+      }
+    }
+
+    .section1-main {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .title {
+    a {
+      font-size: 20px;
+      line-height: 22px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .course-main {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.order-top {
+  margin-bottom: 20px;
+
+  ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    li {
+      border-radius: 20px;
+
+      a {
+        border-radius: 5px;
+        font-family: $font-en-primary;
+        font-weight: 400;
+        color: $heading-color;
+        padding: 6px 20px;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        border: 1px solid $color-primary;
+
+        &.active {
+          background-color: $color-primary;
+          color: $color-white;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 556px) {
+  .order-top {
+    margin-bottom: 16px;
+
+    ul {
+      gap: 12px;
+      li {
+        a {
+          padding: 6px 9px;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+.tag {
+  span {
+    background-color: $color-danger;
+    color: #fff;
+    font-family: $font-en-poppins;
+    padding: 3px 5px;
+    font-size: 13px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    max-width: 80px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 999;
+  }
+}

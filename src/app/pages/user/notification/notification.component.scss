@@ -1,0 +1,135 @@
+.notification-container {
+  padding: 2rem 0;
+  min-height: 60vh;
+
+  .page-title {
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    .filter-tab {
+      padding: 0.5rem 1.5rem;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+
+      &.active {
+        background: #1976d2;
+        color: #fff;
+        border-color: #1976d2;
+      }
+    }
+  }
+
+  .notification-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+
+    &.unread {
+      border-left: 4px solid #1976d2;
+      background: #f5f9ff;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+
+      h3 {
+        margin: 0;
+        flex: 1;
+        color: #333;
+      }
+
+      .priority-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        &.priority-low {
+          background: #e8f5e9;
+          color: #2e7d32;
+        }
+
+        &.priority-medium {
+          background: #fff3e0;
+          color: #e65100;
+        }
+
+        &.priority-high {
+          background: #ffebee;
+          color: #c62828;
+        }
+
+        &.priority-urgent {
+          background: #fce4ec;
+          color: #880e4f;
+          animation: pulse 2s infinite;
+        }
+      }
+    }
+
+    .notification-message {
+      color: #666;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .notification-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .circular-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+
+

@@ -1,0 +1,33 @@
+<div class="quiz-element">
+  <h2>{{ data?.name }}</h2>
+  <div class="image" *ngIf="data?.image" (click)="onShowPop(0)">
+    <img [src]="data?.image" alt="">
+  </div>
+  <div class="drop-image-area" *ngIf="data?.briefQuestion">
+    <div class="drop-zone-main">
+      <app-drop-zone (newItemEvent)=" onSelect($event,data)"
+                     (onDeleteOldImage)="onDeleteOldImage($event)"
+                     [fileNotPicked]="fileNotPicked"
+                     [images]="oldImages" ></app-drop-zone>
+    </div>
+  </div>
+  <!-- END! drop-image-area -->
+
+  <div class="quiz-ans-container" *ngIf="!showCorrectAnswer">
+    <p [class.active]="data?.name === selectedOption?.name" class="quiz-answer" *ngFor="let data of data?.options" (click)="onClickOption(data)">
+      {{ data?.name }}
+    </p>
+  </div>
+
+  <div class="quiz-ans-container" *ngIf="showCorrectAnswer">
+    <p [ngClass]="getResultOpt(data)" class="quiz-answer" *ngFor="let data of data?.options">
+      {{ data?.name }}
+    </p>
+  </div>
+</div>
+
+
+<app-gallery *ngIf="data?.image"
+             [galleryData]="data?.image"
+             #galleryPop
+></app-gallery>

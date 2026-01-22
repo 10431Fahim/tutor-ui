@@ -1,0 +1,181 @@
+<div class="profile-section">
+  <div class="account-dashboard">
+    <div class="profile">
+      <div class="container">
+        <!-- General Dashboard Card -->
+        <div class="dashboard-card">
+          <div class="dashboard-header">
+            <h2>General Dashboard</h2>
+          </div>
+
+            <!-- Profile Section at Top -->
+            <div class="profile-header" *ngIf="user">
+              <div class="profile-avatar">
+                <img [src]="imgPlaceHolder" [alt]="'Profile Image'">
+                <span class="online-indicator"></span>
+              </div>
+              <div class="profile-info-header">
+                <h3>{{user.name || 'User Name'}}</h3>
+                <p>{{user.phone || user.email || '01761606673'}}</p>
+              </div>
+            </div>
+
+            <!-- Dashboard Link -->
+            <div class="menu-item" routerLink="/dashboard" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">dashboard</mat-icon>
+                <span class="menu-text">General Dashboard</span>
+              </div>
+            </div>
+
+          <!-- Menu Items List -->
+          <div class="menu-items-list">
+            <!-- Enrollment (Course) -->
+            <div class="menu-item" routerLink="/my-course" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">school</mat-icon>
+                <span class="menu-text">Enrollment</span>
+              </div>
+            </div>
+
+            <!-- Product Order -->
+            <div class="menu-item" routerLink="/my-order" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">shopping_cart</mat-icon>
+                <span class="menu-text">Product Order</span>
+              </div>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="menu-item" routerLink="/leaderboard" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">emoji_events</mat-icon>
+                <span class="menu-text">Leaderboard</span>
+              </div>
+            </div>
+
+            <!-- Profile -->
+            <div class="menu-item" routerLink="/account/my-account" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">person</mat-icon>
+                <span class="menu-text">Profile</span>
+              </div>
+            </div>
+
+            <!-- Q&A -->
+            <div class="menu-item" routerLink="/account/qna" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">help_outline</mat-icon>
+                <span class="menu-text">Q&A</span>
+              </div>
+            </div>
+
+            <!-- Free Section Header -->
+            <div class="menu-section-divider">
+              <span class="divider-text">শুধুমাত্র Free গুলো</span>
+            </div>
+
+            <!-- Free Class Live Class (Not Available) -->
+            <div class="menu-item disabled">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon unavailable-icon">video_call</mat-icon>
+                <span class="menu-text">Free Class Live Class</span>
+                <span class="menu-badge unavailable-badge">কোম</span>
+              </div>
+            </div>
+
+            <!-- Free Recorded Class -->
+            <div class="menu-item" routerLink="/free-recorded-class" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon available-icon">play_circle</mat-icon>
+                <span class="menu-text">Free Recorded Class</span>
+                <span class="menu-badge available-badge">কোম</span>
+              </div>
+            </div>
+
+            <!-- Free MCQ -->
+            <div class="menu-item" routerLink="/free-mcq" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon available-icon">quiz</mat-icon>
+                <span class="menu-text">Free MCQ</span>
+                <span class="menu-badge available-badge">কোম/Exam</span>
+              </div>
+            </div>
+
+            <!-- Free Written -->
+            <div class="menu-item" routerLink="/free-written" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon available-icon">edit_note</mat-icon>
+                <span class="menu-text">Free Written</span>
+                <span class="menu-badge available-badge">কোম/exam</span>
+              </div>
+            </div>
+
+            <!-- Study Group -->
+            <div class="menu-item" routerLink="/study-group" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">groups</mat-icon>
+                <span class="menu-text">Study Group</span>
+                <span class="menu-badge dynamic-badge">Dynamic</span>
+              </div>
+              <div class="menu-subtitle">অনেকগুলো গ্রুপ add করা যাবে - সবার জন্য - কোম</div>
+            </div>
+
+            <!-- OMR -->
+            <div class="menu-item" routerLink="/account/omr" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">description</mat-icon>
+                <span class="menu-text">OMR Sheet & Scan</span>
+              </div>
+            </div>
+
+            <!-- Support -->
+            <div class="menu-item" routerLink="/account/support" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">support_agent</mat-icon>
+                <span class="menu-text">Support</span>
+              </div>
+            </div>
+
+            <!-- Written Paper Upload -->
+            <div class="menu-item" routerLink="/written-paper-upload" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">upload_file</mat-icon>
+                <span class="menu-text">Written Paper Upload</span>
+              </div>
+            </div>
+
+            <!-- Notice (For Everyone) -->
+            <div class="menu-item" routerLink="/notice" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">notifications</mat-icon>
+                <span class="menu-text">Notice</span>
+                <span class="menu-badge for-everyone-badge">সবার জন্য</span>
+              </div>
+            </div>
+
+            <!-- Routine (For Everyone) -->
+            <div class="menu-item" routerLink="/routine" routerLinkActive="active">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon">calendar_today</mat-icon>
+                <span class="menu-text">Routine</span>
+                <span class="menu-badge for-everyone-badge">সবার জন্য</span>
+              </div>
+            </div>
+
+            <!-- Logout Button (Last Item) -->
+            <div class="menu-section-divider logout-divider"></div>
+            <div class="menu-item logout-item" (click)="userLogOut()">
+              <div class="menu-item-content">
+                <mat-icon class="menu-icon logout-icon">exit_to_app</mat-icon>
+                <span class="menu-text logout-text">Logout</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

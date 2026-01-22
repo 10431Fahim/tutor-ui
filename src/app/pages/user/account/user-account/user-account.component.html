@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="main-content1">
+    <div class="user-account-main">
+      <div class="user-account">
+        <div class="photo-select-main">
+          <div class="photo-select">
+            <img [src]="imgPlaceHolder" [alt]="'Picked Image'" (click)="profileImagePicker.click()">
+            <input [hidden]="true" #profileImagePicker type="file" (change)="fileChangeEvent($event)" accept="image/*"/>
+            <a class="photo-select-child" (click)="profileImagePicker.click()">
+              <fa-icon [icon]="faPen"></fa-icon>
+            </a>
+          </div>
+          <input type="text" hidden #photo_select/>
+        </div>
+
+        <div class="user-form">
+          <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+            <!--            <div class="input-area">-->
+            <!--              <input type="text" placeholder="Enter your name" [class]="dataForm.get('name').touched && dataForm.get('name').invalid ? 'invalid' :''" formControlName="name" value="Name" />-->
+            <!--              <small *ngIf="dataForm.get('name').touched && dataForm.get('name').invalid">-->
+            <!--                This Field is Required</small>-->
+            <!--            </div>-->
+
+
+            <mat-form-field appearance="outline" style="width: 100%" class="m-100">
+              <input matInput placeholder="Enter your name" formControlName="name" required>
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%" class="m-100">
+              <input matInput placeholder="Enter number" formControlName="phone" required>
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%" class="m-100">
+              <input matInput placeholder="Enter your email" formControlName="email" required>
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+
+            <!--            <div class="input-area">-->
+            <!--              <input type="text" placeholder="Enter number" formControlName="phone"  />-->
+            <!--              <p>Mobile number cannot be changed</p>-->
+            <!--            </div>-->
+
+            <!--            <div class="input-area">-->
+            <!--              <input type="text" placeholder="Enter your email" formControlName="email" />-->
+            <!--            </div>-->
+
+            <mat-form-field style="width: 100%" appearance="outline" class="m-100 custom-select-field" floatLabel="always">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option *ngFor="let data of genders" [value]="data.value" required>
+                  {{data.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+
+            <!-- Added Class Level -->
+            <mat-form-field style="width: 100%" appearance="outline" class="m-100 custom-select-field" floatLabel="always">
+              <mat-label>Student Level</mat-label>
+              <mat-select formControlName="classLevel">
+                <mat-option *ngFor="let data of classLevels" [value]="data.value" required>
+                  {{data.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+
+            <div class="submit-btn">
+              <button type="submit">{{isLoading ? "Please wait..." : " Update Profile"}}</button>
+            </div>
+          </form>
+
+          <!-- Change Password Section -->
+          <div class="change-password-section">
+            <div class="section-header">
+              <h3>Change Password</h3>
+            </div>
+            <form (ngSubmit)="onChangePasswordSubmit()" [formGroup]="passwordForm">
+              <mat-form-field appearance="outline" style="width: 100%" class="m-100">
+                <mat-label>Old Password</mat-label>
+                <input 
+                  matInput 
+                  type="password" 
+                  formControlName="oldPassword" 
+                  placeholder="Enter old password" 
+                  required
+                  autocomplete="current-password">
+                <mat-error *ngIf="passwordForm.get('oldPassword')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 100%" class="m-100">
+                <mat-label>New Password</mat-label>
+                <input 
+                  matInput 
+                  type="password" 
+                  formControlName="password" 
+                  placeholder="Enter new password" 
+                  required
+                  autocomplete="new-password">
+                <mat-error *ngIf="passwordForm.get('password')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+                <mat-error *ngIf="passwordForm.get('password')?.hasError('minlength')">
+                  Password must be at least 6 characters.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 100%" class="m-100">
+                <mat-label>Confirm New Password</mat-label>
+                <input 
+                  matInput 
+                  type="password" 
+                  formControlName="confirmPassword" 
+                  placeholder="Confirm new password" 
+                  required
+                  autocomplete="new-password">
+                <mat-error *ngIf="passwordForm.get('confirmPassword')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+                <mat-error *ngIf="passwordForm.hasError('passwordMismatch')">
+                  Passwords do not match.
+                </mat-error>
+              </mat-form-field>
+
+              <div class="submit-btn">
+                <button type="submit" [disabled]="isChangingPassword">
+                  {{isChangingPassword ? "Please wait..." : "Change Password"}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

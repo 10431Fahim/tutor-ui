@@ -1,0 +1,626 @@
+//@import "variables";
+//@import "base";
+//@import "exports/spinner";
+//@import "exports/view-all-btn";
+//
+//.loader {
+//  width: 30px;
+//  height: 30px;
+//}
+//
+//.container {
+//  position: relative;
+//}
+//
+//.section {
+//  max-width: 500px;
+//  width: 100%;
+//  margin: auto;
+//  padding: 15px;
+//  margin-top: 120px;
+//  margin-bottom: 120px;
+//  box-sizing: border-box;
+//}
+//
+//.section>h1 {
+//  text-align: center;
+//  font-size: 1.3rem;
+//  font-weight: 600;
+//  font-family: $font-en-poppins, $font-en-exo;
+//  font-size: 20px;
+//  font-style: normal;
+//  display: block;
+//}
+//
+//.section-detail {
+//  padding-top: 2.5rem;
+//  box-sizing: border-box;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//  gap: 0.5rem;
+//}
+//
+//.section-detail>mat-label {
+//  font-size: 1rem;
+//  font-weight: 600;
+//  color: #3f3f3f;
+//}
+//
+//mat-form-field {
+//  width: 100%;
+//}
+//
+//.otp-view {
+//  width: 100%;
+//}
+//
+//button {
+//  width: 100%;
+//  padding: 0.3rem 0rem;
+//  background-color: $color-primary !important;
+//  color: #fff;
+//  font-size: 1.1rem;
+//  position: relative;
+//}
+//
+//mat-icon {
+//  position: relative;
+//  left: 35%;
+//}
+//
+//mat-form-field input {
+//  outline: none;
+//}
+//
+//::ng-deep .mat-form-field-flex>.mat-form-field-infix {
+//  padding: 0em 0 0.5em !important;
+//}
+//
+//::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+//  margin-top: -15px;
+//}
+//
+//::ng-deep label.ng-star-inserted {
+//  transform: translateY(-0.59375em) scale(0.75) !important;
+//}
+//
+//::ng-deep .mat-form-field {
+//  font-size: 20px;
+//}
+//
+//.view-all-btn {
+//  margin-top: 15px;
+//  width: 100%;
+//
+//  button {
+//    width: 100%;
+//    display: block;
+//    padding: 5px 15px;
+//  }
+//}
+//
+//.login-button {
+//  background-color: $color-primary !important;
+//  color: #FFFF !important;
+//  border: none;
+//  border-radius: 5px;
+//  cursor: pointer;
+//  transition: 0.3s linear;
+//
+//  &:hover {
+//    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+//  }
+//
+//}
+//
+//::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+//  padding-right: 10px !important;
+//}
+//
+//@media (max-width: 1150px) {
+//  mat-icon {
+//    position: relative;
+//    left: 30%;
+//  }
+//}
+//
+//@media (max-width: 900px) {
+//  .section>h1 {
+//    font-size: 1.2rem;
+//  }
+//}
+//
+//@media (max-width: 700px) {
+//  .section>h1 {
+//    font-size: 1.2rem;
+//  }
+//}
+//
+//@media (max-width: 600px) {
+//  .section>h1 {
+//    font-size: 1.2rem;
+//  }
+//
+//  .section-detail {
+//    padding-top: 1.5rem;
+//  }
+//}
+//
+//@media (max-width: 600px) {
+//  .section>h1 {
+//    font-size: 1.2rem;
+//  }
+//}
+//
+//@media (max-width: 500px) {
+//  .section>h1 {
+//    font-size: 1.2rem;
+//    font-weight: 500;
+//  }
+//}
+//
+//@media (max-width: 360px) {
+//  mat-icon {
+//    position: relative;
+//    left: 25%;
+//  }
+//}
+
+@import "variables";
+@import "base";
+@import "exports/spinner";
+@import "exports/view-all-btn";
+@import "exports/super-btn";
+
+.loader {
+  width: 30px;
+  height: 30px;
+}
+
+.container {
+  position: relative;
+}
+.send-data{
+  display: flex;
+  justify-content: flex-end;
+  button{
+    max-width: 105px;
+    //background-color: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px!important;
+  }
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  max-width: 100px;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 1px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+  color: #6B7280;
+  font-weight: 500;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(-2px);
+  }
+
+  span {
+    font-family: $font-en-poppins, $font-en-exo;
+  }
+}
+
+.section {
+  max-width: 500px;
+  width: 100%;
+  padding: 15px;
+  margin: 120px auto;
+  box-sizing: border-box;
+}
+
+.reset-password {
+  text-align: end;
+  color: $color-primary;
+  padding-top: 10px;
+}
+
+.pass{
+  position: relative;
+  input{
+    position: relative;
+  }
+  span{
+    position: absolute;
+    right: -5px;
+    color: #747171;
+    i{
+      cursor: pointer;
+    }
+  }
+}
+
+.reset-password:hover {
+  text-decoration: underline;
+}
+
+.section > h1 {
+  text-align: center;
+  font-weight: 600;
+  font-family: $font-en-poppins, $font-en-exo;
+  font-size: 20px;
+  font-style: normal;
+  display: block;
+}
+
+.section-detail {
+  padding-top: 2.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.section-detail > mat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3f3f3f;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.otp-view {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  padding: 0.3rem 0;
+  background-color: $color-primary !important;
+  color: #fff;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.super-btn {
+  width: 100% !important;
+}
+
+mat-icon {
+  position: relative;
+  left: 35%;
+}
+
+mat-form-field input {
+  outline: none;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0 0 0.5em !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+  margin-top: -15px;
+}
+
+::ng-deep label.ng-star-inserted {
+  transform: translateY(-0.59375em) scale(0.75) !important;
+}
+
+::ng-deep .mat-form-field {
+  font-size: 20px;
+}
+
+.view-all-btn {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 100%;
+    display: block;
+    padding: 5px 15px;
+  }
+}
+
+.login-button {
+  background-color: $color-primary !important;
+  color: #FFFF !important;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s linear;
+
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  }
+}
+
+.disabled-button {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+  
+  &:hover {
+    box-shadow: none !important;
+  }
+}
+
+.enabled-button {
+  background-color: $color-primary !important;
+  color: #FFFF !important;
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  }
+}
+
+::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  padding-right: 10px !important;
+}
+
+@media (max-width: 1150px) {
+  mat-icon {
+    position: relative;
+    left: 30%;
+  }
+}
+
+@media (max-width: 900px) {
+  .section > h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .section > h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .section > h1 {
+    font-size: 1.2rem;
+  }
+
+  .section-detail {
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .section > h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .section > h1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 360px) {
+  mat-icon {
+    position: relative;
+    left: 25%;
+  }
+}
+
+//@import 'src/theme/variables';
+//@import "exports/view-all-btn";
+//.section{
+//  width: 100%;
+//  height: 500px;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  padding:15px;
+//  .section-main{
+//    background-color: #fff;
+//    box-sizing: border-box;
+//    //box-shadow: 0 3px 10px 0 rgba(0,0,0,.14);
+//    border-radius: 4px;
+//    overflow: hidden;
+//    max-width: 500px;
+//    width: 100%;
+//    padding: 30px;
+//    margin: auto;
+//    .reset-password{
+//      .reset-password-top{
+//        display: block;
+//        margin-bottom: 25px;
+//        text-align: center;
+//        position: relative;
+//        h3{
+//          color: #222;
+//          font-family: $font-en-primary;
+//          font-style: normal;
+//          font-weight: 400;
+//          font-size: 18px;
+//          display: block;
+//          line-height: 20px;
+//        }
+//        span{
+//          color: $color-primary;
+//          font-size: 16px;
+//          position: absolute;
+//          top: 0px;
+//          left: 0px;
+//          cursor: pointer;
+//        }
+//      }
+//      .reset-form{
+//        .login-button {
+//          display: flex;
+//          align-items: center;
+//          justify-content: center;
+//          width: 100%;
+//          background-color: $color-primary !important;
+//          color: #FFFF !important;
+//          border: none;
+//          border-radius: 5px;
+//          cursor: pointer;
+//          transition: 0.3s linear;
+//          padding: 7px 25px!important;
+//          &:hover {
+//            box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+//          }
+//
+//        }
+//        display: block;
+//        max-width: 350px;
+//        width: 100%;
+//        margin: auto;
+//        .not-found-account{
+//          border:1px solid red;
+//          background-color: rgb(255 0 0 / 8%);
+//          padding:9px 12px 8px 12px;
+//          margin-bottom: 20px;
+//          span{
+//            display: flex;
+//            align-items: center;
+//            justify-content: flex-start;
+//            gap: 10px;
+//            font-family: $font-en-primary;
+//            font-weight: 400;
+//            font-size: 14px;
+//            color: #222;
+//            i{
+//              width: 20px;
+//              height: 20px;
+//              display: flex;
+//              align-items: center;
+//              justify-content: center;
+//              color: red;
+//              border: 1px solid red;
+//              border-radius: 50%;
+//              font-size: 10px;
+//              position: relative;
+//              top: -1px;
+//            }
+//          }
+//        }
+//
+//        form {
+//          display: block;
+//          width: 100%;
+//          margin-top: 25px;
+//
+//          .form-input {
+//            width: 100%;
+//            margin-bottom: 15px;
+//
+//            .password-area {
+//              position: relative;
+//            }
+//
+//
+//            input {
+//              width: 100%;
+//              display: block;
+//              font-family: $font-en-primary;
+//              font-style: normal;
+//              outline: $color-primary;
+//              font-weight: 400;
+//              font-size: 14px;
+//              height: 42px;
+//              padding: 6px 10px;
+//              background-color: $color-white;
+//              border: 1px solid rgba(0, 0, 0, .14);
+//              box-shadow: inset 0 2px 0 rgba(0, 0, 0, .02);
+//              &.invalid{
+//                border-color: red;
+//                background-color:rgb(255 0 0 / 10%);
+//              }
+//            }
+//
+//            span {
+//              width: 35px;
+//              height: 42px;
+//              position: absolute;
+//              cursor: pointer;
+//              top: 38px;
+//              right: 0px;
+//              display: flex;
+//              align-items: center;
+//              justify-content: center;
+//              color: #222;
+//              font-size: 13px;
+//              background-color: transparent;
+//            }
+//
+//            small{
+//              font-family: $font-en-primary;
+//              font-weight: 400;
+//              font-size: 13px;
+//              color: red;
+//              display: block;
+//              margin-top: 5px;
+//            }
+//            .reset-password{
+//              text-align: end;
+//              color: $color-primary;
+//              padding-top: 10px;
+//            }
+//
+//            .reset-password:hover{
+//              text-decoration: underline;
+//            }
+//
+//            &.password {
+//              input {
+//                padding-right: 35px;
+//              }
+//            }
+//
+//          }
+//
+//          .form-sub {
+//
+//            button {
+//              background-color: $color-primary;
+//              color: $color-white;
+//              width: 100%;
+//              font-family: $font-en-primary;
+//              font-style: normal;
+//              font-weight: 500;
+//              text-transform: uppercase;
+//              border: 1px solid $color-primary;
+//              height: 40px;
+//              font-size: 16px;
+//              padding: 5px 10px;
+//              box-sizing: border-box;
+//              cursor: pointer;
+//            }
+//          }
+//
+//
+//        }
+//
+//      }
+//    }
+//  }
+//}
+

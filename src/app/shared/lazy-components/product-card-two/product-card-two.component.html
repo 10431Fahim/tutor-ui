@@ -1,0 +1,14 @@
+<div class="courses-card" [id]="data?._id" [routerLink]="['/course-details',data?._id]">
+    <div class="courses-img">
+        <img src="{{data?.bannerImage}}" alt="Image" class="big">
+        <div class="tag">
+            <span *ngIf="data?.isLiveClass"><fa-icon [icon]="faVideoCamera"></fa-icon> Live</span>
+            <span *ngIf="data?.canSaleAttachment"><fa-icon [icon]="faFilePdf"></fa-icon> PDF</span>
+            <span *ngIf="data?.isLiveClass === false && data?.canSaleAttachment === false"><fa-icon [icon]="faPlay"></fa-icon>
+                Video</span>
+        </div>
+    </div>
+    <div class="courses-details">
+        <h3 class="courses-name">{{data?.name}}</h3>
+    </div>
+</div>

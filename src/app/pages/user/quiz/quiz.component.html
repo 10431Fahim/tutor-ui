@@ -1,0 +1,65 @@
+<section class="container">
+  <h2 class="top-header">{{ quiz?.name }}</h2>
+  <div class="main-container">
+    <div class="card-container">
+      <div>
+        <div class="card-element">
+          <div class="card-icon">
+            <img src="/src/assets/images/temp/png/question.png" alt="">
+          </div>
+          <div class="card-body">
+            <p class="title">প্রশ্নের সংখ্যা</p>
+            <p class="details">{{ quiz?.questionCount }}টি</p>
+          </div>
+        </div>
+      </div> <!-- Card Element End-->
+
+      <div>
+        <div class="card-element">
+          <div class="card-icon">
+            <img src="/src/assets/images/temp/png/time.png" alt="">
+          </div>
+          <div class="card-body">
+            <p class="title">মোট সময়</p>
+            <p class="details">{{ (quiz?.timeInSec / 60).toFixed() }} মিনিট</p>
+          </div>
+        </div>
+      </div> <!-- Card Element End-->
+
+      <div>
+        <div class="card-element">
+          <div class="card-icon">
+            <img src="/src/assets/images/temp/png/trophy.png" alt="">
+          </div>
+          <div class="card-body">
+            <p class="title">পাশ মার্ক</p>
+            <p class="details">{{quiz?.passMark}}%</p>
+          </div>
+        </div>
+      </div> <!-- Card Element End-->
+
+      <div>
+        <div class="card-element">
+          <div class="card-icon">
+            <img src="/src/assets/images/temp/png/info.png" alt="">
+          </div>
+          <div class="card-body">
+            <p class="title">নেগেটিভ মার্কিং</p>
+            <p class="details"> {{quiz?.isNegativeMark ? 'প্রযোজ্য' : 'প্রযোজ্য নয়'}} {{quiz?.negativeMark ? '(-' +quiz?.negativeMark+ ')' : ''}}</p>
+          </div>
+        </div>
+      </div>
+      <!-- Card Element End-->
+    </div>
+    <!-- Card Container End-->
+
+    <div class="btn-container">
+      <a [routerLink]="['/quiz','quiz-details', quiz?._id]">
+        <button class="quiz-btn">
+          <fa-icon [icon]="faPlay"></fa-icon>
+          <span>কুইজ শুরু করুন</span>
+        </button>
+      </a>
+    </div> <!-- Button Element End-->
+  </div>
+</section>

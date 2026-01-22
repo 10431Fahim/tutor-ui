@@ -1,0 +1,19 @@
+<div *ngIf="type === 'pc'">
+  <ngx-skeleton-loader count="1" [theme]="{
+      'border-radius': '5px',
+      height: '762.5px',
+      'background-color': '#e5e5e5',
+      border: '1px solid white'
+    }">
+  </ngx-skeleton-loader>
+</div>
+
+<div *ngIf="type === 'mobile'">
+  <ngx-skeleton-loader count="1" [theme]="{
+      'border-radius': '5px',
+      height: '202px',
+      'background-color': '#e5e5e5',
+      border: '1px solid white'
+    }">
+  </ngx-skeleton-loader>
+</div>

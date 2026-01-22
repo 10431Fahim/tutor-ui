@@ -1,0 +1,75 @@
+@import "variables";
+
+.courses-card {
+  background-color: $color-white;
+  border-radius: 5px;
+  border: 1px solid $color-primary;
+  cursor: pointer;
+  transition: all .4s;
+}
+
+.courses-card:hover {
+  box-shadow: 0 5px 15px 0 $color-primary;
+}
+
+.big {
+  display: block;
+}
+
+.small {
+  display: none;
+}
+
+.courses-card .courses-img img {
+  width: 100%;
+  min-height: 180px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+}
+
+.courses-details {
+  padding: 23px 12px 23px 12px;
+  text-align: center;
+
+  h3 {
+    font-family: $font-en-poppins;
+    font-style: normal;
+    font-weight: 600;
+    color: $color-black;
+    font-size: $font-title-md-size - 1px;
+    line-height: 24px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    margin-bottom: 5px !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.tag {
+  span {
+    background-color: #EB1C24;
+    color: #fff;
+    font-family: $font-en-poppins;
+    padding: 3px 5px;
+    font-size: 13px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    max-width: 80px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+  }
+}
+
+@media(max-width:600px) {
+  .courses-details {
+    h3 {
+      font-size: $font-title-md-size;
+    }
+  }
+}

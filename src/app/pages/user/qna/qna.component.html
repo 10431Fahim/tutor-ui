@@ -1,0 +1,182 @@
+<div class="section">
+  <div class="container">
+    <div class="section-main">
+      <div class="qna-header">
+        <h2>প্রশ্ন ও উত্তর (Q&A)</h2>
+        <p>আপনার প্রশ্ন করুন এবং AI Bot স্বয়ংক্রিয়ভাবে উত্তর দেবে</p>
+      </div>
+
+      <!-- Tabs for Course and General Questions -->
+      <mat-tab-group [(selectedIndex)]="selectedTabIndex" class="qna-tabs" (selectedTabChange)="getAllQuestions()">
+        <!-- Course Questions Tab -->
+        <mat-tab label="Course">
+          <div class="qna-content">
+            <!-- Ask Question Form -->
+            <div class="ask-question-card">
+              <h3>কোর্স সম্পর্কিত প্রশ্ন করুন</h3>
+              <form [formGroup]="courseQuestionForm" (ngSubmit)="onSubmitCourseQuestion()" class="question-form">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>কোর্স নির্বাচন করুন</mat-label>
+                  <mat-select formControlName="courseId">
+                    <mat-option *ngFor="let course of enrolledCourses" [value]="course.orderItem?._id">
+                      {{ course.orderItem?.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="courseQuestionForm.get('courseId')?.hasError('required')">
+                    কোর্স নির্বাচন করুন
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>আপনার প্রশ্ন লিখুন</mat-label>
+                  <textarea matInput formControlName="question" rows="4" placeholder="কোর্স সম্পর্কে আপনার প্রশ্ন লিখুন..."></textarea>
+                  <mat-error *ngIf="courseQuestionForm.get('question')?.hasError('required')">
+                    প্রশ্ন লিখুন
+                  </mat-error>
+                  <mat-error *ngIf="courseQuestionForm.get('question')?.hasError('minlength')">
+                    প্রশ্নটি কমপক্ষে ১০ অক্ষরের হতে হবে
+                  </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting || courseQuestionForm.invalid" class="submit-btn">
+                  <span *ngIf="!isSubmitting">প্রশ্ন জমা দিন</span>
+                  <span *ngIf="isSubmitting">জমা দেওয়া হচ্ছে...</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Questions List -->
+            <div class="questions-list">
+              <div class="filter-buttons">
+                <button mat-button [class.active]="selectedFilter === 'all'" (click)="onFilterChange('all')">
+                  সব প্রশ্ন
+                </button>
+                <button mat-button [class.active]="selectedFilter === 'pending'" (click)="onFilterChange('pending')">
+                  অপেক্ষমান
+                </button>
+                <button mat-button [class.active]="selectedFilter === 'answered'" (click)="onFilterChange('answered')">
+                  উত্তর দেওয়া
+                </button>
+              </div>
+
+              <div class="questions-container" *ngIf="!isLoading">
+                <div class="question-card" *ngFor="let question of getFilteredQuestions()">
+                  <div class="question-header">
+                    <div class="question-info">
+                      <h4>{{ question.courseName || 'কোর্স প্রশ্ন' }}</h4>
+                      <span class="question-date">{{ question.createdAt | date: 'dd MMM yyyy, hh:mm a' }}</span>
+                    </div>
+                    <div class="question-badges">
+                      <span class="badge category-badge">Course</span>
+                      <span class="badge status-badge" [ngClass]="question.status">
+                        {{ question.status === 'answered' ? 'উত্তর দেওয়া' : 'অপেক্ষমান' }}
+                      </span>
+                      <span class="badge ai-badge" *ngIf="question.answerSource === 'ai'">AI</span>
+                    </div>
+                  </div>
+                  <div class="question-content">
+                    <p><strong>প্রশ্ন:</strong> {{ question.question }}</p>
+                  </div>
+                  <div class="answer-content" *ngIf="question.answer">
+                    <p><strong>উত্তর:</strong> {{ question.answer }}</p>
+                    <small *ngIf="question.answerSource === 'ai'" class="ai-note">🤖 AI Bot দ্বারা স্বয়ংক্রিয়ভাবে উত্তর দেওয়া হয়েছে</small>
+                  </div>
+                  <div class="pending-note" *ngIf="!question.answer">
+                    <p>আপনার প্রশ্নটি পর্যালোচনা করা হচ্ছে। শীঘ্রই উত্তর দেওয়া হবে।</p>
+                  </div>
+                </div>
+
+                <div class="no-questions" *ngIf="getFilteredQuestions().length === 0">
+                  <p>কোন প্রশ্ন নেই</p>
+                </div>
+              </div>
+
+              <div class="loading" *ngIf="isLoading">
+                <p>লোড হচ্ছে...</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- General Questions Tab -->
+        <mat-tab label="General">
+          <div class="qna-content">
+            <!-- Ask Question Form -->
+            <div class="ask-question-card">
+              <h3>সাধারণ প্রশ্ন করুন</h3>
+              <form [formGroup]="generalQuestionForm" (ngSubmit)="onSubmitGeneralQuestion()" class="question-form">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>আপনার প্রশ্ন লিখুন</mat-label>
+                  <textarea matInput formControlName="question" rows="4" placeholder="আপনার সাধারণ প্রশ্ন লিখুন..."></textarea>
+                  <mat-error *ngIf="generalQuestionForm.get('question')?.hasError('required')">
+                    প্রশ্ন লিখুন
+                  </mat-error>
+                  <mat-error *ngIf="generalQuestionForm.get('question')?.hasError('minlength')">
+                    প্রশ্নটি কমপক্ষে ১০ অক্ষরের হতে হবে
+                  </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting || generalQuestionForm.invalid" class="submit-btn">
+                  <span *ngIf="!isSubmitting">প্রশ্ন জমা দিন</span>
+                  <span *ngIf="isSubmitting">জমা দেওয়া হচ্ছে...</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Questions List -->
+            <div class="questions-list">
+              <div class="filter-buttons">
+                <button mat-button [class.active]="selectedFilter === 'all'" (click)="onFilterChange('all')">
+                  সব প্রশ্ন
+                </button>
+                <button mat-button [class.active]="selectedFilter === 'pending'" (click)="onFilterChange('pending')">
+                  অপেক্ষমান
+                </button>
+                <button mat-button [class.active]="selectedFilter === 'answered'" (click)="onFilterChange('answered')">
+                  উত্তর দেওয়া
+                </button>
+              </div>
+
+              <div class="questions-container" *ngIf="!isLoading">
+                <div class="question-card" *ngFor="let question of getFilteredQuestions()">
+                  <div class="question-header">
+                    <div class="question-info">
+                      <h4>সাধারণ প্রশ্ন</h4>
+                      <span class="question-date">{{ question.createdAt | date: 'dd MMM yyyy, hh:mm a' }}</span>
+                    </div>
+                    <div class="question-badges">
+                      <span class="badge category-badge">General</span>
+                      <span class="badge status-badge" [ngClass]="question.status">
+                        {{ question.status === 'answered' ? 'উত্তর দেওয়া' : 'অপেক্ষমান' }}
+                      </span>
+                      <span class="badge ai-badge" *ngIf="question.answerSource === 'ai'">AI</span>
+                    </div>
+                  </div>
+                  <div class="question-content">
+                    <p><strong>প্রশ্ন:</strong> {{ question.question }}</p>
+                  </div>
+                  <div class="answer-content" *ngIf="question.answer">
+                    <p><strong>উত্তর:</strong> {{ question.answer }}</p>
+                    <small *ngIf="question.answerSource === 'ai'" class="ai-note">🤖 AI Bot দ্বারা স্বয়ংক্রিয়ভাবে উত্তর দেওয়া হয়েছে</small>
+                  </div>
+                  <div class="pending-note" *ngIf="!question.answer">
+                    <p>আপনার প্রশ্নটি পর্যালোচনা করা হচ্ছে। শীঘ্রই উত্তর দেওয়া হবে।</p>
+                  </div>
+                </div>
+
+                <div class="no-questions" *ngIf="getFilteredQuestions().length === 0">
+                  <p>কোন প্রশ্ন নেই</p>
+                </div>
+              </div>
+
+              <div class="loading" *ngIf="isLoading">
+                <p>লোড হচ্ছে...</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+

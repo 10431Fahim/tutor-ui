@@ -1,0 +1,21 @@
+<div class="main-container" *ngIf="!isLoading">
+  <div class="top-section">
+    <div class="title">
+      <h1>{{ notice?.name}}</h1>
+    </div>
+    <div class="date">
+
+      <fa-icon [icon]="faCalender"></fa-icon>
+      <span>{{notice?.createdAt | date}}</span>
+    </div>
+  </div>
+
+  <div class="bottom-section">
+    <img [src]="notice?.image" [alt]="notice?.name">
+    <p class="description" [innerHTML]="notice?.description | safeHtmlCustom"></p>
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  <app-blog-details-loader></app-blog-details-loader>
+</div>

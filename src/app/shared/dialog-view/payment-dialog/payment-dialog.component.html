@@ -1,0 +1,55 @@
+<div class="payment-dialog">
+  <h2 class="title">Complete Payment</h2>
+
+  <!-- Grant Total -->
+  <div class="info-box total">
+    <span class="label">Grant Total:</span>
+    <span class="value">{{ data.grantTotal }} ৳</span>
+  </div>
+
+  <!-- Bkash Number with Copy -->
+  <div class="info-box bkash">
+    <div class="number">
+      <span class="label">Bkash (Send money):</span>
+      <span class="value">{{ data.bkashNumber }}</span>
+    </div>
+    <button class="copy-btn" (click)="copyNumber()">Copy</button>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="form" class="form">
+    <!-- Sender Number -->
+    <div class="form-group">
+      <label>Sender Number</label>
+      <input
+        type="text"
+        formControlName="senderNumber"
+        placeholder="017XXXXXXXX"
+      />
+      <small
+        *ngIf="form.controls['senderNumber'].invalid && form.controls['senderNumber'].touched"
+      >
+        Valid 11 digit number required
+      </small>
+    </div>
+
+    <!-- Transaction ID -->
+    <div class="form-group">
+      <label>Transaction ID</label>
+      <input
+        type="text"
+        formControlName="trxId"
+        placeholder="Enter Transaction ID"
+      />
+    </div>
+  </form>
+
+  <!-- Buttons -->
+  <div class="actions">
+    <button class="cancel-btn" (click)="close()">Cancel</button>
+    <button class="submit-btn" (click)="submit()" [disabled]="form.invalid">
+      Submit
+    </button>
+  </div>
+</div>
+

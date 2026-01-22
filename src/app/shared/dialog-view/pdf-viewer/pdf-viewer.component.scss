@@ -1,0 +1,69 @@
+.offer-cross-area{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  span{
+    cursor: pointer;
+    color: #BE0101;
+    padding: 10px;
+    font-weight: 800;
+    font-size: 27px;
+    margin-right: -22px;
+  }
+}
+
+.pdf-height{
+  //border: 2px solid #d0cece;
+  padding: 0 40px 40px 40px;
+  width: 100%;
+}
+
+.pdf-height1{
+  border: 4px solid #d0cece;
+  height: 600px;
+  width: 100%;
+}
+///* width */
+//.ng2-pdf-viewer-container::-webkit-scrollbar {
+//  width: 20px;
+//}
+//
+//.pdf-height::-webkit-scrollbar {
+//  width: 1em;
+//}
+//.pdf-height::-webkit-scrollbar-track {
+//  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+//}
+//.pdf-height::-webkit-scrollbar-thumb {
+//  background-color: darkgrey;
+//  outline: 1px solid slategrey;
+//}
+//
+///* Track */
+//pdf-viewer::-webkit-scrollbar-track {
+//  box-shadow: inset 0 0 5px grey;
+//  border-radius: 10px;
+//}
+//
+///* Handle */
+//pdf-viewer::-webkit-scrollbar-thumb {
+//  background: red;
+//  border-radius: 10px;
+//}
+//
+///* Handle on hover */
+//pdf-viewer::-webkit-scrollbar-thumb:hover {
+//  background: #b30000;
+//}
+@media (max-width: 500px) {
+  .pdf-height{
+    //border: 2px solid #d0cece;
+    padding: 0 20px 20px 20px;
+  }
+
+  .pdf-height1{
+    border: 4px solid #d0cece;
+    height: 400px;
+    width: 100%;
+  }
+}

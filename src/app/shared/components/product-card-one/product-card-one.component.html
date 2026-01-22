@@ -1,0 +1,45 @@
+<a class="card" [routerLink]="['/product-details',data?._id]" [queryParamsHandling]="'merge'">
+  <div *ngIf="data?.isTag" class="new-publish-tag">
+    <img [src]="data?.tagImage" alt="">
+  </div>
+
+  <div class="product-image" >
+    <img [src]="data?.images && data?.images?.length ? data?.images[0] :'./assets/images/placeholder/test.png'" alt="">
+<!--    <span class="heart" (click)="onAddToWishList($event)" [class]="wishlist?.product?._id === data?._id ? 'active':''"><i *ngIf="wishlist?.product?._id === data?._id"-->
+<!--      class="fa fa-heart"></i> <i *ngIf="wishlist?.product?._id !== data?._id" class="fa-regular fa-heart"></i></span>-->
+
+    <span class="price" *ngIf="data?.discountType === 1 && data?.discountAmount > 0">{{data?.discountAmount}}%</span>
+    <span class="price" *ngIf="data?.discountType === 2 && data?.discountAmount > 0">{{data?.discountAmount}}Tk</span>
+  </div>
+  <div class="text-aria">
+    <div class="title" >
+      <h1 >{{data?.name}}</h1>
+<!--      <h1 *ngIf="translateService.currentLang === 'en'">{{data?.nameEn}}</h1>-->
+    </div>
+    <div class="writer" *ngIf="data?.author !== null">
+      <p>{{data?.author[0]?.name}}</p>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="price-aria">
+    <div class="old-price" *ngIf="data?.discountType && data?.discountAmount > 0">
+      <del><p>৳{{data?.salePrice | engBnNum}}</p></del>
+    </div>
+    <div class="new-price">
+      <p>৳{{ (data | price : "salePrice" | number : "" : "bn") | engBnNum}}</p>
+    </div>
+
+    <div class="cart-data">
+      <div class="com" *ngIf="data?.quantity > 0">
+<!--      <span matTooltip="Compare" (click)="addToCompareList($event, data)" class="compare-icon">-->
+<!--          <mat-icon>compare</mat-icon>-->
+<!--            </span>-->
+      </div>
+      <div *ngIf="data?.quantity > 0" class="icon" (click)="onAddToCart($event)" [style.visibility]="cart ? 'hidden' : 'visible'">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+    </div>
+  </div>
+</a><!-- END PRODUCT CARD ONE -->

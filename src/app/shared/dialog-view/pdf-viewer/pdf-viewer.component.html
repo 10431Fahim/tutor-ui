@@ -1,0 +1,13 @@
+<div class="pdf-height">
+  <div class="offer-cross-area">
+    <span (click)="onClose()"><i class="fa fa-xmark"></i></span>
+  </div>
+<div  class="pdf-height1">
+  <pdf-viewer [src]="data?.pdfFile"
+              [render-text]="true"
+              [original-size]="false"
+              style="height: 100%"
+  ></pdf-viewer>
+</div>
+
+</div>

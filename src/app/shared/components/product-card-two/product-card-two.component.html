@@ -1,0 +1,23 @@
+<a [routerLink]="['/product-details',data?._id]" [queryParamsHandling]="'merge'" class="card">
+  <div class="product-image">
+    <img [src]="data?.images && data?.images?.length ? data?.images[0] : './assets/images/placeholder/test.png'" alt="book">
+  </div>
+  <div class="text-aria">
+    <div class="title" >
+      <h1 >{{data?.name}}</h1>
+<!--      <h1 *ngIf="translateService.currentLang === 'en'">{{data?.nameEn}}</h1>-->
+    </div>
+    <div class="writer" *ngIf="data?.author !== null">
+      <p>{{data?.author[0]?.name}}</p>
+    </div>
+  </div>
+
+  <div class="price-aria">
+    <div class="old-price"  *ngIf="data?.discountType && data?.discountAmount > 0">
+      <del><p>৳{{data?.salePrice | engBnNum }}</p></del>
+    </div>
+    <div class="new-price">
+      <p>৳{{ (data | price : "salePrice" ) | engBnNum}}</p>
+    </div>
+  </div>
+</a>

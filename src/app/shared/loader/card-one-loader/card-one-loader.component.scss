@@ -1,0 +1,13 @@
+@import "src/theme/variables";
+
+.card {
+  position: relative;
+  max-height: 360px;
+  max-width: 245px;
+  width: 100%;
+  background-color: $color-white-secondary;
+  margin: 0 auto;
+  padding: 13px 12px 1px 12px;
+  box-shadow: 2px 1px 6px #00000063;
+  overflow: hidden;
+}

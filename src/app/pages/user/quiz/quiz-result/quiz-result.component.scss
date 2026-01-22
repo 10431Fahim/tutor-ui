@@ -1,0 +1,258 @@
+@import "../../../../../theme/variables";
+
+.top-header {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: rgb(48, 46, 46);
+  padding: 0.7em 1em;
+  margin: 0;
+  line-height: 1em;
+  text-align: center;
+  padding-top: 33px;
+  padding-bottom: 0;
+}
+
+.main-container {
+  border: 1px solid rgb(222, 218, 218);
+  max-width: 680px;
+  border-radius: 8px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid rgb(222, 218, 218);
+
+  img {
+    max-width: 60px;
+  }
+
+  .comment {
+    padding-left: 15px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+      font-family: $font-en-primary;
+    }
+
+    p {
+      font-size: 14px;
+      font-family: $font-en-primary;
+      margin: 0;
+    }
+  }
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-bottom: 1px solid rgb(222, 218, 218);
+  padding: 6px 7px;
+
+  .card-element {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin: auto;
+
+    .card-icon img {
+      width: 27px;
+    }
+
+    .card-body {
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      p {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .title {
+      font-size: 13px;
+      color: rgb(139, 131, 131);
+    }
+
+    .details {
+      font-size: 15px;
+      font-weight: 600;
+    }
+  }
+}
+
+.btn-container {
+  text-align: center;
+
+  button {
+    background-color: white;
+    border: none;
+    color: #1cab55;
+    padding: 2em 0.5em;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: $font-en-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    cursor: pointer;
+
+    small {
+      font-size: 16px;
+      color: #1cab55;
+    }
+  }
+
+  .quiz-list {
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      li {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.btn-again {
+  text-align: center;
+}
+
+@media (max-width: 350px) {
+  .main-container {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    max-width: 350px;
+    border-radius: 8px;
+  }
+
+  .card-container {
+    grid-template-columns: repeat(1, 1fr);
+
+    .card-element {
+      padding: 0.5rem, 1rem;
+      margin: auto;
+
+      .card-icon img {
+        width: 32px;
+      }
+
+      .card-body {
+        padding-left: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .main-container {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    max-width: 440px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    margin: 1rem;
+    margin-top: 1.8rem;
+  }
+
+  .card-container {
+    grid-template-columns: repeat(1, 1fr);
+
+    .card-element {
+      padding: 0.5rem, 1rem;
+      margin: auto;
+
+      .card-icon img {
+        width: 32px;
+      }
+
+      .card-body {
+        padding-left: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .main-container {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    max-width: 680px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    margin: 1rem;
+    margin-top: 1.8rem;
+  }
+
+  .card-container {
+    .card-element {
+      padding: 0.5rem, 1rem;
+      margin: auto;
+
+      .card-icon img {
+        width: 32px;
+      }
+
+      .card-body {
+        padding-left: 1.5rem;
+      }
+    }
+  }
+}
+
+/* --- q-again-next --- */
+.q-again-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-bottom: 30px;
+
+  button {
+    background-color: #0e7b4f;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 15px;
+    padding: 0.5rem 2em;
+    border-radius: 4px;
+    font-weight: 400;
+    font-family: $font-en-primary;
+    border: 1px solid transparent;
+    transition: all 0.12s linear;
+
+    &:hover {
+      color: #0e7b4f;
+      border: 1px solid #0e7b4f;
+      background-color: transparent;
+    }
+  }
+
+  .q-again {
+    button {
+      color: #0e7b4f;
+      border: 1px solid #0e7b4f;
+      background-color: transparent;
+
+      &:hover {
+        background-color: #0e7b4f;
+        color: #fff;
+      }
+    }
+  }
+}

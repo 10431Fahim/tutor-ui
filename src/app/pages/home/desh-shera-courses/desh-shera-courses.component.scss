@@ -1,0 +1,108 @@
+@import "variables";
+@import "exports/view-all-btn";
+@import "exports/super-btn";
+
+.section {
+    //background-color: #FEFEEC;
+    padding: 80px 15px;
+    box-sizing: border-box;
+
+    .section-title-area {
+        text-align: center;
+        margin-bottom: 60px;
+
+        h3 {
+            color: $color-black;
+            font-family: $font-en-poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: $font-title-size + 4px;
+            line-height: 59px;
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+
+            img {
+                position: absolute;
+                top: -50px;
+                width: 80px;
+                right: -60px;
+                height: 80px;
+                z-index: -10;
+            }
+        }
+
+    }
+
+    .section-main {
+        max-width: 1300px;
+        width: 100%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+        grid-template-rows: auto;
+    }
+}
+
+.mySwiper {
+    padding-bottom: 10px;
+}
+
+@media(max-width:1300px) {
+    .section {
+        .section-main {
+            max-width: 1200px;
+        }
+    }
+}
+
+@media(max-width:1000px) {
+    .section {
+        padding: 70px 15px;
+
+        .section-title-area {
+            margin-bottom: 50px;
+        }
+
+        .section-main {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media(max-width:900px) {
+    .section {
+        .section-title-area {
+            img {
+                display: none;
+            }
+        }
+    }
+}
+
+@media(max-width:700px) {
+    .section {
+        .section-main {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+
+@media(max-width:770px) {
+    .section {
+        padding: 25px 15px;
+
+        .section-title-area {
+            margin-bottom: 25px;
+
+            h3 {
+                font-size: 24px;
+                line-height: 29px;
+            }
+        }
+    }
+}

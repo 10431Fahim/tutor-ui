@@ -1,0 +1,39 @@
+<div
+  class="custom-dropzone"
+  ngx-dropzone
+  [accept]="'image/*'"
+  (change)="onSelect($event)"
+  [style.background-color]="fileNotPicked ? '#ffc6c6': '#fff'"
+  [style.border]="fileNotPicked ? '2px dashed #f11': '1px dashed #d0d0d0'"
+>
+  <ngx-dropzone-label>
+    <div class="label">
+      <img src="./assets/images/svg/feather_upload-cloud.svg" alt="" />
+
+      <div class="upload-size">
+        <p>Drag & drop here or Click to <a>Browse</a></p>
+      </div>
+    </div>
+  </ngx-dropzone-label>
+</div>
+<!-- END! custom-dropzone -->
+
+<div class="drop-zone-img-preview" *ngIf="files.length">
+  <ngx-dropzone-image-preview
+    ngProjectAs="ngx-dropzone-preview"
+    *ngFor="let f of files"
+    [file]="f"
+    [removable]="true"
+    (removed)="onRemove(f)"
+  >
+  </ngx-dropzone-image-preview>
+</div>
+
+<div class="drop-zone-img-preview" *ngIf="images?.length">
+  <div class="img-thumb" *ngFor="let data of images">
+    <button mat-icon-button type="button" (click)="removeOldImage()">
+      <i class="fa fa-times"></i>
+    </button>
+    <img [src]="data" alt="">
+  </div>
+</div>

@@ -1,0 +1,172 @@
+<div class="top-pagination">
+  <div class="container">
+    <ul>
+      <ng-container>
+        <li><a routerLink="/account/my-account">আমার একাউন্ট</a></li>
+        <li><small><fa-icon [icon]="faAngleRight"></fa-icon></small></li>
+      </ng-container>
+
+      <ng-container>
+        <li><a>আমার কোর্সসমূহ</a></li>
+        <li><small><fa-icon [icon]="faAngleRight"></fa-icon></small></li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="our-course">
+      <div class="title"><h3>আমার কোর্সসমূহ</h3></div>
+
+      <div class="order-top">
+        <ul>
+          <li>
+            <a
+              [class.active]="selectedStatus == 'all'"
+              (click)="filterOrderList('all', null)"
+              >{{ "All" | uppercase }}</a
+            >
+          </li>
+          <li>
+            <a
+              [class.active]="selectedStatus == 'video-course'"
+              (click)="
+                filterOrderList('video-course', { orderType: 'video-course' })
+              "
+              >{{ "Video Course" | uppercase }}</a
+            >
+          </li>
+          <li>
+            <a
+              [class.active]="selectedStatus == 'live-course'"
+              (click)="
+                filterOrderList('live-course', { orderType: 'live-course' })
+              "
+              >{{ "Live Course" | uppercase }}</a
+            >
+          </li>
+
+          <li>
+            <a
+              [class.active]="selectedStatus == 'lecture-sheet'"
+              (click)="
+                filterOrderList('lecture-sheet', { orderType: 'lecture-sheet' })
+              "
+              >{{ "Lecture Sheet" | uppercase }}</a
+            >
+          </li>
+
+          <li>
+            <a
+              [class.active]="selectedStatus == 'partial-payment'"
+              (click)="
+                filterOrderList('partial-payment', {
+                  isPartialPaymentOrder: true
+                })
+              "
+              >{{ "Partial Payment" | uppercase }}</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="course-main">
+        <ng-container *ngIf="loader">
+          <app-product-card-one-loader
+            *ngFor="let item of [].constructor(6)"
+          ></app-product-card-one-loader>
+        </ng-container>
+
+        <ng-container *ngIf="!loader">
+          <div class="courses-card" *ngFor="let item of orders">
+            <div class="tag">
+              <span *ngIf="item?.orderType === 'live-course'">
+                <fa-icon [icon]="faVideoCamera"></fa-icon> Live
+              </span>
+              <span *ngIf="item?.orderType === 'lecture-sheet'">
+                <fa-icon [icon]="faFilePdf"></fa-icon> PDF
+                </span>
+              <span *ngIf="item?.orderType === 'video-course'">
+                <fa-icon [icon]="faPlay"></fa-icon> Video
+              </span>
+            </div>
+            <div class="courses-img">
+              <img [src]="item?.orderItem?.image" alt="" />
+            </div>
+            <div class="courses-details">
+              <div class="course-body">
+                <h3 class="courses-name">{{ item?.orderItem?.name }}</h3>
+                <div class="progress-bar">
+                  <span></span>
+                </div>
+                <div
+                  class="live-course-action"
+                  *ngIf="(item?.orderType === 'live-course' && item?.orderItem?.specifications?.length) || (item?.orderType === 'video-course' && item?.orderItem?.specifications?.length) "
+                >
+                  <h6 class="otp-code"><span class="text">কোর্স রেজিস্ট্রেশন কোড</span> <span class="otp">{{ item?.liveCourseCode }}</span></h6>
+                  <button
+                    mat-icon-button
+                    [cdkCopyToClipboard]="item?.liveCourseCode"
+                    (click)="onCopyCode($event)"
+                  >
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+                <p *ngIf="checkExpireDay(item.expiredIn)">মেয়াদ {{ checkExpireDay(item.expiredIn) }} দিন বাকি</p>
+              </div>
+              <div class="buy-courses">
+
+                <!-- Show Join Group only if group link is set from admin (specifications array not empty) -->
+                <a
+                  *ngIf="(item?.orderType === 'live-course' || item?.orderType === 'video-course') &&
+                         latestCourseSpecs[item?.orderItem?._id]?.length > 0 &&
+                         latestCourseSpecs[item?.orderItem?._id][0]?.value !== null"
+                  (click)="getCourseForPreviewByUser(item?.orderItem?._id)"
+                >
+                  Join Group
+                </a>
+
+                <a
+                  *ngIf="item?.orderType === 'video-course'"
+                  [routerLink]="['/course-play-list', item?.orderItem?._id]">Continue
+                </a>
+<!--                [href]="item.liveGroupLink"-->
+<!--                target="_blank"-->
+                <a
+                  *ngIf="item?.orderType === 'live-course'"
+                  (click)="
+                    onPostName(item?.orderItem?._id, item?.orderItem?.name)
+                  "
+                >View Details
+                </a>
+
+
+                <a
+                  *ngIf="item?.orderType === 'lecture-sheet'"
+                  (click)="
+                    onPostName(item?.orderItem?._id, item?.orderItem?.name)
+                  "
+                  >Continue
+                </a>
+
+
+                <a
+                  *ngIf="item?.orderItem.certificateImage"
+                  class="download-link"
+                  (click)="
+                    downloadCertificate(item?.orderItem?.certificateImage, item?.orderItem?.name, $event)
+                  "
+                  title="Download Certificate"
+                >
+                  <fa-icon [icon]="faDownload"></fa-icon>
+                  <span>Certificate Image</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

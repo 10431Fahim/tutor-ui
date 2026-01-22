@@ -1,0 +1,11 @@
+
+
+<div class="main-div">
+  <h2>Group link</h2>
+
+  <div *ngFor="let item of data" >
+   <a class="grouplink" target="_blank" [href]="item?.value">{{item?.name}}</a>
+  </div>
+</div>
+
+

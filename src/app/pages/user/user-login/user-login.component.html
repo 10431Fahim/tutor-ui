@@ -1,0 +1,189 @@
+<!--<div class="section">-->
+<!--  <div class="container">-->
+<!--    <div class="section-main">-->
+<!--      <div class="reset-password">-->
+<!--        <div class="reset-password-top">-->
+<!--          <h3>ঘরে বসে পড়াশোনার সহজ সমাধান</h3>-->
+<!--&lt;!&ndash;          <span routerLink="/login"><i class="fa fa-arrow-left"></i></span>&ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="reset-form">-->
+<!--&lt;!&ndash;          <div *ngIf="hasUser === false" class="not-found-account">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span><i class="fa fa-xmark"></i>Account not found</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          <form [formGroup]="dataForm" >-->
+<!--            <div class="form-input">-->
+<!--              <input type="text" placeholder="মোবাইল নাম্বার/ইমেইল"-->
+<!--                     [class]="dataForm.get('username').touched && dataForm.get('username').invalid ? 'invalid' :''"-->
+<!--                     formControlName="username">-->
+<!--              <small *ngIf="dataForm.get('username').touched && dataForm.get('username').invalid">This-->
+<!--                Field is-->
+<!--                Required</small>-->
+<!--            </div>-->
+
+<!--            <div class="form-input" *ngIf="isOtpSent">-->
+<!--              <input type="text" placeholder="Otp code"-->
+<!--                     [class]="dataForm.get('otp').touched && dataForm.get('otp').invalid ? 'invalid' :''"-->
+<!--                     formControlName="otp" [required]="isOtpSent">-->
+<!--              <small *ngIf="dataForm.get('otp').touched && dataForm.get('otp').invalid">This-->
+<!--                Field is-->
+<!--                Required</small>-->
+<!--            </div>-->
+<!--            <div class="form-input password" *ngIf="isPass">-->
+<!--              <div class="password-area">-->
+<!--                <p class="label">পাসওয়ার্ড <sup>*</sup></p>-->
+<!--                <input-->
+<!--                  [class]="dataForm.get('password').touched && dataForm.get('password').invalid ? 'invalid' :''"-->
+<!--                  [attr.type]="isPasswordShow ? 'text' : 'password'" placeholder="পাসওয়ার্ড"-->
+<!--                  formControlName="password">-->
+<!--                <span (click)="onShowPassword()"><i-->
+<!--                  [class]="isPasswordShow ? 'fa fa-eye-slash' : 'fa fa-eye'"></i></span>-->
+<!--              </div>-->
+<!--              <a class="reset-password" routerLink="/reset-password">পাসওয়ার্ড ভুলে গেছেন?</a>-->
+<!--              <small *ngIf="dataForm.get('password').touched && dataForm.get('password').invalid">This-->
+<!--                Field is-->
+<!--                Required</small>-->
+
+<!--            </div>-->
+
+<!--            <div class="view-all-btn">-->
+<!--              <button  class="login-button" *ngIf="!showBtn" (click)="onSubmit()">এগিয়ে যান-->
+<!--                <mat-icon>arrow_right_alt</mat-icon>-->
+<!--              </button>-->
+<!--              <button *ngIf="showBtn"  class="login-button" (click)="onSubmitData()" >-->
+<!--                এগিয়ে যান-->
+<!--                <mat-icon>arrow_right_alt</mat-icon>-->
+<!--              </button>-->
+<!--            </div>-->
+
+<!--&lt;!&ndash;            <div class="form-sub">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <button *ngIf="!isLoading" type="submit">Submit</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <button *ngIf="isLoading" type="button">Please wait...</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              <button *ngIf="!isLoading" class="login-button" (click)="onSubmitData()">এগিয়ে যান&ndash;&gt;-->
+<!--&lt;!&ndash;                <mat-icon>arrow_right_alt</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;              </button>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <button *ngIf="!showBtn" (click)="onSubmit()" type="button">Submit</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              <button *ngIf="showBtn"  (click)="onSubmitData()" type="button">Signup</button>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <button *ngIf="!isLoading" (click)="onSubmit()" type="submit">Submit</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <button *ngIf="!isLoading" (click)="onSubmit()" type="submit">Submit</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              <button *ngIf="!isLoading" (click)="onSubmit()" type="submit">Submit</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="container">
+  <div class="section">
+    <h1>ঘরে বসে পড়াশোনার সহজ সমাধান</h1>
+    <div class="section-detail">
+      <form [formGroup]="dataForm" style="width: 100%">
+        <!-- Back button - only show when OTP is sent or password is required -->
+        <div class="back-btn" *ngIf="isOtpSent || isPass" (click)="onBackButtonClick()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#6B7280" viewBox="0 0 14 14">
+            <path fill="#6B7280" fill-rule="evenodd" d="M2.238 7a.952.952 0 01.952-.952h9.522a.952.952 0 010 1.904H3.19A.952.952 0 012.238 7z" clip-rule="evenodd"></path>
+            <path fill="#6B7280" fill-rule="evenodd" d="M.612 7.674a.952.952 0 010-1.348L6.325.613a.953.953 0 011.348 1.348l-5.04 5.04 5.04 5.038a.953.953 0 11-1.348 1.348L.612 7.674z" clip-rule="evenodd"></path>
+          </svg>
+          <span>ফিরে যান</span>
+        </div>
+
+        <mat-label>মোবাইল নাম্বার/ইমেইল </mat-label>
+        <mat-form-field appearance="outline" style="margin-bottom: -0.6em">
+          <input
+            [disabled]="isOtpSent || isPass"
+            [readonly]="isOtpSent || isPass"
+            matInput
+            placeholder="মোবাইল নাম্বার/ইমেইল"
+            formControlName="username"
+            autocomplete="off"
+            (input)="removeSpaces($event)"
+            [maxlength]="isMobileNumber(dataForm.get('username')?.value) ? 11 : null"
+            pattern="[^\s]*"
+          />
+          <mat-error *ngIf="dataForm.controls['username'].hasError('invalidInput')">
+            Please enter a valid mobile number or email address
+          </mat-error>
+          <mat-error *ngIf="dataForm.controls['username'].hasError('invalidEmail')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="dataForm.controls['username'].hasError('emailTooLong')">
+            Email address is too long (maximum 254 characters)
+          </mat-error>
+          <mat-error *ngIf="dataForm.controls['username'].hasError('invalidMobile')">
+            Please enter a valid Bangladesh mobile number (e.g., 01XXXXXXXXX)
+          </mat-error>
+          <mat-error *ngIf="dataForm.controls['username'].hasError('maxlength')">
+            Mobile number cannot exceed 11 digits
+          </mat-error>
+        </mat-form-field>
+
+        <div *ngIf="isOtpSent" style="margin-top: 10px">
+          <mat-form-field appearance="outline" style="margin-bottom: -1.25em">
+            <input
+              matInput
+              placeholder="কোডটি লিখুন"
+              formControlName="otp"
+              type="number"
+              maxlength="6"
+              pattern="[0-9]*"
+              inputmode="numeric"
+              (input)="onOtpInput($event)"
+            >
+          </mat-form-field>
+          <mat-error *ngIf="dataForm.controls['otp'].hasError('required')">
+            কোডটি প্রয়োজন
+          </mat-error>
+          <a [style.display]="countDown == 0 ? 'none': 'block'" style="color: #f53d2d; font-weight: 500;">{{'0:' + countDown}}</a>
+          <div class="send-data" *ngIf="countDown == 0 && isCountDownEnd">
+            <button class="resend" type="button" (click)="resendOtp()">পুনরায় পাঠান</button>
+          </div>
+        </div>
+
+        <div *ngIf="isPass" style="margin-top: 6px">
+          <mat-label>পাসওয়ার্ড <sup style="color: red;">*</sup></mat-label>
+          <mat-form-field class="pass" appearance="outline" style="margin-bottom: -1.25em">
+            <input
+              matInput
+              placeholder="পাসওয়ার্ড (ন্যূনতম ৬ অক্ষর)"
+              [attr.type]="isPasswordShow ? 'text' : 'password'"
+              formControlName="password"
+              [minlength]="6"
+            >
+            <span (click)="onShowPassword()">
+              <i [class]="isPasswordShow ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+            </span>
+          </mat-form-field>
+          <mat-error *ngIf="dataForm.controls['password'].hasError('required')">
+            পাসওয়ার্ড প্রয়োজন
+          </mat-error>
+          <mat-error *ngIf="dataForm.controls['password'].hasError('minlength')">
+            পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে
+          </mat-error>
+          <a *ngIf="!isOtpSent && isPass" class="reset-password" routerLink="/reset-password">পাসওয়ার্ড ভুলে গেছেন?</a>
+        </div>
+
+        <div class="view-all-btn">
+          <button
+            *ngIf="!showBtn"
+            [ngClass]="{'disabled-button': !isFormValid(), 'enabled-button': isFormValid()}"
+            [disabled]="!isFormValid()"
+            class="login-button"
+            (click)="onSubmit()">এগিয়ে যান
+            <mat-icon>arrow_right_alt</mat-icon>
+          </button>
+
+          <button
+            *ngIf="showBtn"
+            [ngClass]="{'disabled-button': !isFormValid(), 'enabled-button': isFormValid()}"
+            [disabled]="!isFormValid()"
+            class="login-button"
+            (click)="onSubmitData()">এগিয়ে যান
+            <mat-icon>arrow_right_alt</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

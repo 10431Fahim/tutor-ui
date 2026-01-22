@@ -1,0 +1,28 @@
+<div class="main-container" *ngIf="!isLoading && offlineCourse.length">
+  <div class="top-section">
+    <div class="title">
+      <h1>{{ offlineCourse[0]?.name}}</h1>
+    </div>
+    <div class="date">
+
+      <fa-icon [icon]="faCalender"></fa-icon>
+      <span>{{offlineCourse[0]?.createdAt | date}}</span>
+    </div>
+  </div>
+
+  <div class="bottom-section">
+    <img [src]="offlineCourse[0]?.image" [alt]="offlineCourse[0]?.name">
+    <p class="description" [innerHTML]="offlineCourse[0]?.description | safeHtmlCustom"></p>
+  </div>
+</div>
+
+
+<div class="not-found" *ngIf="!offlineCourse.length">
+  <div class="img">
+    <img src="assets/images/gif/1273880a5b9cc8008301089835f37939.gif" alt="">
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  <app-blog-details-loader></app-blog-details-loader>
+</div>

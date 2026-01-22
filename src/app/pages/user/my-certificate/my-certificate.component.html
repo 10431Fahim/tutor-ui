@@ -1,0 +1,64 @@
+<div class="page">
+  <div class="page-header">
+    <h2>
+      <mat-icon aria-hidden="true">workspace_premium</mat-icon>
+      <span>My Certificates</span>
+    </h2>
+    <div class="sub" *ngIf="certificates?.length">You have {{ certificates.length }} certificate{{ certificates.length > 1 ? 's' : '' }}</div>
+  </div>
+
+  <!-- Loading -->
+  <div class="state" *ngIf="loading">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  </div>
+
+  <!-- Error -->
+  <div class="state error" *ngIf="!loading && error">
+    {{ error }}
+  </div>
+
+  <!-- Empty -->
+  <div class="state empty" *ngIf="!loading && !error && (!certificates || certificates.length === 0)">
+    No certificates found.
+  </div>
+
+  <!-- Grid -->
+  <div class="cert-grid" *ngIf="!loading && !error && certificates?.length">
+    <mat-card class="cert-card" *ngFor="let c of certificates">
+      <!-- Header -->
+      <div class="card-top gradient">
+        <div class="title-wrap">
+          <div class="title" [title]="c.courseName">{{ c.courseName || 'Untitled Course' }}</div>
+          <div class="meta">
+            <span class="date">Issued • {{ c.createdAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+<!--        <div class="badge" *ngIf="c.priority !== undefined">-->
+<!--          P{{ c.priority }}-->
+<!--        </div>-->
+      </div>
+
+      <mat-card-content>
+        <!-- Image -->
+        <div class="thumb">
+          <img [src]="c.image" [alt]="c.courseName || 'Certificate Image'"/>
+        </div>
+      </mat-card-content>
+
+      <!-- Footer actions -->
+      <mat-card-actions class="actions">
+        <button mat-raised-button color="primary"
+                (click)="downloadImage(c.image, (c.courseName || 'certificate') + '.jpg')" aria-label="Download certificate image">
+          <mat-icon>download</mat-icon>
+          <span>Download</span>
+        </button>
+        <a mat-stroked-button color="accent" [href]="c.image" target="_blank" rel="noopener" aria-label="Open certificate image in new tab">
+          <mat-icon>open_in_new</mat-icon>
+          <span>Open</span>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="page-spacer"></div>
+</div>

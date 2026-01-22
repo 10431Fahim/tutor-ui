@@ -1,0 +1,136 @@
+@import "variables";
+
+.mySwiper3 {
+  padding: 20px 12px;
+}
+
+::ng-deep.new-section-cards4 .new-section-cards4 .swiper-pagination-bullet-active {
+  background-color: $esquire-color !important;
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 10px;
+
+  opacity: 1;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.new-section-cards4 .carousel .swiper-pagination-bullet {
+  background-color: $esquire-color;
+  width: 10px;
+  opacity: 1;
+  height: 10px;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next {
+  font-size: 20px;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next {
+  right: 14px;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-prev {
+  left: 14px;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next,
+::ng-deep.new-section-cards4 .swiper-button-prev {
+  background-color: $color-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  top: 174px;
+  z-index: 660;
+  transition: all 0.3s linear;
+  visibility: hidden;
+  opacity: 0;
+  box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  border-radius: 50%;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next {
+  right: 22px;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-prev {
+  left: 22px;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next:hover,
+::ng-deep.new-section-cards4 .swiper-button-prev:hover {
+  background-color: $color-primary;
+}
+
+::ng-deep.new-section-cards4 .mySwiper3:hover .swiper-button-next,
+::ng-deep.new-section-cards4 .mySwiper3:hover .swiper-button-prev {
+  visibility: visible;
+  opacity: 1;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next:after,
+::ng-deep.new-section-cards4 .swiper-button-prev:after {
+  content: "\f105";
+  font-size: 17px;
+  font-weight: 600;
+  font-family: "Font Awesome 5 Free";
+  display: block;
+  color: #fff;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next:hover:after,
+::ng-deep.new-section-cards4 .swiper-button-prev:hover:after {
+  color: #fff;
+}
+
+::ng-deep.new-section-cards4 .swiper-button-prev:after {
+  content: "\f104";
+}
+
+::ng-deep.new-section-cards4 .swiper-button-next.swiper-button-disabled,
+::ng-deep.new-section-cards4 .swiper-button-prev.swiper-button-disabled {
+  z-index: 20;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: all 0.3s linear;
+}
+
+::ng-deep.new-section-cards4 .small-carousel .mySwiper3 {
+  padding: 0 30px;
+}
+
+::ng-deep.new-section-cards4 .small-carousel ::ng-deep.new-section-cards4 .swiper-button-next {
+  right: 0;
+  width: 25px;
+  height: 25px;
+  top: 60%;
+}
+
+::ng-deep.new-section-cards4 .small-carousel ::ng-deep.new-section-cards4 .swiper-button-prev {
+  left: 0;
+  width: 25px;
+  height: 25px;
+  top: 60%;
+}
+
+::ng-deep.new-section-cards4 .carousel .swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 30px;
+}
+
+::ng-deep.new-section-cards4 .carousel .swiper-slide {
+  padding: 10px 1px;
+  box-sizing: border-box;
+}
+
+::ng-deep.new-section-cards4 .review-carousel .swiper-slide {
+  padding: 40px 20px;
+  box-sizing: border-box;
+}

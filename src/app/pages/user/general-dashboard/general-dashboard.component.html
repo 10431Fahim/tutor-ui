@@ -1,0 +1,133 @@
+<div class="general-dashboard-container">
+  <div class="container">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading dashboard...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadDashboard()">Retry</button>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div *ngIf="dashboardData && !loading" class="dashboard-content">
+      <!-- Notices Section -->
+      <div class="dashboard-section" *ngIf="dashboardData.notices?.length">
+        <h2 class="section-title">
+          <mat-icon>notifications</mat-icon>
+          Latest Notices
+        </h2>
+        <div class="notices-grid">
+          <div *ngFor="let notice of dashboardData.notices" class="notice-card" [routerLink]="['/notice', notice.slug]">
+            <img [src]="notice.image || notice.bannerImage || 'assets/images/placeholder.jpg'" [alt]="notice.name" />
+            <div class="notice-content">
+              <h3>{{ notice.name }}</h3>
+              <p>{{ notice.shortDesc || notice.description | slice:0:100 }}...</p>
+              <span class="notice-date">{{ notice.createdAt | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enrollments Section -->
+      <div class="dashboard-section" *ngIf="dashboardData.enrollments?.recent?.length">
+        <h2 class="section-title">
+          <mat-icon>school</mat-icon>
+          My Enrollments
+        </h2>
+        <div class="enrollments-grid">
+          <div *ngFor="let enrollment of dashboardData.enrollments.recent" class="enrollment-card" [routerLink]="['/course-play-list', enrollment.orderItem?._id]">
+            <img [src]="enrollment.orderItem?.image || 'assets/images/placeholder.jpg'" [alt]="enrollment.orderItem?.name" />
+            <div class="enrollment-content">
+              <h3>{{ enrollment.orderItem?.name }}</h3>
+              <p>Order ID: {{ enrollment.orderId }}</p>
+              <span class="enrollment-date">{{ enrollment.checkoutDate | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="section-footer">
+          <a [routerLink]="['/my-course']" mat-button>View All Enrollments</a>
+        </div>
+      </div>
+
+      <!-- Leaderboard Section -->
+      <div class="dashboard-section" *ngIf="dashboardData.leaderboard">
+        <h2 class="section-title">
+          <mat-icon>emoji_events</mat-icon>
+          Leaderboard
+        </h2>
+        <div class="leaderboard-card">
+          <p>Overall Leaderboard</p>
+          <p class="leaderboard-participants">Total Participants: {{ dashboardData.leaderboard.totalParticipants || 0 }}</p>
+          <a [routerLink]="['/leaderboard']" mat-button color="primary">View Full Leaderboard</a>
+        </div>
+      </div>
+
+      <!-- Free Exams Section -->
+      <div class="dashboard-section" *ngIf="dashboardData.freeExams?.length">
+        <h2 class="section-title">
+          <mat-icon>quiz</mat-icon>
+          Free Exams
+        </h2>
+        <div class="exams-grid">
+          <div *ngFor="let exam of dashboardData.freeExams" class="exam-card" [routerLink]="['/quiz', exam._id]">
+            <img [src]="exam.image || 'assets/images/placeholder.jpg'" [alt]="exam.name" />
+            <div class="exam-content">
+              <h3>{{ exam.name }}</h3>
+              <p>Mode: {{ exam.examMode || 'MCQ' }}</p>
+              <span class="exam-date" *ngIf="exam.startTime">{{ exam.startTime | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Free Seminars Section -->
+      <div class="dashboard-section" *ngIf="dashboardData.freeSeminars?.length">
+        <h2 class="section-title">
+          <mat-icon>video_library</mat-icon>
+          Free Seminars/Workshops
+        </h2>
+        <div class="seminars-grid">
+          <div *ngFor="let seminar of dashboardData.freeSeminars" class="seminar-card" [routerLink]="['/course-details', seminar.slug]">
+            <img [src]="seminar.image || seminar.bannerImage || 'assets/images/placeholder.jpg'" [alt]="seminar.name" />
+            <div class="seminar-content">
+              <h3>{{ seminar.name }}</h3>
+              <p>{{ seminar.description | slice:0:100 }}...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q&A Section -->
+      <div class="dashboard-section" *ngIf="dashboardData.qna">
+        <h2 class="section-title">
+          <mat-icon>help_outline</mat-icon>
+          Q&A
+        </h2>
+        <div class="qna-section">
+          <div *ngIf="dashboardData.qna.answered?.length" class="qna-list">
+            <h3>Recent Answers</h3>
+            <div *ngFor="let qna of dashboardData.qna.answered" class="qna-item">
+              <p><strong>Q:</strong> {{ qna.question }}</p>
+              <p *ngIf="qna.answer"><strong>A:</strong> {{ qna.answer | slice:0:150 }}...</p>
+            </div>
+          </div>
+          <div *ngIf="dashboardData.qna.myPending?.length" class="qna-list">
+            <h3>My Pending Questions</h3>
+            <div *ngFor="let qna of dashboardData.qna.myPending" class="qna-item pending">
+              <p>{{ qna.question }}</p>
+              <span class="qna-date">{{ qna.createdAt | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="section-footer">
+          <a [routerLink]="['/account/qna']" mat-button>View All Q&A</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

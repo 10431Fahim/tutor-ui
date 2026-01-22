@@ -1,0 +1,54 @@
+<section class="container" *ngIf="!isFinish">
+  <main class="main-container">
+    <div class="top-container">
+      <div class="card-element">
+        <p>{{ quiz?.name }}</p>
+        <div class="btn-container">
+<!--          <button class="quiz-btn">-->
+<!--            <span>শেষ করুন</span>-->
+<!--          </button>-->
+        </div>
+      </div>
+
+      <div class="time-counter">
+        <div class="time-counter-range-bg">
+          <span [style.width]="parentage + '%'"></span>
+        </div>
+
+        <p class="time-count">
+          <small> ⏱ </small>
+          <span>
+            {{ convertMin > 10 ? convertMin : "0" + convertMin }} :
+            {{ convertSec > 10 ? convertSec : "0" + convertSec }}
+          </span>
+        </p>
+      </div>
+
+      <div class="timeout" *ngIf="quiz?.quizType !== 'manual'">
+        <p>Completion Questions {{progress}}%</p>
+        <progress id="file" [value]="progress" max="100"></progress>
+      </div>
+    </div>
+
+    <div class="quiz-container" >
+      <app-quiz-card *ngFor="let data of quiz?.questions" [data]="data"
+                     (onSelectOption)="onSelectOption($event)"></app-quiz-card>
+    </div>
+
+
+<!--    <div class="quiz-container" *ngIf="quiz?.quizType === 'manual'">-->
+<!--      <app-quiz-card-two *ngFor="let data of quiz?.questions" [data]="data"-->
+<!--                     (onSelectOption)="onSelect2Option($event)"></app-quiz-card-two>-->
+<!--    </div>-->
+
+
+    <div class="btn-container">
+      <button class="quiz-btn" (click)="onFinish()">
+        <span>কুইজ সমাপ্ত করুন</span>
+      </button>
+    </div>
+
+  </main>
+</section>
+
+<app-quiz-result *ngIf="isFinish" [quiz]="quiz" [result]="result" (onReQuiz)="onReQuiz()" [course]="course" [user]="user"></app-quiz-result>

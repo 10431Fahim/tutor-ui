@@ -1,0 +1,116 @@
+<div class="section">
+    <div class="container">
+        <div class="section-main">
+            <div class="section-title">
+                <h3>একনজরে বইয়ের বিবরণ</h3>
+            </div>
+            <div class="product-menu">
+                <ul>
+                    <li><button [class]="tabNo === 0 ? 'active' : ''" (click)="tabHandle(0)">সারসংক্ষেপ</button></li>
+                    <li><button [class]="tabNo === 1 ? 'active' : ''" (click)="tabHandle(1)">বিবরণ</button></li>
+<!--                    <li><button [class]="tabNo === 2 ? 'active' : ''" (click)="tabHandle(2)">লেখক</button></li>-->
+                    <li><button [class]="tabNo === 3 ? 'active' : ''" (click)="tabHandle(3)">মন্তব্য</button></li>
+                </ul>
+            </div>
+            <div class="section-info-area">
+
+                <div class="description" *ngIf="tabNo === 0" [innerHTML]="product?.description ?? 'No Summery' | safeHtmlCustom"></div>
+                <!--END DESCRIPTION-->
+
+
+                <div class="specification" *ngIf="tabNo === 1">
+                  <div class="table" *ngIf="!product?.specifications">
+                    <p>No Specification</p>
+                  </div>
+
+                    <div class="table" *ngIf="product?.specifications">
+                        <div class="table-title">
+                            <h3>Product Specification</h3>
+                        </div>
+<!--                      <table>-->
+<!--                        <tr>-->
+<!--                          <th class="table-heading">{{product?.name}}</th>-->
+<!--                          <td class="table-data">{{s.value}}</td>-->
+<!--                        </tr>-->
+<!--                      </table>-->
+                        <table>
+                          <tr *ngIf="product?.name">
+                            <th class="table-heading">Title</th>
+                            <td class="table-data">{{product?.name}}</td>
+                          </tr>
+<!--                          <tr *ngIf="product?.author">-->
+<!--                            <th class="table-heading">Author</th>-->
+<!--                            <td class="table-data"><span *ngFor="let data of product?.author; let i=index">{{data?.name}}<span style="padding:0 5px " *ngIf="i < product?.author.length - 1 "> , </span></span></td>-->
+<!--                          </tr>-->
+                          <tr *ngIf="product?.author">
+                            <th class="table-heading">Author</th>
+                            <td class="table-data">{{product?.author}}</td>
+                          </tr>
+                          <tr *ngIf="product?.publisher">
+                            <th class="table-heading">Publisher</th>
+                            <td  class="table-data">{{product?.publisher}}</td>
+                          </tr>
+                          <tr *ngIf="product?.isbn">
+                            <th class="table-heading">ISBN</th>
+                            <td  class="table-data">{{product?.isbn}}</td>
+                          </tr>
+                          <tr *ngIf="product?.edition ">
+                            <th class="table-heading">Edition</th>
+                            <td  class="table-data">{{product?.edition}}</td>
+                          </tr>
+
+                          <tr *ngIf="product?.publishedDate ">
+                            <th class="table-heading">Publish</th>
+                            <td  class="table-data">{{product?.publishedDate | date}}</td>
+                          </tr>
+
+                          <tr *ngIf="product?.totalPages">
+                            <th class="table-heading">Number of Pages</th>
+                            <td  class="table-data">{{product?.totalPages}}</td>
+                          </tr>
+                          <tr *ngIf="product?.country">
+                            <th class="table-heading">Country</th>
+                            <td  class="table-data">{{product?.country}}</td>
+                          </tr>
+                          <tr *ngIf="product?.language">
+                            <th class="table-heading">Language</th>
+                            <td  class="table-data">{{product?.language}}</td>
+                          </tr>
+                            <tr *ngFor="let s of product?.specifications">
+                                <th class="table-heading">{{s.name}}</th>
+                                <td class="table-data">{{s.value}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div><!---END SPECIFICATION-->
+
+<!--                <div class="author" *ngIf="tabNo === 2">-->
+<!--                    <div class="author-main">-->
+<!--                        <div class="author-img">-->
+<!--                            <img [src]="author?.image ? author?.image : 'https://ds.rokomari.store/rokomari110/people/6f23e547d_14930.jpg'"-->
+<!--                                alt="">-->
+<!--&lt;!&ndash;                            <a (click)="followUnfollowAuthorByUser(isFollowAuthor ? 'follow' : 'unfollow')">Follow</a>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="author-body">-->
+<!--                            <a  [routerLink]="'/author-list/author-details/' + author?._id">{{author?.name}} </a>-->
+<!--                            <p [innerHTML]="author?.description ?? ''"></p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>&lt;!&ndash;-END AUTHOR&ndash;&gt;-->
+
+                <div class="review-area" *ngIf="tabNo === 3">
+                    <app-all-reviews></app-all-reviews>
+                </div><!---END REVIEW AREA-->
+
+            </div>
+
+            <a class="banner" style="margin-top: 30px;" *ngIf="data" [href]="data[0]?.url" target="_blank">
+                <div class="banner-main">
+                    <img [src]="data[0]?.image"
+                        alt="">
+                </div>
+            </a><!---END BANNER-->
+
+        </div>
+    </div>
+</div>

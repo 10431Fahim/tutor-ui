@@ -1,0 +1,54 @@
+<div class="section">
+    <div class="container">
+        <div class="section-title-area  wow animate__backInLeft">
+            <div class="section-title-main">
+                <h3>টিউটর সেন্টার কেন</h3>
+                <h3>সকল ছাত্র-ছাত্রী ও অভিভাবকের পছন্দের শীর্ষে ?</h3>
+            </div>
+        </div>
+        <div class="section-main wow animate__fadeInUp">
+            <div class="slider-area">
+                <swiper [slidesPerView]="'auto'"
+                    [grabCursor]="true"
+                    [centeredSlides]="true"
+                    [zoom]="true"
+                    [effect]="'coverflow'"
+                    [coverflowEffect]="{
+                    rotate: 30,
+                    stretch: 10,
+                    depth:100,
+                    modifier: 1,
+                    slideShadows: true
+                    }"
+                    [spaceBetween]="15"
+                    [navigation]="false"
+                    [autoplay]="true"
+                    [breakpoints]="{
+                    '0': {
+                        slidesPerView: 1,
+                        spaceBetween:10
+                    },
+                    '810': {
+                        slidesPerView: 1.4
+                    },
+                    '1000': {
+                        slidesPerView: 1.6,
+                        spaceBetween:100
+                    }
+                      }"
+                    class="mySwiper">
+                    <ng-template swiperSlide *ngFor="let data of reviews">
+                        <div class="community-card">
+                            <img [src]="data?.user?.profileImg ? data?.user?.profileImg : '/assets/images/brand/jpg/images.jpg'" alt="">
+                            <h3>{{data?.user?.name | titlecase}}</h3>
+                            <span>{{data?.course?.name}}</span>
+                            <p>{{data?.review}}</p>
+                        </div>
+                    </ng-template>
+
+
+                </swiper>
+            </div>
+        </div>
+    </div>
+</div>

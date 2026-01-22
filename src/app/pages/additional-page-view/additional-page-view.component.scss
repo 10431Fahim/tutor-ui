@@ -1,0 +1,9 @@
+@import "variables";
+
+.container {
+  width: 100%;
+  max-width: 1250px;
+  padding: 30px 16px;
+  margin: 0 auto;
+  min-height: calc(100vh - 200px);
+}

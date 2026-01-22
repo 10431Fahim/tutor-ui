@@ -1,0 +1,110 @@
+@import "variables";
+
+.courses-card {
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid $color-border;
+  cursor: pointer;
+  transition: all .4s;
+}
+
+.courses-card:hover {
+  transform: translateY(10px);
+  border-color: $color-primary;
+}
+
+.big {
+  display: block;
+}
+
+.small {
+  display: none;
+}
+
+.courses-card {
+  .courses-img {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px 5px 0 0;
+    }
+  }
+}
+
+.tag {
+  span {
+    background-color: #EB1C24;
+    color: #fff;
+    font-family: $font-en-poppins;
+    padding: 3px 5px;
+    font-size: 13px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    max-width: 80px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+  }
+}
+
+.courses-details {
+  h3 {
+    padding: 20px 12px 4px 12px;
+    font-family: $font-en-poppins, $font-en-exo;
+    font-style: normal;
+    font-weight: 600;
+    color: $heading-color;
+    font-size: $font-title-md-size;
+    margin: 0 !important;
+  }
+
+  p {
+    padding: 0 12px 0 12px;
+    font-family: $font-en-poppins, $font-en-exo;
+    font-style: normal;
+    font-weight: 400;
+    font-size: $font-dis-size - 2px;
+    line-height: 16px;
+  }
+
+}
+
+.buy-courses {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px 16px 16px;
+
+  h4 {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 19px;
+    font-family: $font-en-poppins, $font-en-exo;
+    font-weight: 600;
+    color: $color-primary;
+    letter-spacing: -0.5px;
+
+    del {
+      font-size: 16px;
+      color: $heading-color;
+    }
+  }
+
+  p {
+    a {
+      text-decoration: none;
+      color: #27895D;
+      font-size: 15px;
+      font-family: $font-en-poppins, $font-en-exo;
+      font-style: normal;
+      font-weight: 500;
+    }
+  }
+}

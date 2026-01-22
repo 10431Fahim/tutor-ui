@@ -1,0 +1,89 @@
+<div class="footer-area">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-logo-area wow animate__fadeInUp animate__delay-1s">
+        <div class="footer-logo">
+          <img *ngIf="shopInformation?.siteLogo" [ngSrc]="shopInformation?.siteLogo | imgCtrl : 'filename'"
+               [ngSrcset]="rawSrcset" [width]="shopInformation?.siteLogo | imgCtrl : 'width'"
+               [height]="shopInformation?.siteLogo | imgCtrl : 'height'" sizes="(max-width: 768px) 50vw, 25vw" alt="">
+        </div>
+<!--        <div class="app">-->
+<!--          <h3 style="margin-top: 10px">আমাদের মোবাইল অ্যাপ ডাউনলোড করুন</h3>-->
+<!--          <ul>-->
+<!--            <li>-->
+<!--              <a href="{{shopInformation?.downloadUrls[0]?.value}}">-->
+<!--                <img ngSrc="/google-play-icon-1695731678094-6b71.webp" width="156" height="49" alt="">-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="{{shopInformation?.downloadUrls[1]?.value}}">-->
+<!--                <img ngSrc="/ios-store-icon-1695731704002-c598.webp" width="156" height="49" alt="">-->
+<!--              </a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+      </div>
+      <div class="footer-link wow animate__fadeInUp animate__delay-2s">
+        <div class="footer-title">
+          <h3>Our Company</h3>
+        </div>
+        <ul>
+          <li><a routerLink="/pages/about-us">About Us</a></li>
+          <li><a routerLink="/pages/privacy-policy">Privacy Policy</a></li>
+          <li><a routerLink="/pages/return-&-refund-policy">Refund Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-link wow animate__fadeInUp animate__delay-3s">
+        <div class="footer-title">
+          <h3>Others</h3>
+        </div>
+        <ul>
+          <li><a routerLink="/blogs">Blog</a></li>
+          <li><a routerLink="/notice">Notice</a></li>
+          <li><strong>Address: </strong><a>{{shopInformation?.addresses[0]?.value}}</a></li>
+        </ul>
+      </div>
+      <div class="footer-address wow animate__fadeInUp animate__delay-4s">
+        <div class="footer-title">
+          <h3>Contact Address</h3>
+        </div>
+        <div class="adress-info">
+          <ul>
+            <li><strong>Contact:</strong> <a href="tel:{{shopInformation?.phones[0]?.value}}">
+                {{shopInformation?.phones[0]?.value}}</a> </li>
+            <li><strong>SMS: </strong> <a href="https://wa.me/{{shopInformation?.phones[0]?.value}}">Whatsapp</a>
+            </li>
+            <li><strong>Email:</strong> <a
+                href="mailto:{{shopInformation?.emails[0]?.value}}">{{shopInformation?.emails[0]?.value}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="social-media">
+          <p>Social Media Links</p>
+          <ul>
+            <li *ngFor="let social of shopInformation?.socialLinks">
+              <a
+                [ngClass]="getSocialClass(social.type)"
+                [href]="social.value"
+                target="_blank"
+              >
+                <fa-icon [icon]="getSocialIcon(social.type)"></fa-icon>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="ntt">
+  <div class="container">
+    <p> Copyright © 2025 All rights reserved | {{shopInformation?.siteName}}</p>
+    <p class="softlab" ><span>Developed by</span> <a  href="https://softlabit.com" target="_blank">SOFTLAB IT</a></p>
+  </div>
+</div>

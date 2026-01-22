@@ -1,0 +1,12 @@
+<div class="product-list-data-right">
+  <div class="all-product-item-cards">
+      <app-product-card-one [isNew]="true" [data]="data"
+        *ngFor="let data of products "></app-product-card-one>
+  </div>
+
+  <div class="load-more">
+    <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore"><i  class="fa-solid fa-spinner"></i>
+      {{totalProducts > products?.length ? 'আরও দেখুন' : 'No More'}}
+    </a>
+  </div>
+</div><!-- END PRODUCT LIST -->

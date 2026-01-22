@@ -1,0 +1,126 @@
+<div class="top-pagination">
+  <div class="container">
+    <ul>
+      <ng-container>
+        <li><a routerLink="/account/my-account">আমার একাউন্ট</a></li>
+        <li><small><fa-icon [icon]="faAngleRight"></fa-icon></small></li>
+      </ng-container>
+
+      <ng-container>
+        <li><a>আমার কোর্সসমূহ</a></li>
+        <li><small><fa-icon [icon]="faAngleRight"></fa-icon></small></li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="our-course">
+      <div class="title"><h3>আমার কোর্সসমূহ</h3></div>
+
+      <div class="order-top">
+        <ul>
+          <li>
+            <a
+              [class.active]="selectedStatus == 'all'"
+              (click)="filterOrderList('all', null)"
+              >{{ "All" | uppercase }}</a
+            >
+          </li>
+          <li>
+            <a
+              [class.active]="selectedStatus == 'video-course'"
+              (click)="
+                filterOrderList('video-course', { orderType: 'video-course' })
+              "
+              >{{ "Video Course" | uppercase }}</a
+            >
+          </li>
+          <li>
+            <a
+              [class.active]="selectedStatus == 'live-course'"
+              (click)="
+                filterOrderList('live-course', { orderType: 'live-course' })
+              "
+              >{{ "Live Course" | uppercase }}</a
+            >
+          </li>
+
+          <li>
+            <a
+              [class.active]="selectedStatus == 'lecture-sheet'"
+              (click)="
+                filterOrderList('lecture-sheet', { orderType: 'lecture-sheet' })
+              "
+              >{{ "Lecture Sheet" | uppercase }}</a
+            >
+          </li>
+
+          <li>
+            <a
+              [class.active]="selectedStatus == 'partial-payment'"
+              (click)="
+                filterOrderList('partial-payment', {
+                  isPartialPaymentOrder: true
+                })
+              "
+              >{{ "Partial Payment" | uppercase }}</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="course-main">
+        <ng-container *ngIf="loader">
+          <app-product-card-one-loader
+            *ngFor="let item of [].constructor(6)"
+          ></app-product-card-one-loader>
+        </ng-container>
+
+        <ng-container *ngIf="!loader">
+          <div class="courses-card" *ngFor="let item of orders; let i = index">
+            <div class="tag">
+              <span *ngIf="item?.orderType === 'live-course'">
+                <fa-icon [icon]="faVideoCamera"></fa-icon> Live
+              </span>
+              <span *ngIf="item?.orderType === 'lecture-sheet'">
+                <fa-icon [icon]="faFilePdf"></fa-icon> PDF
+              </span>
+              <span *ngIf="item?.orderType === 'video-course'">
+                <fa-icon [icon]="faPlay"></fa-icon> Video
+              </span>
+            </div>
+            <div class="courses-img">
+              <img [src]="item?.orderItem?.image" alt="" />
+            </div>
+            <div class="courses-details">
+              <div class="course-body">
+                <h3 class="courses-name">{{ item?.orderItem?.name }}</h3>
+              </div>
+              <div class="buy-courses">
+                <app-star-rating [rating]="item.review.rating" 
+                                 (ratingUpdated)="onRatingChanged($event, i)"
+                                 [showSnackbar]="false"
+                                 [name]="item.review.name"
+                                 (nameChange)="item.review.name = $event">
+                </app-star-rating>
+                
+                <mat-form-field class="rating-form-field" appearance="outline">
+                  <mat-label>Enter your comment</mat-label>
+                  <textarea [(ngModel)]="item.review.review" name="text" matInput rows="2"></textarea>
+                </mat-form-field>
+
+                <div class="action">
+                  <button (click)="onSubmitReview(item)" mat-raised-button type="button" color="primary">
+                    {{item?.review?._id ? 'Update Review' : 'Add New Review'}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

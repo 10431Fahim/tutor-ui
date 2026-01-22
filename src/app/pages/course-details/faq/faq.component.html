@@ -1,0 +1,27 @@
+<div class="container-left-bottom" style="margin-top: 20px">
+  <h2>সচরাচর জিজ্ঞাসা</h2>
+  <div class="course-syllabus">
+    <div class="course-syllabus-child">
+      <mat-accordion class="according">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"  *ngFor="let data of faqs">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="ex-title">
+                <h3>{{data?.name}}</h3>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-elm" >
+            <div class="expansion-panel-elm-left">
+<!--              <mat-icon>play_circle</mat-icon>-->
+              <p [innerHTML]="data?.answer | safeHtmlCustom"></p>
+            </div>
+<!--            <div class="expansion-panel-elm-right" *ngIf="data?.isFree">-->
+<!--              <p>ফ্রি দেখুন</p>-->
+<!--            </div>-->
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

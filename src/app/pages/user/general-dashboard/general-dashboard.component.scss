@@ -1,0 +1,282 @@
+.general-dashboard-container {
+  padding: 2rem 0;
+  min-height: 60vh;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .loading-container,
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+
+    mat-spinner {
+      margin-bottom: 1rem;
+    }
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: #f44336;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .dashboard-content {
+    .dashboard-section {
+      margin-bottom: 3rem;
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+
+        mat-icon {
+          color: #1976d2;
+        }
+      }
+
+      .section-footer {
+        margin-top: 1rem;
+        text-align: center;
+      }
+    }
+
+    // Notices Grid
+    .notices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+
+      .notice-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        img {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+        }
+
+        .notice-content {
+          padding: 1rem;
+
+          h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: #333;
+          }
+
+          p {
+            margin: 0 0 0.5rem 0;
+            color: #666;
+            font-size: 0.9rem;
+          }
+
+          .notice-date {
+            font-size: 0.8rem;
+            color: #999;
+          }
+        }
+      }
+    }
+
+    // Enrollments Grid
+    .enrollments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+
+      .enrollment-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+          transform: translateY(-4px);
+        }
+
+        img {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+        }
+
+        .enrollment-content {
+          padding: 1rem;
+
+          h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+          }
+
+          p {
+            margin: 0 0 0.5rem 0;
+            color: #666;
+            font-size: 0.85rem;
+          }
+
+          .enrollment-date {
+            font-size: 0.8rem;
+            color: #999;
+          }
+        }
+      }
+    }
+
+    // Leaderboard Card
+    .leaderboard-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+
+      p {
+        margin: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+
+      .leaderboard-participants {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 1rem 0;
+      }
+    }
+
+    // Exams Grid
+    .exams-grid,
+    .seminars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+
+      .exam-card,
+      .seminar-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+          transform: translateY(-4px);
+        }
+
+        img {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+        }
+
+        .exam-content,
+        .seminar-content {
+          padding: 1rem;
+
+          h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+          }
+
+          p {
+            margin: 0 0 0.5rem 0;
+            color: #666;
+            font-size: 0.85rem;
+          }
+
+          .exam-date {
+            font-size: 0.8rem;
+            color: #999;
+          }
+        }
+      }
+    }
+
+    // Q&A Section
+    .qna-section {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .qna-list {
+        margin-bottom: 2rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        h3 {
+          margin-bottom: 1rem;
+          color: #333;
+          font-size: 1.2rem;
+        }
+
+        .qna-item {
+          padding: 1rem;
+          margin-bottom: 1rem;
+          background: #f5f5f5;
+          border-radius: 4px;
+          border-left: 4px solid #1976d2;
+
+          &.pending {
+            border-left-color: #ff9800;
+          }
+
+          p {
+            margin: 0.5rem 0;
+            color: #333;
+          }
+
+          .qna-date {
+            font-size: 0.8rem;
+            color: #999;
+            display: block;
+            margin-top: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .general-dashboard-container {
+    .dashboard-content {
+      .notices-grid,
+      .enrollments-grid,
+      .exams-grid,
+      .seminars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

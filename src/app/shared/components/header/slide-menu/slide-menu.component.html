@@ -1,0 +1,40 @@
+<div class="overlay" *ngIf="slideMenu" (click)="onHideSlideMenu()"></div>
+<div class="slide-slide" [class]="slideMenu ?'slide-slide-active':'inactive'">
+    <div class="slide-top">
+        <h3>
+            <fa-icon [icon]="faAlignLeft"></fa-icon>
+            Menus
+        </h3>
+        <span (click)="onHideSlideMenu()">
+            <fa-icon [icon]="faXmark"></fa-icon>
+        </span>
+    </div>
+    <div class="slide-menu">
+        <ul>
+            <li>
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="onHideSlideMenu()"><span>Home</span></a>
+            </li>
+
+            <li *ngFor="let c of categories" (click)="onHideSlideMenu()">
+                <a (click)="onShowSubMenu(c?._id)" routerLink="/courses" [queryParams]="{ category: c.slug }"><span>{{c?.name}}  <fa-icon *ngIf="
+                    (subCategory | filter : c?._id) &&
+                    (subCategory | filter : c?._id).length > 0
+                  " [icon]="faAngleDown"></fa-icon></span></a>
+                <div class="sub-menu" *ngIf="isSubMenu === c?._id &&    (subCategory | filter : c?._id) &&
+                (subCategory | filter : c?._id).length > 0">
+                    <ul>
+                        <li><a (click)="onHideSlideMenu()" *ngFor="let d of subCategory | filter : c?._id" routerLink="/courses"
+                            [queryParams]="{ category: c.slug, subCategory: d?.slug }"><span>{{d?.name}}</span></a></li>
+                    </ul>
+             </div>
+            </li>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="/blogs" (click)="onHideSlideMenu()"><span>Blog </span></a></li>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="/notice" (click)="onHideSlideMenu()">Notice</a></li>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="/shop" (click)="onHideSlideMenu()">Shop</a></li>
+        </ul>
+    </div>
+
+    <div class="slide-bottom">
+        <p>All Rights Reserved by <a href="#">Tutorcenter</a></p>
+    </div>
+</div>

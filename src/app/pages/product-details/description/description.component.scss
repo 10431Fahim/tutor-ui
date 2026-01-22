@@ -1,0 +1,345 @@
+@import "src/theme/variables";
+/****
+         CSS Indexing
+----------------------------
+1. Default Css
+2. Product Menu
+3. Description
+4. Specification
+5. Author
+6. Review
+
+****/
+
+/**** 1. Default Css ****/
+.section {
+  display: block;
+  margin-bottom: 30px;
+  .section-main {
+    max-width: 1300px;
+    width: 100%;
+    margin: auto;
+    background-color: $color-white;
+    // box-shadow: 0px 3px 5px 1px rgb(0 0 0 / 10%);
+    padding: 30px 25px;
+    box-sizing: border-box;
+
+    .section-title {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+      h3 {
+        color: #333;
+        font-family: $font-bn-primary;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 25px;
+        display: block;
+      }
+    }
+  }
+}
+
+
+/**** 2. Product Menu ****/
+.product-menu {
+  display: block;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-menu ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.product-menu ul li {
+  margin-bottom: -1px;
+}
+
+.product-menu ul li button {
+  color: #333;
+  text-transform: capitalize;
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 13px 15px 13px 15px;
+  background-color: transparent;
+  text-align: center;
+  font-family: $font-en-primary;
+  font-style: normal;
+  letter-spacing: 1px;
+  border: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  text-align: center;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 5px 5px 0px 0px;
+  transition: all 0.3s linear;
+
+  &.active {
+    box-shadow: inset 0 4px 0 0 $color-primary;
+    border-color: #dee2e6;
+    background-color: $color-white;
+    color: $color-primary;
+  }
+
+}
+
+.section-info-area {
+  display: block;
+  padding: 20px 0px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/**** 3. Description ****/
+.description {
+  display: block;
+  p {
+    //color: #555;
+    font-family: $bangla-kalpurush;
+    font-size: $font-dis-size;
+    color: $color-black3;
+    text-align: justify;
+    line-height: 25px;
+    display: block;
+    margin-bottom: 15px !important;
+    &:last-child {
+      margin: 0px;
+    }
+  }
+}
+
+/**** 4. Specification ****/
+.specification {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: block;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.table {
+  display: block;
+  width: 100%;
+}
+
+.table-title h3 {
+  display: block;
+  background-color: #e4e7e9;
+  color: #183145;
+  font-family: $font-en-primary;
+  font-weight: 500;
+  font-size: 18px;
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.table tr {
+  display: flex;
+}
+
+.table table {
+  border-bottom: none;
+  border-left: 1px solid #e5e5e5;
+  border-right: none;
+  border-top: 1px solid #e5e5e5;
+  border-collapse: separate;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+}
+
+.table table th {
+  padding: 14px 20px;
+  border-top: 0;
+  border-bottom: 1px dotted rgba(0, 0, 0, .1);
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+  color: #454545;
+  font-family: $font-en-primary;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 30%;
+  width: 100%;
+  border-right: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  background-color: #f2f3f4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.table table td {
+  padding: 14px 10px;
+  border-bottom: 1px dotted rgba(0, 0, 0, .1);
+  line-height: 1.5;
+  border-right: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  font-weight: 400;
+  min-height: 100%;
+  font-family: $font-en-primary;
+  color: #6a6a6a;
+  font-size: 15px;
+  display: block;
+  max-width: 70%;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/** .specification-area-end ***/
+
+/**** 5. Author ****/
+.author{
+  display: block;
+  padding: 0px 35px;
+  .author-main{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+    .author-img{
+      min-width: 120px;
+      text-align: center;
+      img{
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+        border-radius: 50%;
+      }
+      a{
+        background-color: $color-primary;
+        color: $color-white;
+        font-family: $font-en-primary;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 4px 20px;
+        display: inline-block;
+        box-sizing: border-box;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+    .author-body{
+      padding-top: 10px;
+      a{
+        color: #333;
+        font-family: $bangla-kalpurush;
+        font-size: $font-dis-size;
+        display: block;
+        font-weight: 600;
+        margin-bottom: 10px;
+        //font-size: 18px;
+
+      }
+      a:hover{
+          text-decoration: underline;
+          color: #BE0101;
+      }
+      p{
+        font-family: $bangla-kalpurush;
+        font-size: $font-dis-size;
+        color: $color-black3;
+        text-align: justify;
+        line-height: 30px;
+        display: block;
+      }
+    }
+  }
+}
+
+
+/**** review ****/
+.review-area {
+  background-color: #fff;
+  padding: 0px 5px;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+
+@media(max-width:700px){
+  .author{
+    padding: 0px;
+    .author-main{
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .author-img{
+        max-width: 120px;
+      }
+    }
+  }
+  .review-area{
+    padding: 0px;
+  }
+  .section{
+    .section-main{
+      padding: 20px 15px;
+    }
+  }
+}
+@media(max-width:500px){
+  .section{
+    .section-main{
+      .section-title{
+        h3{
+          font-size: 20px;
+          line-height: 25px;
+        }
+      }
+    }
+  }
+  .banner{
+    margin-top: 20px!important;
+  }
+
+
+  .product-menu ul{
+    li{
+      flex-basis: 50%;
+      width: 100%;
+      button{
+        width: 100%;
+        border: none;
+        border-radius: 0px;
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+@media(max-width:400px){
+  .description{
+    p{
+      font-size: 16px;
+      line-height: 23px;
+    }
+  }
+}
+
+
+@media(max-width:500px){
+  .section{
+    .section-main{
+      padding: 20px 0px;
+    }
+  }
+}

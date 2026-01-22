@@ -1,0 +1,26 @@
+.no-data-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+
+  .img-thumb {
+    width: 300px;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .title {
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #53b7e8;
+    }
+  }
+}

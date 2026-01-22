@@ -1,0 +1,112 @@
+<main class="container">
+  <h1 class="top-header">কুইজ ফলাফল</h1>
+  <div class="quiz-main-div">
+    <section class="main-container" *ngFor="let result of results"  [routerLink]="['/quiz/quiz-details/',result?.quiz?._id]">
+      <div class="description"  *ngIf="!result?.isPass">
+        <div>
+          <img src="/assets/images/temp/png/failed.png" alt="" />
+        </div>
+        <div class="comment">
+          <h2>দুঃখিত</h2>
+          <p>আপনি পাশ করেন নি। </p>
+        </div>
+      </div>
+
+      <div class="description" *ngIf="result?.isPass">
+        <div>
+          <img src="/assets/images/temp/png/pass.jpg" alt="" />
+        </div>
+        <div class="comment">
+          <h2>অভিনন্দন</h2>
+          <p>আপনি পাশ করেছেন। {{course ? 'আপনি এখন কোর্সটি এনরোল করতে পারবেন।' : ''}} </p>
+        </div>
+      </div>
+      <!-- Description End-->
+      <div>
+        <div class="card-container">
+          <div>
+            <div class="card-element">
+              <div class="card-icon">
+                <img src="/src/assets/images/temp/png/question.png" alt="" />
+              </div>
+              <div class="card-body">
+                <p class="title">সঠিক উত্তর</p>
+                <p class="details">{{ result?.result?.correct ?? 0 }}টি</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Element End-->
+
+          <div>
+            <div class="card-element">
+              <div class="card-icon">
+                <img src="/src/assets/images/temp/png/time.png" alt="" />
+              </div>
+              <div class="card-body">
+                <p class="title">সময় নিয়েছেন</p>
+                <p class="details">{{ result?.result?.totalFinishTime  ?? 0}} মিনিট</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Element End-->
+
+          <div>
+            <div class="card-element">
+              <div class="card-icon">
+                <img src="/src/assets/images/temp/png/trophy.png" alt="" />
+              </div>
+              <div class="card-body">
+                <p class="title">আপনার স্কোর</p>
+                <p class="details">{{ result?.result?.obtainMark  ?? 0}}%</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Element End-->
+
+          <div>
+            <div class="card-element">
+              <div class="card-icon">
+                <img src="/src/assets/images/temp/png/info.png" alt="" />
+              </div>
+              <div class="card-body">
+                <p class="title">নেগেটিভ মার্কিং</p>
+                <p class="details">
+                  {{ result?.quiz?.isNegativeMark ? "প্রযোজ্য" : "প্রযোজ্য নয়" }}
+                  {{  result?.quiz?.negativeMark ? "(-" +  result?.quiz?.negativeMark + ")" : "" }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Element End-->
+        </div>
+        <!-- Card Container End-->
+      </div>
+      <div class="btn-container">
+        <button type="button" >
+          <span> কুইজ: {{ result?.quiz?.name}} </span>
+
+          <!--        <small>-->
+          <!--          <fa-icon [icon]="faAngleDown"></fa-icon>-->
+          <!--        </small>-->
+        </button>
+
+
+      </div>
+    </section>
+
+  </div>
+
+
+<!--  <div class="q-again-next">-->
+<!--    <div class="q-again">-->
+<!--      <button (click)="onClickReQuiz()">কুইজটি আবার দিন</button>-->
+<!--    </div>-->
+<!--    <div *ngIf="!course">-->
+<!--      <button>নেক্সট</button>-->
+<!--    </div>-->
+<!--    <div  *ngIf="course">-->
+<!--      <button *ngIf="!result?.isPass" [routerLink]="['/course-details', course._id]">ফিরে যান</button>-->
+<!--      <button *ngIf="result?.isPass" (click)="onEligibleForEnroll()">কোর্সটি কিনুন</button>-->
+<!--    </div>-->
+<!--  </div>-->
+</main>

@@ -1,0 +1,47 @@
+<div class="footer-area1" [ngStyle]="{ 'background-color': singleLandingPage?.backgroundColor,'color': singleLandingPage?.textColor ? singleLandingPage?.textColor : 'black' }">
+  <div class="container">
+    <div class="main-area">
+<!--       <img-->
+<!--       alt="logo"-->
+<!--       class="logo"-->
+<!--       src="/logo.png"-->
+<!--     />-->
+      <a class="logo" routerLink="/">
+        <img [src]="shopInfo?.siteLogo" alt="">
+      </a>
+
+     <div class="buttons">
+<!--       <a class="btn" href="https://{{websiteInfo?.domain}}" target="_blank">Order Now</a>-->
+       <a [ngStyle]="{ 'color': singleLandingPage?.textColor ? singleLandingPage?.textColor : 'black' }" class="link" href="https://www.tutorcenter.online/courses" target="_blank">Courses</a>
+       <a [ngStyle]="{ 'color': singleLandingPage?.textColor ? singleLandingPage?.textColor : 'black' }" class="link" href="https://www.tutorcenter.online/blogs" target="_blank">Blog</a>
+       <a [ngStyle]="{ 'color': singleLandingPage?.textColor ? singleLandingPage?.textColor : 'black' }" class="link" href="https://www.tutorcenter.online/pages/about-us" target="_blank">About Us</a>
+       <a [ngStyle]="{ 'color': singleLandingPage?.textColor ? singleLandingPage?.textColor : 'black' }" class="link" href="https://www.tutorcenter.online/pages/privacy-policy" target="_blank">Privacy policy</a>
+       <a [ngStyle]="{ 'color': singleLandingPage?.textColor ? singleLandingPage?.textColor : 'black' }" class="link" href="https://www.tutorcenter.online/pages/return-&-refund-policy" target="_blank">Refund policy</a>
+     </div>
+      <div class="social-media">
+        <p>Social Media Links</p>
+        <ul>
+          <li *ngFor="let social of shopInfo?.socialLinks">
+            <a
+              [ngClass]="getSocialClass(social.type)"
+              [href]="social.value"
+              target="_blank"
+            >
+              <fa-icon [icon]="getSocialIcon(social.type)"></fa-icon>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+   </div>
+</div>
+<div class="powered-by">
+  <p class="footer-text">
+    Copyright © 2025 All rights reserved | Tutorcenter
+  </p>
+  <p>
+    Powered by
+    <a href="https://www.tutorcenter.online/" target="_blank">Tutorcenter</a>
+  </p>
+</div>

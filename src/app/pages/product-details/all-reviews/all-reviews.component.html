@@ -1,0 +1,168 @@
+<!---review-area-->
+<div class="review-area">
+  <div class="container">
+    <div class="review-main-area">
+      <div class="review-rating-main">
+        <div class="rated-area">
+            <div>
+                <h2>{{ ratingCalculation ? ratingCalculation.toFixed(1) : '0.0' }} <sub>/5</sub></h2>
+<!--                <h4>No Rated</h4>-->
+                <span>Based on <a routerLink="/account/review">({{ product?.ratingTotal }})</a></span>
+            </div>
+        </div>
+        <div class="review-rate-type">
+            <ul>
+                <li>
+                    <div class="rate-type-left">
+                        <span>Excellent</span>
+                    </div>
+
+                    <div class="rate-bar">
+                        <span [style.width]="getRatingPercent(product?.ratingDetails?.fiveStar) + '%'"></span>
+                    </div>
+
+                    <div class="rate-type-right">
+                        <span>5</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="rate-type-left">
+                        <span>Very Good</span>
+                    </div>
+
+                    <div class="rate-bar">
+                        <span bind-style.width="getRatingPercent(product?.ratingDetails?.fourStar) + '%'"></span>
+                    </div>
+
+                    <div class="rate-type-right">
+                        <span>4</span>
+                    </div>
+                </li>
+                <li>
+
+                    <div class="rate-type-left">
+                        <span>Average</span>
+                    </div>
+
+                    <div class="rate-bar">
+                        <span bind-style.width="getRatingPercent(product?.ratingDetails?.threeStar) + '%'"></span>
+                    </div>
+
+                    <div class="rate-type-right">
+                        <span>3</span>
+                    </div>
+                </li>
+                <li>
+
+                    <div class="rate-type-left">
+                        <span>Below Average</span>
+                    </div>
+
+                    <div class="rate-bar">
+                        <span bind-style.width="getRatingPercent(product?.ratingDetails?.twoStar) + '%'" ></span>
+                    </div>
+
+                    <div class="rate-type-right">
+                        <span>2</span>
+                    </div>
+                </li>
+                <li>
+
+                    <div class="rate-type-left">
+                        <span>Poor</span>
+                    </div>
+
+                    <div class="rate-bar">
+                        <span bind-style.width="getRatingPercent(product?.ratingDetails?.oneStar) + '%'"></span>
+                    </div>
+
+                    <div class="rate-type-right">
+                        <span>1</span>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div><!--END REVIEW RATING-->
+
+
+
+
+      <ng-container *ngIf="allReviews && allReviews.length">
+        <div class="user-review" *ngFor="let data of allReviews.slice(0, 5)">
+          <div class="main-review">
+            <div class="user-data">
+              <div class="user-img user-img-rev">
+                <img checkImageProfile [src]="data?.user?.profileImg" alt="" />
+              </div>
+              <div class="user-name">
+                <a style="gap: 10px;">
+                  {{ data?.user?.name }}
+                  <small style="position: relative; top: 2px;"><i class="fa fa-star"></i> Verified Purchase</small>
+                </a>
+                <div class="user-review-rating">
+                  <ul *ngIf="data?.rating">
+                    <li><i
+                        [class]="(data?.rating == 0) ? 'far fa-star' : (data?.rating > 0 && data?.rating < 1) ? 'fas fa-star-half-alt' : 'fas fa-star'"></i>
+                    </li>
+                    <li><i
+                        [class]="(data?.rating > 1 && data?.rating < 2) ? 'fas fa-star-half-alt' : (data?.rating >= 2) ? 'fas fa-star' : 'far fa-star'"></i>
+                    </li>
+                    <li><i
+                        [class]="(data?.rating > 2 && data?.rating < 3) ? 'fas fa-star-half-alt' : (data?.rating >= 3) ? 'fas fa-star' : 'far fa-star'"></i>
+                    </li>
+                    <li><i
+                        [class]="(data?.rating > 3 && data?.rating < 4) ? 'fas fa-star-half-alt' : (data?.rating >= 4) ? 'fas fa-star' : 'far fa-star'"></i>
+                    </li>
+                    <li><i
+                        [class]="(data?.rating > 4 && data?.rating < 5) ? 'fas fa-star-half-alt' : (data?.rating >= 5) ? 'fas fa-star' : 'far fa-star'"></i>
+                    </li>
+                  </ul>
+                  <span>{{data?.rating}}.0</span>
+                </div>
+              </div>
+            </div><!---END USER DATA-->
+
+            <div class="user-review-data">
+              <p>{{data?.review}}</p>
+              <div class="review-product-image-area">
+                <div class="review-product-img-main">
+                  <lightgallery [settings]="settings" *ngFor="let item of data?.images">
+                    <img class="" [src]="item" alt="">
+                  </lightgallery>
+                </div>
+              </div>
+            </div><!--END USER REVIEW-->
+
+          </div>
+
+          <div class="replay-review-area" *ngIf="data?.reply">
+            <div class="replay-review">
+              <div class="user-data">
+                <div class="user-img">
+                  <img src="/assets/images/brand/logo/mission-logo.png" alt="" />
+                </div>
+                <div class="user-name">
+                  <a href="/">Tutorcenter</a>
+                  <span>{{ data?.replyDate | date }}</span>
+                </div>
+              </div>
+              <div class="user-review-data">
+                <p>{{ data?.reply }}</p>
+              </div>
+            </div>
+          </div><!--END ADMIN REPLAY-->
+
+
+        </div>
+      </ng-container>
+
+
+
+<!--      <div class="review-btn">-->
+<!--        <button (click)="openReviewDialog()">Write a Review</button>-->
+<!--      </div>-->
+
+    </div>
+  </div>
+</div>
